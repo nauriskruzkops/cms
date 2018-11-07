@@ -1,0 +1,3 @@
+controllers:
+  resource: ../../src/Admin/Controller/
+  type: annotation

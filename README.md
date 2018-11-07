@@ -1,2 +1,2 @@
-# cms
+# CMS
 Simple website with CMS
