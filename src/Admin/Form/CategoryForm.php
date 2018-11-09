@@ -2,18 +2,33 @@
 
 namespace Admin\Form;
 
+use Admin\Service\SettingService;
+use Doctrine\ORM\EntityManager;
 use Shared\Entity\Category;
-use Shared\Entity\Post;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryForm extends AbstractType
 {
+    /** @var EntityManager */
+    protected $em;
+
+    /** @var SettingService  */
+    protected $settings;
+
+    /**
+     * MenuForm constructor.
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em, SettingService $settings)
+    {
+        $this->em = $em;
+        $this->settings = $settings;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -31,12 +46,9 @@ class CategoryForm extends AbstractType
                     'placeholder' => 'page/custom/link',
                 ],
             ])
-            ->add('locale', TextType::class, [
+            ->add('locale', ChoiceType::class, [
                 'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Post text',
-                ],
+                'attr' => $this->settings->getChoiseLocales(),
             ])
         ;
     }

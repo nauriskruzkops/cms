@@ -4,7 +4,6 @@ namespace Admin\Service;
 
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Settings;
-use Shared\Entity\SettingsValue;
 use Shared\Repository\SettingsRepository;
 
 class SettingService
@@ -75,5 +74,12 @@ class SettingService
 
     }
 
-
+    /**
+     * @return array
+     */
+    public function getChoiseLocales()
+    {
+        $languages = $this->values('languages');
+        return array_flip($languages);
+    }
 }

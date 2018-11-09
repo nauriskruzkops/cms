@@ -9,6 +9,7 @@ use Shared\Entity\MenuItemRelation;
 use Shared\Entity\MenuItems;
 use Shared\Repository\MenuRepository;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,6 +43,8 @@ class MenuController extends \Admin\Controller\AbstractController
      * @Route("/admin/menu/add", name="adm_menu_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function add(Request $request)
     {
@@ -54,6 +57,8 @@ class MenuController extends \Admin\Controller\AbstractController
      * @Route("/admin/menu/{id}/edit", name="adm_menu_edit")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function edit(Request $request)
     {
@@ -72,6 +77,8 @@ class MenuController extends \Admin\Controller\AbstractController
      * @Route("/admin/menu/{id}/delete", name="adm_menu_delete")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function delete(Request $request)
     {
@@ -91,6 +98,8 @@ class MenuController extends \Admin\Controller\AbstractController
      * @param Menu $menu
      * @param $route_name
      * @return array|Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     private function processForm(Request $request, Menu $menu, $route_name)
     {
@@ -140,6 +149,19 @@ class MenuController extends \Admin\Controller\AbstractController
             'menu' => $menu,
             'form' => $form,
             'formError' => $formError,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/menu/sitemap/json", name="adm_menu_sitemap_json")
+     * @param Request $request
+     * @return Response
+     */
+    public function sitemap(Request $request)
+    {
+        return new JsonResponse([
+            ['title' => 'Link 1', 'value' => 'Value link'],
+            ['title' => 'Link 2', 'value' => 'Value link'],
         ]);
     }
 }

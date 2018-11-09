@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var PhpEngine $view
  * @var \Symfony\Component\Form\Form $form
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
- * @var \Shared\Entity\Post $post
+ * @var \Shared\Entity\Page $page
  */
 
 $view->extend('AdminBundle::layout/layout.html.php');
@@ -19,10 +19,10 @@ $formHelper = $view['form'];
 
 $request = $app->getRequest();
 
-$view['slots']->set('pageTitle', 'Add / Edit Post');
+$view['slots']->set('pageTitle', 'Add / Edit Page');
 $view['slots']->set('pageIcon', 'fa fa-user-o');
 
-$isNewPost = (!$post->getId());
+$isNewPage = (!$page->getId());
 
 ?>
 <div class="page-title">
@@ -31,7 +31,7 @@ $isNewPost = (!$post->getId());
             <h1><?= $view['slots']->get('pageTitle')?></h1>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-light" href="<?= $view['router']->path('adm_post_list') ?>">List</a>
+            <a class="btn btn-light" href="<?= $view['router']->path('adm_page_list') ?>">List</a>
         </div>
     </div>
 </div>
@@ -39,32 +39,42 @@ $isNewPost = (!$post->getId());
 <div class="row">
     <div class="col-sm-12">
         <?= $formHelper->start($form->createView());?>
-            <div class="white-box">
-                <div class="row">
-                    <div class="col-8">
-                        <?= $formHtml?>
-                        <hr>
-                        <div class="form-group text-right">
-                            <input class="btn btn-primary" type="submit" value="Submit">
-                            <a href="<?= $view['router']->path('adm_post_list') ?>" class="btn btn-link">Cancel</a>
-                            <?php if (!$isNewPost) :?>
-                                <button class="btn btn-light" type="submit" name="delete_post">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            <?php endif;?>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <?= $formHelper->label($formView['categories']) ?>
-                            <?= $formHelper->errors($formView['categories']) ?>
-                            <?= $formHelper->widget($formView['categories']) ?>
-                        </div>
-
+        <div class="white-box">
+            <div class="row">
+                <div class="col-8">
+                    <?= $view->render('@AdminBundle/Resources/views/pages/partial/form.html.php',[
+                        'form' => $form,
+                        'page' => $page,
+                    ])?>
+                    <hr>
+                    <div class="form-group text-right">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                        <a href="<?= $view['router']->path('adm_page_list') ?>" class="btn btn-link"><?= $view['translator']->trans('Adm:Cancel') ?></a>
+                        <?php if (!$isNewPage) :?>
+                            <button class="btn btn-light" type="submit" name="delete_page">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        <?php endif;?>
                     </div>
                 </div>
+                <div class="col-4">
+                   ...
+                </div>
             </div>
+        </div>
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        var iframeContainer = $('#iframeContainer iframe').first().contents();
+        $('form[name=<?= $form->getName()?>]').submit(function (e) {
+            var iframeBody = document.getElementById('inline_edit_iframe').contentWindow.document.body;
+            var iframeHtml = $('#inline_edit_content', iframeBody).html();
+            $('#page_form_content').val(iframeHtml);
+            return true;
+        })
+    })
+</script>
 

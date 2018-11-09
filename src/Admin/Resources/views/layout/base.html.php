@@ -20,8 +20,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/ckeditor/ckeditor.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/ckeditor/adapters/jquery.js', 'admin') ?>"></script>
 
 </head>
 <body class="fixed-nav">
@@ -33,6 +31,10 @@
     <script src="<?= $view['assets']->getUrl('vendor/moment.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/bootstrap-datepicker/bootstrap-datetimepicker.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('js/main.js', 'admin') ?>"></script>
+
+
+    <script src="<?= $view['assets']->getUrl('vendor/tinymce/tinymce.min.js', 'admin') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('vendor/tinymce/jquery.tinymce.min.js', 'admin') ?>"></script>
 </body>
 </html>
 

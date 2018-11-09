@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Category;
 use Shared\Entity\MenuItemRelation;
+use Shared\Entity\Page;
 use Shared\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -63,9 +64,11 @@ class MenuItemRelationForm extends AbstractType
                 'required' => true,
                 'choices' => $this->getChooses(),
                 'choice_label' => function ($choiceValue, $key, $value) {
-                    if ($choiceValue instanceof Post) {
+                    if ($choiceValue instanceof Post ) {
                         return $choiceValue->getTitle();
                     } elseif ($choiceValue instanceof Category) {
+                        return $choiceValue->getTitle();
+                    } elseif ($choiceValue instanceof Page) {
                         return $choiceValue->getTitle();
                     }
                     return $key;
@@ -91,6 +94,9 @@ class MenuItemRelationForm extends AbstractType
                 } elseif ($data->getType() == 'category' && ($category = $this->getCategory($data->getObjectId()))) {
                     $form->get('object')->setData($category);
                     $event->setData($data);
+                } elseif ($data->getType() == 'page' && ($page = $this->getPage($data->getObjectId()))) {
+                    $form->get('object')->setData($page);
+                    $event->setData($data);
                 }
             }
         });
@@ -113,7 +119,14 @@ class MenuItemRelationForm extends AbstractType
                 $data->setObjectClass(get_class($object));
                 $data->setObjectId($object->getId());
                 $event->setData($data);
+            } elseif ($object && $object instanceof Page) {
+                $data->setMenuItem($parent);
+                $data->setType('page');
+                $data->setObjectClass(get_class($object));
+                $data->setObjectId($object->getId());
+                $event->setData($data);
             }
+
             else {
                 $event->setData(null);
             }
@@ -130,11 +143,13 @@ class MenuItemRelationForm extends AbstractType
         $em = $this->em;
         $posts = $em->getRepository(Post::class)->findAll();
         $categories = $em->getRepository(Category::class)->findAllByLocale($locale);
+        $pages = $em->getRepository(Page::class)->findAllByLocale($locale);
 
         return [
             '-- Select relation --' => null,
             'Posts' => $posts,
             'Categories' => $categories,
+            'Pages' => $pages,
         ];
     }
 
@@ -161,6 +176,21 @@ class MenuItemRelationForm extends AbstractType
 
         return $category;
     }
+
+
+    /**
+     * @param $id
+     * @return null|Page
+     */
+    private function getPage($id)
+    {
+        $em = $this->em;
+        $page = $em->getRepository(Page::class)->find($id);
+
+        return $page;
+    }
+
+
 
     /**
      * @param OptionsResolver $resolver

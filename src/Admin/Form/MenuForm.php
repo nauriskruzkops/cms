@@ -2,6 +2,7 @@
 
 namespace Admin\Form;
 
+use Admin\Service\SettingService;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Menu;
 use Symfony\Component\Form\AbstractType;
@@ -16,13 +17,17 @@ class MenuForm extends AbstractType
     /** @var EntityManager */
     protected $em;
 
+    /** @var SettingService  */
+    protected $settings;
+
     /**
      * MenuForm constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, SettingService $settings)
     {
         $this->em = $em;
+        $this->settings = $settings;
     }
 
     /**
@@ -52,11 +57,7 @@ class MenuForm extends AbstractType
             ])
             ->add('locale', ChoiceType::class, [
                 'required' => true,
-                'choices' => [
-                    '-- Choose language --' => null,
-                    'Latvian' => 'lv',
-                    'English' => 'en',
-                ],
+                'choices' => $this->settings->getChoiseLocales(),
                 'empty_data' => null,
                 'attr' => [
                     'class' => 'form-control',

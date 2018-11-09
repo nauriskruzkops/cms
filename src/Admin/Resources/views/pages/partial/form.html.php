@@ -8,10 +8,11 @@ use Symfony\Component\Form\Form;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  * @var Form $form
+ * @var \Shared\Entity\Page $page
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
  */
 
-$formView = $form;
+$formView = $form->createView();
 $formHelper = $view['form'];
 $request = $app->getRequest();
 
@@ -21,25 +22,24 @@ $request = $app->getRequest();
     <?php $formHelper->label($formView['title']) ?>
     <?= $formHelper->errors($formView['title']) ?>
     <?= $formHelper->widget($formView['title']) ?>
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <?= $formHelper->widget($formView['content']) ?>
 </div>
 
-<div class="form-group">
+<div id="iframeContainer"></div>
 
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">domain.com/</span>
-        </div>
-        <?= $formHelper->errors($formView['slag']) ?>
-        <?= $formHelper->widget($formView['slag']) ?>
-    </div>
+<script>
+    $(function () {
+        var iframe = $('<iframe>', {
+            src: '<?= $view['router']->path('adm_page_raw', ['id' => $page->getId()]) ?>',
+            id: 'inline_edit_iframe',
+            frameborder: 0,
+            scrolling: 'yes',
+            style: 'width: 100%; height: 600px',
+            onload: function () {
+                self.isIframeLoaded = true;
+                //$(this).height($(this).contents().find('body').height())
+            }
+        }).appendTo('#iframeContainer');
+    })
 
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
-
-<div class="form-group">
-    <?= $formHelper->errors($formView['text']) ?>
-    <?= $formHelper->widget($formView['text']) ?>
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-</div>
-
+</script>

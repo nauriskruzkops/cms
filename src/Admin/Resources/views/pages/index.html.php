@@ -1,5 +1,6 @@
 <?php
 
+use Shared\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -7,7 +8,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * @var GlobalVariables $app
  * @var PhpEngine $view
- * @var string $listHtml
+ * @var Page[] $pages
  */
 $view->extend('AdminBundle::layout/layout.html.php');
 ?>
@@ -18,7 +19,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
             <h1>Pages</h1>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-default" href="<?= $view['router']->path('adm_post_add') ?>">Add new</a>
+            <a class="btn btn-default" href="<?= $view['router']->path('adm_page_add') ?>"><?= $view['translator']->trans('Adm:Addnew') ?></a>
         </div>
     </div>
 </div>
@@ -30,20 +31,19 @@ $view->extend('AdminBundle::layout/layout.html.php');
                 <thead>
                 <tr>
                     <th style="width: 5%">#</th>
-                    <th style="width: 90%">Title</th>
+                    <th style="width: 90%"><?= $view['translator']->trans('Adm:Title') ?></th>
                     <th> </th>
                 </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ([] as $post) :?>
+                    <?php foreach ($pages as $page) :?>
                         <tr>
-                            <td><?= $post->getId()?></td>
+                            <td><?= $page->getId()?></td>
                             <td>
-                                <a href="<?= $view['router']->path('adm_post_edit', ['id' => $post->getId()]) ?>"><?= $this->escape($post->getTitle())?></a>
-                                <p class="small text-muted"><?=$this->escape($post->getSlag())?></p>
+                                <a href="<?= $view['router']->path('adm_page_edit', ['id' => $page->getId()]) ?>"><?= $this->escape($page->getTitle())?></a>
                             </td>
                             <td>
-                                <a class="btn btn-sm btn-default" href="<?= $view['router']->path('adm_post_edit', ['id' => $post->getId()]) ?>"><?= $view['translator']->trans('Adm:edit') ?></a>
+                                <a class="btn btn-sm btn-default" href="<?= $view['router']->path('adm_page_edit', ['id' => $page->getId()]) ?>"><?= $view['translator']->trans('Adm:edit') ?></a>
                             </td>
                         </tr>
                     <?php endforeach;?>

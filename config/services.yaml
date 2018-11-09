@@ -63,7 +63,7 @@ services:
     # ADMIN FORMS
     Admin\Form\:
         resource: '../src/Admin/Form/*'
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\SettingService']
         tags: ['controller.service_arguments']
 
     # ADMIN HELPERS
