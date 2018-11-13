@@ -132,7 +132,6 @@ class MenuController extends \Admin\Controller\AbstractController
                     } else {
                         $em->persist($menu);
                     }
-                    //exit;
                     $em->flush();
                     $this->addFlash('info', 'Cool, menu saved!');
                     return $this->redirectToRoute('adm_menu_edit', ['id' => $menu->getId()]);

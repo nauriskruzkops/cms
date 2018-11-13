@@ -46,11 +46,40 @@ $view->extend('AdminBundle::layout/page-iframe.html.php');
             };
             input.click();
         },
+        images_upload_credentials: true,
+        images_upload_handler: function (blobInfo, success, failure) {
+            var xhr, formData;
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', '<?= $view['router']->path('adm_upload_from_post') ?>');
+            xhr.onload = function() {
+                var json;
+                if (xhr.status !== 200) {
+                    failure('HTTP Error: ' + xhr.status);
+                    return;
+                }
+                json = JSON.parse(xhr.responseText);
+                if (!json || typeof json.location !== 'string') {
+                    failure('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+                success(json.location);
+            };
+            formData = new FormData();
+
+            if( typeof(blobInfo.blob().name) !== undefined ) {
+                fileName = blobInfo.blob().name;
+            } else {
+                fileName = blobInfo.filename();
+            }
+            formData.append('file', blobInfo.blob(), fileName);
+            xhr.send(formData);
+        },
         powerpaste_word_import: 'clean',
         powerpaste_html_import: 'clean',
         link_list: function(success) {
             var linkItems = [];
-            $.getJSON( "/admin/menu/sitemap/json", function( data ){
+            $.getJSON('<?= $view['router']->path('adm_menu_sitemap_json') ?>', function( data ){
                 success(data);
             });
         }

@@ -37,6 +37,11 @@ class MenuItems {
     /**
      * @ORM\Column(type="string", nullable=true)
      */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     private $slug;
 
     /**
@@ -219,6 +224,25 @@ class MenuItems {
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     * @return MenuItems
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }

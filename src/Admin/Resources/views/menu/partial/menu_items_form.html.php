@@ -29,7 +29,7 @@ $menu = $form->getData();
                     <?php foreach ($form->getIterator() as $arrayKey => $formItems) :?>
                         <?php $menuItem = $formItems->getData()?>
                         <a href="#" class="list-group-item list-group-item-action" data-action="show-menu-item" data-item="<?= $menuItem->getId()?>"<?=
-                            ''?>style="margin-left: <?= ($menuItem->getLevel()*20)?>px;?>px">
+                            ''?> style="margin-left: <?= ($menuItem->getLevel()*20)?>px">
                             <span data-source="menu-item-name">
                                 <?= $this->escape($menuItem->getTitle())?>
                             </span>

@@ -12,6 +12,7 @@ use Shared\Entity\MenuItems;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -54,6 +55,21 @@ class MenuItemsForm extends AbstractType
                 ],
                 'label' => 'Slug',
             ])
+            ->add('type', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    '-- Content type --' => null,
+                    'Page' => 'page',
+                    'Post' => 'post',
+                    'Category' => 'category',
+                    'Custom' => 'custom',
+                ],
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Type',
+                ],
+                'label' => 'Type',
+            ])
             ->add('left', IntegerType::class, [
                 'required' => false,
                 'attr' => [
@@ -83,27 +99,49 @@ class MenuItemsForm extends AbstractType
                     'placeholder' => 'Parent',
                 ],
             ])
-            ->add('relations', CollectionType::class, [
+        ;
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'onPostSetData']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function onPostSetData(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $menuItems = $form->getData();
+        if ($menuItems) {
+            $form->add('relations', CollectionType::class, [
                 'entry_type' => MenuItemRelationForm::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'allow_delete' => true
-            ])
-        ;
-
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            /** @var MenuItems $menuItem */
-            $menuItem = $event->getData();
-            $menuItemRelations = $this->em->getRepository(MenuItemRelation::class)->findBy([
-                'menuItem' => $menuItem
+                'allow_delete' => true,
+                'prototype_data' => (new MenuItemRelation())
+                    ->setType($menuItems->getType())
+                    ->setMenuItem($menuItems)
             ]);
+        }
+    }
 
-            foreach ($menuItemRelations as $menuItemRelation) {
-                if (!$menuItem->getRelations()->contains($menuItemRelation)) {
-                    $this->em->remove($menuItemRelation);
-                }
+    /**
+     * @param FormEvent $event
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function onSubmit(FormEvent $event)
+    {
+        /** @var MenuItems $menuItem */
+        $menuItem = $event->getData();
+        $menuItemRelations = $this->em->getRepository(MenuItemRelation::class)->findBy([
+            'menuItem' => $menuItem
+        ]);
+
+        foreach ($menuItemRelations as $menuItemRelation) {
+            if (!$menuItem->getRelations()->contains($menuItemRelation)) {
+                $this->em->remove($menuItemRelation);
             }
-        });
+        }
     }
 
     /**

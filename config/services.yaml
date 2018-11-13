@@ -6,6 +6,8 @@
 parameters:
     locale: 'en'
     app.locales: en|lv
+    upload_directory: '%kernel.project_dir%/src/Shared/Uploads'
+    upload_public_path: '/uploads/'
 
 services:
     # default configuration for services in *this* file
@@ -59,6 +61,9 @@ services:
     # ADMIN SERVICES
     Admin\Service\SettingService:
         arguments: ['@doctrine.orm.entity_manager']
+    Admin\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%upload_directory%'
 
     # ADMIN FORMS
     Admin\Form\:
