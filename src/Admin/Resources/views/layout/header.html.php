@@ -1,4 +1,4 @@
-<nav id="mainTopNav" class="navbar navbar-expand-lg navbar-light bg-primary fixed-top align-middle">
+<nav id="mainTopNav" class="navbar navbar-expand-lg navbar-light bg-primary align-middle">
     <a class="navbar-brand text-dark" href="<?= $view['router']->path('ADM_index') ?>" style="padding-left: 45px">
         <span class="text-dark"><?= $view['settings']->value('sys_owner')?></span> <strong class="text-dark"><?= $view['settings']->value('sys_title')?></strong>
         <span class="align-middle text-dark" style="font-weight: normal; font-size: 10px;"> | <span class="text-dark"><?= $view['settings']->value('sys_desc')?></span>

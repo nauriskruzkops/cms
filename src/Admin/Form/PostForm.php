@@ -9,8 +9,6 @@ use Shared\Entity\Category;
 use Shared\Entity\Post;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,6 +19,10 @@ class PostForm extends AbstractType
     /** @var EntityManager */
     protected $em;
 
+    /**
+     * PostForm constructor.
+     * @param EntityManager $em
+     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -90,7 +92,6 @@ class PostForm extends AbstractType
     {
         $categoriesRepository = $this->em->getRepository(Category::class);
         $repository = $categoriesRepository->findAll();
-        var_dump($repository);
 
         return $repository;
     }

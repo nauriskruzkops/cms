@@ -30,7 +30,7 @@ $request = $app->getRequest();
 <script>
     $(function () {
         var iframe = $('<iframe>', {
-            src: '<?= $view['router']->path('adm_page_raw', ['id' => $page->getId()]) ?>',
+            src: '<?= $view['router']->path('adm_page_raw', ['id' => $page->getId() ?? 0]) ?>',
             id: 'inline_edit_iframe',
             frameborder: 0,
             scrolling: 'yes',

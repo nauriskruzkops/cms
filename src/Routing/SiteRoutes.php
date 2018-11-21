@@ -2,7 +2,9 @@
 namespace App\Routing;
 
 use Admin\Service\SettingService;
+use App\Controller\ErrorController;
 use App\Controller\IndexController;
+use App\Controller\PageController;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\MenuItems;
@@ -11,6 +13,11 @@ use Symfony\Component\Routing\RouteCollection;
 
 class SiteRoutes
 {
+    const TYPE_ROOT = 'root';
+    const TYPE_PAGE = 'page';
+    const TYPE_POST = 'post';
+    const TYPE_CATEGORY = 'category';
+
     /** @var SettingService */
     private $settingService;
 
@@ -50,8 +57,9 @@ class SiteRoutes
         $routes->add('index', $route);
 
         $menuItems = $this->getSiteMap();
-        foreach ($menuItems as $items) {
-            $routes->add($items->getSlug(), $this->createRoute($items));
+
+        foreach ($menuItems as $item) {
+            $routes->add($item->getSlug(), $this->createRoute($item));
         }
 
         return $routes;
@@ -62,14 +70,23 @@ class SiteRoutes
      * @param $controller
      * @return Route
      */
-    private function createRoute(MenuItems $item, $controller = null)
+    private function createRoute(MenuItems $item)
     {
         $defaultLocale = $this->settingService->value('language');
         $language = $item->getMenu()->getLocale();
         $slug = $item->getSlug();
+        $type = $item->getType();
 
-        if (!$controller) {
+        if ($type === SiteRoutes::TYPE_PAGE ) {
+            $controller = PageController::class;
+        } elseif ($type === SiteRoutes::TYPE_CATEGORY ) {
             $controller = IndexController::class;
+        } elseif ($type === SiteRoutes::TYPE_POST ) {
+            $controller = IndexController::class;
+        } elseif ($type === SiteRoutes::TYPE_ROOT ) {
+            $controller = IndexController::class;
+        } else {
+            $controller = ErrorController::class;
         }
 
         $defaults = array(

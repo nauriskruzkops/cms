@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Shared\Entity\Page;
 use Shared\Repository\PageRepository;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -94,7 +93,7 @@ class PagesController extends \Admin\Controller\AbstractController
         $page = $pageRepo->find($request->get('id'));
 
         return $this->render('AdminBundle::pages/partial/iframe.html.php', [
-            'content' => $page->getContent()
+            'content' => $page ? $page->getContent() : ''
         ]);
     }
 

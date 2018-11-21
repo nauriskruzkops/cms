@@ -19,22 +19,28 @@ $new = $new ?? false;
 $formView = $form;
 $formHelper = $view['form'];
 
+
 ?>
 
-<div class="row input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text">
-            <?= $formView['object']->vars['label'] ?>
-        </span>
+<?php if (isset($formView['object'])) :?>
+    <?= $formHelper->widget($formView['type']) ?>
+    <?= $formHelper->widget($formView['objectClass']) ?>
+    <?= $formHelper->widget($formView['objectId']) ?>
+    <div class="row input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                <?= $formView['object']->vars['label'] ?>
+            </span>
+        </div>
+        <?= $formHelper->errors($formView['object']) ?>
+        <?= $formHelper->widget($formView['object']) ?>
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <a href="#" onclick="$(this).parents('.input-group')[0].remove(); return;"><i class="fa fa-close"></i></a>
+            </span>
+        </div>
     </div>
-    <?= $formHelper->errors($formView['object']) ?>
-    <?= $formHelper->widget($formView['object']) ?>
-    <div class="input-group-append">
-        <span class="input-group-text">
-            <a href="#" onclick="$(this).parents('.input-group')[0].remove(); return;"><i class="fa fa-close"></i></a>
-        </span>
-    </div>
-</div>
+<?php endif; ?>
 
 
 

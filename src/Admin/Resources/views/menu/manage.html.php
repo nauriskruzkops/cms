@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
  * @var \Shared\Entity\Menu $menu
  * @var \Shared\Entity\MenuItems[] $menuItems
+ * @var \Symfony\Component\Form\FormErrorIterator $formError
  */
 
 $view->extend('AdminBundle::layout/layout.html.php');

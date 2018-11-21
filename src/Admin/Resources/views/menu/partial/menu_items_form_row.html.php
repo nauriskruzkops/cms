@@ -145,17 +145,18 @@ $menuItem = $new ? null : $form->getData();
                     <?= $formHelper->errors($formView['type']) ?>
                     <?= $formHelper->widget($formView['type'], ['attr' => []]) ?>
                 </div>
+                <?php if ($formView['relations'] ?? false) :?>
+                    <?php foreach ($formView['relations']->getIterator() as $arrayKey => $formRelations) :?>
+                        <?= $view->render('@AdminBundle/Resources/views/menu/partial/menu_relation_form_row.html.php',[
+                            'form' => $formRelations,
+                        ])?>
+                    <?php endforeach;?>
 
-                <?php foreach ($formView['relations']->getIterator() as $arrayKey => $formRelations) :?>
                     <?= $view->render('@AdminBundle/Resources/views/menu/partial/menu_relation_form_row.html.php',[
-                        'form' => $formRelations,
+                        'form' => $formView['relations']->vars['prototype'],
+                        'new' => true,
                     ])?>
-                <?php endforeach;?>
-
-                <?= $view->render('@AdminBundle/Resources/views/menu/partial/menu_relation_form_row.html.php',[
-                    'form' => $formView['relations']->vars['prototype'],
-                    'new' => true,
-                ])?>
+                <?php endif;?>
             </div>
         </div>
     </div>

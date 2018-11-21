@@ -163,11 +163,12 @@ class Menu {
      */
     public function setItems($items)
     {
-        $this->items = $items;
+        foreach ($items as $item) {
+            $this->addItems($item);
+        }
 
         return $this;
     }
-
 
     /**
      * @param MenuItems $children

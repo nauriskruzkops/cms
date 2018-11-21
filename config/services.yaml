@@ -40,6 +40,8 @@ services:
         arguments: ['@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
     App\Services\LocaleService:
         arguments: ['@Admin\Service\SettingService', '@router']
+    App\Services\RequestPageService:
+        arguments: ['@doctrine.orm.entity_manager', '@router']
 
     # HELPERS
     App\Helpers\:

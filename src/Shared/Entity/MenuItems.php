@@ -4,8 +4,10 @@ namespace Shared\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Shared\Repository\MenuItemsRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Gedmo\Tree(type="nested")
@@ -84,6 +86,7 @@ class MenuItems {
 
     /**
      * @var MenuItemRelation[]
+     * @Assert\NotBlank
      * @ORM\OneToMany(targetEntity="MenuItemRelation", mappedBy="menuItem", cascade={"persist", "remove"})
      */
     private $relations;
@@ -357,7 +360,7 @@ class MenuItems {
     public function addRelations(MenuItemRelation $relations)
     {
         if (!$this->relations->contains($relations)) {
-            if (!empty($relations->getObjectClass())) {
+            if ($relations->getObjectClass() !== null && $relations->getObjectId() !== null) {
                 $relations->setMenuItem($this);
                 $this->relations->add($relations);
             }
@@ -367,12 +370,15 @@ class MenuItems {
     }
 
     /**
-     * @param MenuItemRelation[] $relations
+     * @param ArrayCollection|PersistentCollection $relations
      * @return MenuItems
      */
-    public function setRelations(array $relations)
+    public function setRelations($relations)
     {
-        $this->relations = $relations;
+        foreach ($relations as $relation) {
+            $this->addRelations($relation);
+        }
+
         return $this;
     }
 

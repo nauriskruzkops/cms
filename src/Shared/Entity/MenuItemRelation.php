@@ -4,6 +4,7 @@ namespace Shared\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Shared\Repository\MenuItemRelationRepository")
@@ -21,17 +22,20 @@ class MenuItemRelation {
     private $id;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="MenuItems", inversedBy="relations", cascade={"persist"})
      * @ORM\JoinColumn(name="menu_item_id", referencedColumnName="id")
      */
     private $menuItem;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=false)
      */
     private $type;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", nullable=true)
      */
     private $objectClass;
@@ -73,7 +77,9 @@ class MenuItemRelation {
      */
     public function setMenuItem(MenuItems $menuItem = null)
     {
-        $this->menuItem = $menuItem;
+        if ($menuItem) {
+            $this->menuItem = $menuItem;
+        }
 
         return $this;
     }
@@ -87,7 +93,7 @@ class MenuItemRelation {
     }
 
     /**
-     * @param mixed $type
+     * @param string $type
      * @return MenuItemRelation
      */
     public function setType($type)
@@ -106,7 +112,7 @@ class MenuItemRelation {
     }
 
     /**
-     * @param mixed $objectClass
+     * @param string $objectClass
      * @return MenuItemRelation
      */
     public function setObjectClass($objectClass)
@@ -117,7 +123,7 @@ class MenuItemRelation {
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getObjectId()
     {
@@ -125,7 +131,7 @@ class MenuItemRelation {
     }
 
     /**
-     * @param mixed $objectId
+     * @param int $objectId
      * @return MenuItemRelation
      */
     public function setObjectId($objectId)

@@ -2,11 +2,8 @@
 
 namespace Admin\Form;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Shared\Entity\Category;
-use Shared\Entity\Menu;
 use Shared\Entity\MenuItemRelation;
 use Shared\Entity\MenuItems;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -101,48 +98,28 @@ class MenuItemsForm extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'onPostSetData']);
-        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
-    }
-
-    /**
-     * @param FormEvent $event
-     */
-    public function onPostSetData(FormEvent $event)
-    {
-        $form = $event->getForm();
-        $menuItems = $form->getData();
-        if ($menuItems) {
-            $form->add('relations', CollectionType::class, [
-                'entry_type' => MenuItemRelationForm::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype_data' => (new MenuItemRelation())
-                    ->setType($menuItems->getType())
-                    ->setMenuItem($menuItems)
-            ]);
-        }
-    }
-
-    /**
-     * @param FormEvent $event
-     * @throws \Doctrine\ORM\ORMException
-     */
-    public function onSubmit(FormEvent $event)
-    {
-        /** @var MenuItems $menuItem */
-        $menuItem = $event->getData();
-        $menuItemRelations = $this->em->getRepository(MenuItemRelation::class)->findBy([
-            'menuItem' => $menuItem
-        ]);
-
-        foreach ($menuItemRelations as $menuItemRelation) {
-            if (!$menuItem->getRelations()->contains($menuItemRelation)) {
-                $this->em->remove($menuItemRelation);
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+                if ($data && $data->getType()) {
+                    $menuItemRelation = new MenuItemRelation();
+                    $menuItemRelation->setType($data->getType());
+                    $menuItemRelation->setMenuItem($data);
+                    $form->add('relations', CollectionType::class, [
+                        'entry_type' => MenuItemRelationForm::class,
+                        'entry_options' => ['label' => false],
+                        'allow_add' => true,
+                        'allow_delete' => true,
+                        'by_reference' => false,
+                        'prototype_data' => $menuItemRelation,
+                    ]);
+                }
             }
-        }
+        );
     }
+
 
     /**
      * @param OptionsResolver $resolver
@@ -151,9 +128,6 @@ class MenuItemsForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MenuItems::class,
-        ]);
-
-        $resolver->setDefaults(array(
             'empty_data' => function (FormInterface $form) {
                 $menuItem = new MenuItems();
                 if ($form->getParent() && $form->getParent()->getParent()->getData()) {
@@ -161,7 +135,7 @@ class MenuItemsForm extends AbstractType
                 }
                 return $menuItem;
             },
-        ));
+        ]);
     }
 }
 

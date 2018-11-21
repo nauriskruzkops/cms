@@ -67,6 +67,7 @@ class MenuForm extends AbstractType
                 'entry_type' => MenuItemsForm::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'by_reference' => false,
             ])
         ;
     }
