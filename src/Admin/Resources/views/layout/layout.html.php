@@ -27,6 +27,7 @@ $view->extend('AdminBundle::layout/base.html.php');
 
 <div id="content-wrapper">
     <div class="container-fluid">
+
         <div class="row">
             <div class="col-12">
                 <?php

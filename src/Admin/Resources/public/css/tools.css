@@ -11,3 +11,12 @@
 .sp20 {height: 20px}
 .sp35 {height: 35px}
 .sp30 {height: 30px}
+
+#SysNotifyMessages {
+    position: absolute;
+    display: inline-block;
+    margin: 0 auto;
+    z-index: 11000;
+    right: 1%;
+    bottom: 3%;
+}

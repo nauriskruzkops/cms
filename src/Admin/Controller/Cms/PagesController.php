@@ -3,6 +3,7 @@
 namespace Admin\Controller\Cms;
 
 use Admin\Form\PageForm;
+use Admin\Service\PageManageService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Shared\Entity\Page;
 use Shared\Repository\PageRepository;
@@ -15,36 +16,44 @@ class PagesController extends \Admin\Controller\AbstractController
 {
     /**
      * @Route("/admin/pages", name="adm_page_list")
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request)
     {
+        $locale = $request->query->get('locale', $this->settings()->value('language'));
+
         /** @var Page[] $page */
         $pages = $this->getDoctrine()->getManager()
-            ->getRepository(Page::class)->findAll();
+            ->getRepository(Page::class)->findAllByLocale($locale);
 
         return $this->render('AdminBundle::pages/index.html.php', [
-            'pages' => new ArrayCollection($pages)
+            'pages' => new ArrayCollection($pages),
+            'locale' => $locale,
         ]);
     }
 
     /**
      * @Route("/admin/page/add", name="adm_page_add")
      * @param Request $request
+     * @param PageManageService $pageManageService
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function add(Request $request)
+    public function add(Request $request, PageManageService $pageManageService)
     {
         $page = new Page();
+        $page->setTemplate($request->query->get('template', Page::TEMPL_TEXT));
 
-        return $this->processForm($request, $page, 'adm_page_add');
+        return $this->processForm($request, $page, 'adm_page_add', $pageManageService);
     }
 
     /**
      * @Route("/admin/page/{id}/edit", name="adm_page_edit")
      * @param Request $request
+     * @param PageManageService $pageManageService
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, PageManageService $pageManageService)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -54,7 +63,7 @@ class PagesController extends \Admin\Controller\AbstractController
         /** @var Page $page */
         $page = $pageRepo->find($request->get('id'));
 
-        return $this->processForm($request, $page, 'adm_page_edit');
+        return $this->processForm($request, $page, 'adm_page_edit', $pageManageService);
     }
 
     /**
@@ -78,17 +87,17 @@ class PagesController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/{id}/raw", name="adm_page_raw")
+     * @Route("/admin/page/{id}/raw", name="adm_page_raw", requirements={"relation"="page|post"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function iframe(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        //$section = $request->get('section', 'page');
 
         /** @var PageRepository $pageRepo */
         $pageRepo = $em->getRepository(Page::class);
-
         /** @var Page $page */
         $page = $pageRepo->find($request->get('id'));
 
@@ -101,9 +110,10 @@ class PagesController extends \Admin\Controller\AbstractController
      * @param Request $request
      * @param Page $page
      * @param $route_name
+     * @param PageManageService $service
      * @return array|Response
      */
-    private function processForm(Request $request, Page $page, $route_name)
+    private function processForm(Request $request, Page $page, $route_name, PageManageService $service)
     {
         /** @var Form $form */
         $form = $this->createForm(PageForm::class, $page, [
@@ -121,21 +131,20 @@ class PagesController extends \Admin\Controller\AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $em = $this->getDoctrine()->getManager();
-                    if ($page->getId()) {
-                        $em->merge($form->getData());
-                    } else {
-                        $em->persist($form->getData());
-                    }
-                    $em->flush();
+                    $service->savePage($form, $request);
+
                     $this->addFlash('info', 'Cool, page saved!');
-                    return $this->redirectToRoute('adm_page_edit', ['id' => $page->getId()]);
+                    return $this->redirectToRoute(
+                        $request->get('btn_save_exit', 1) === 1 ? 'adm_page_edit' :'adm_page_list',
+                        ['id' => $page->getId()]);
                 } catch (\Exception $e) {
                     $this->addFlash('error', $e->getMessage());
                     return $this->redirectToRoute($route_name, ['id' => $page->getId()]);
                 }
             } else {
                 $formError = $form->getErrors();
+                var_dump('FORM','NOT', 'VALID');
+                var_dump($formError->current()->getMessage());
             }
         }
 

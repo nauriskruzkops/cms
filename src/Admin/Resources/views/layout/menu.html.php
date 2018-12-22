@@ -15,20 +15,17 @@
             </a>
             <ul class="sidenav-second-level collapse show" id="collapseContent" style="">
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pages">
-                    <a class="nav-link" href="<?= $view['router']->path('adm_post_list') ?>">
-                        <i class="fas fa-clone"></i>
-                        <span class="nav-link-text">Posts</span>
-                    </a>
-                </li>
-
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pages">
                     <a class="nav-link" href="<?= $view['router']->path('adm_page_list') ?>">
                         <i class="fas fa-clone"></i>
                         <span class="nav-link-text">Pages</span>
                     </a>
                 </li>
-
-
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pages">
+                    <a class="nav-link" href="<?= $view['router']->path('adm_post_list') ?>">
+                        <i class="fas fa-clone"></i>
+                        <span class="nav-link-text">Posts</span>
+                    </a>
+                </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu">
                     <a class="nav-link" href="<?= $view['router']->path('adm_menu_list') ?>">
                         <i class="fab fa-elementor"></i>

@@ -52,11 +52,28 @@ class Post {
     private $categories;
 
     /**
+     * Post is part of other content
+     *
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0})
+     */
+    private $isPartOf;
+
+    /**
+     * Post is part of other content
+     *
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=false, options={"default":0})
+     */
+    private $public;
+
+    /**
      * Post constructor.
      */
     public function __construct()
     {
         $this->categories = new ArrayCollection();
+        $this->isPartOf = false;
     }
 
     /**
@@ -186,4 +203,41 @@ class Post {
         return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isPartOf(): bool
+    {
+        return $this->isPartOf;
+    }
+
+    /**
+     * @param bool $isPartOf
+     * @return Post
+     */
+    public function setIsPartOf(bool $isPartOf): Post
+    {
+        $this->isPartOf = $isPartOf;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublic(): bool
+    {
+        return $this->public;
+    }
+
+    /**
+     * @param bool $public
+     * @return Post
+     */
+    public function setPublic(bool $public): Post
+    {
+        $this->public = $public;
+
+        return $this;
+    }
 }

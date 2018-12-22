@@ -9,6 +9,7 @@ use Shared\Entity\Category;
 use Shared\Entity\Post;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -37,6 +38,7 @@ class PostForm extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'required' => false,
+                'label' => 'Post title',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Post title',
@@ -44,6 +46,7 @@ class PostForm extends AbstractType
             ])
             ->add('slag', TextType::class, [
                 'required' => false,
+                'label' => 'Post slug',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'page/custom/link',
@@ -53,7 +56,7 @@ class PostForm extends AbstractType
                 'required' => false,
                 'attr' => [
                     'id' => 'post-editor',
-                    'class' => 'form-control',
+                    'class' => 'form-control form-control-editor',
                     'placeholder' => 'Post text',
                     'rows' => '10',
                 ],
@@ -67,11 +70,19 @@ class PostForm extends AbstractType
                 'choice_label' => 'title',
                 'multiple' => true,
                 'expanded' => true,
+                'label' => 'Categories',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Categories',
                 ],
             ))
+            ->add('public', CheckboxType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-check-input',
+                ],
+                'label' => 'Post is available for public',
+            ])
         ;
     }
 

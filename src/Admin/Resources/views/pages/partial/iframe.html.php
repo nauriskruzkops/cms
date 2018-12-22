@@ -1,7 +1,7 @@
 <?php
 /**
- * @var GlobalVariables $app
- * @var PhpEngine $view
+ * @var \Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables $app
+ * @var \Symfony\Component\Templating\PhpEngine $view
  */
 $view->extend('AdminBundle::layout/page-iframe.html.php');
 ?>

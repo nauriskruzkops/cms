@@ -2,20 +2,17 @@
 
 namespace Admin\Form;
 
+use Admin\Form\EventListener\MenuItemListener;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Shared\Entity\MenuItemRelation;
 use Shared\Entity\MenuItems;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -96,30 +93,9 @@ class MenuItemsForm extends AbstractType
                     'placeholder' => 'Parent',
                 ],
             ])
+            ->addEventSubscriber(new MenuItemListener($this->em))
         ;
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-                if ($data && $data->getType()) {
-                    $menuItemRelation = new MenuItemRelation();
-                    $menuItemRelation->setType($data->getType());
-                    $menuItemRelation->setMenuItem($data);
-                    $form->add('relations', CollectionType::class, [
-                        'entry_type' => MenuItemRelationForm::class,
-                        'entry_options' => ['label' => false],
-                        'allow_add' => true,
-                        'allow_delete' => true,
-                        'by_reference' => false,
-                        'prototype_data' => $menuItemRelation,
-                    ]);
-                }
-            }
-        );
     }
-
 
     /**
      * @param OptionsResolver $resolver

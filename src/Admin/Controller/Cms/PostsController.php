@@ -128,7 +128,10 @@ class PostsController extends \Admin\Controller\AbstractController
                     }
                     $em->flush();
                     $this->addFlash('info', 'Cool, post saved!');
-                    return $this->redirectToRoute('adm_post_edit', ['id' => $post->getId()]);
+                    return $this->redirectToRoute(
+                        $request->get('btn_save_exit', 1) === 1 ? 'adm_post_edit' :'adm_post_list',
+                        ['id' => $post->getId()]);
+
                 } catch (\Exception $e) {
                     $this->addFlash('error', $e->getMessage());
                     return $this->redirectToRoute($route_name, ['id' => $post->getId()]);
@@ -142,6 +145,25 @@ class PostsController extends \Admin\Controller\AbstractController
             'post' => $post,
             'form' => $form,
             'formError' => $formError,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/post/{id}/raw", name="adm_post_raw")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function iframe(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var PostRepository $pageRepo */
+        $postRepo = $em->getRepository(Post::class);
+        /** @var Post $post */
+        $post = $postRepo->find($request->get('id'));
+
+        return $this->render('AdminBundle::posts/partial/iframe.html.php', [
+            'content' => $post ? $post->getText() : ''
         ]);
     }
 }

@@ -39,42 +39,82 @@ $isNewPage = (!$page->getId());
 <div class="row">
     <div class="col-sm-12">
         <?= $formHelper->start($form->createView());?>
-        <div class="white-box">
             <div class="row">
                 <div class="col-8">
-                    <?= $view->render('@AdminBundle/Resources/views/pages/partial/form.html.php',[
-                        'form' => $form,
+                    <div class="white-box">
+                        <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/%s/%s.html.php', $page->getTemplate(), $page->getTemplate()),[
+                            'form' => $form,
+                            'page' => $page,
+                        ])?>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label><?= $formView['template']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['template']) ?>
+                                <?= $formHelper->widget($formView['template']) ?>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label><?= $formView['locale']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['locale']) ?>
+                                <?= $formHelper->widget($formView['locale']) ?>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><?= $formView['parent']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['parent']) ?>
+                                <?= $formHelper->widget($formView['parent']) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><?= $formView['title']->vars['label'] ?></label>
+                        <?= $formHelper->errors($formView['title']) ?>
+                        <?= $formHelper->widget($formView['title']) ?>
+                    </div>
+                    <div class="form-group">
+                        <label><?= $formView['slug']->vars['label'] ?></label>
+                        <?= $formHelper->errors($formView['slug']) ?>
+                        <?= $formHelper->widget($formView['slug']) ?>
+                    </div>
+                    <hr>
+                    <?= $view->render('@AdminBundle/Resources/views/pages/partial/settings.html.php',[
+                        'form' => $form->get('settings'),
                         'page' => $page,
                     ])?>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <?= $formHelper->widget($formView['public']) ?>
+                            <?= $formView['public']->vars['label'] ?>
+                        </label>
+                    </div>
                     <hr>
-                    <div class="form-group text-right">
-                        <input class="btn btn-primary" type="submit" value="Submit">
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
+                        <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
                         <a href="<?= $view['router']->path('adm_page_list') ?>" class="btn btn-link"><?= $view['translator']->trans('Adm:Cancel') ?></a>
                         <?php if (!$isNewPage) :?>
-                            <button class="btn btn-light" type="submit" name="delete_page">
+                            <button class="btn btn-light pull-right" type="submit" name="delete_page">
                                 <i class="fa fa-trash"></i>
                             </button>
                         <?php endif;?>
                     </div>
-                </div>
-                <div class="col-4">
-                   ...
+
                 </div>
             </div>
-        </div>
+
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
 </div>
 
 <script type="text/javascript">
     $(function () {
-        var iframeContainer = $('#iframeContainer iframe').first().contents();
-        $('form[name=<?= $form->getName()?>]').submit(function (e) {
-            var iframeBody = document.getElementById('inline_edit_iframe').contentWindow.document.body;
-            var iframeHtml = $('#inline_edit_content', iframeBody).html();
-            $('#page_form_content').val(iframeHtml);
-            return true;
-        })
+        // ...
     })
 </script>
 

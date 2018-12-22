@@ -1,3 +1,11 @@
+$(document).ready(function(){
+    if ($("#SysNotifyMessages").length) {
+        setTimeout(function(){
+            $(".alert", $("#SysNotifyMessages")).removeClass('show').addClass('hide');
+        }, 6000 );
+    }
+});
+
 $(function () {
     var globalAjaxModal = $('#globalAjaxModal');
     globalAjaxModal.on('show.bs.modal', function(e) {

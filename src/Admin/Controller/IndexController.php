@@ -11,8 +11,6 @@ class IndexController extends AbstractController
      */
     public function index()
     {
-        return $this->render('AdminBundle::index.html.php', [
-            'controller_name' => 'IndexController',
-        ]);
+        return $this->redirectToRoute('adm_page_list');
     }
 }

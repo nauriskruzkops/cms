@@ -44,6 +44,10 @@ class RequestPageService
         $route = $request->get('_route');
         $locale = $request->get('_locale');
 
+        if (empty($route)) {
+            $route = 'index'; // Default route
+        }
+
         /** @var PageRepository $repository */
         $repository = $this->em->getRepository(MenuItems::class);
         $qb = $repository->createQueryBuilder('mi');
@@ -78,5 +82,4 @@ class RequestPageService
 
         throw new ContentNotFoundException();
     }
-
 }

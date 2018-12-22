@@ -18,45 +18,28 @@ $request = $app->getRequest();
 ?>
 
 <div class="form-group">
-    <?php $formHelper->label($formView['title']) ?>
-    <?= $formHelper->errors($formView['title']) ?>
+    <label><?= $formView['title']->vars['label'] ?></label>
     <?= $formHelper->widget($formView['title']) ?>
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <?= $formHelper->errors($formView['title']) ?>
 </div>
 
 <div class="form-group">
-
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">domain.com/</span>
-        </div>
-        <?= $formHelper->errors($formView['slag']) ?>
-        <?= $formHelper->widget($formView['slag']) ?>
-    </div>
-
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label><?= $formView['slag']->vars['label'] ?></label>
+    <?= $formHelper->widget($formView['slag']) ?>
+    <?= $formHelper->errors($formView['slag']) ?>
+    <small class="form-text text-muted">.....</small>
 </div>
 
 <div class="form-group">
-    <?= $formHelper->errors($formView['text']) ?>
-    <?= $formHelper->widget($formView['text']) ?>
-    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <label><?= $formView['categories']->vars['label'] ?></label>
+    <?= $formHelper->widget($formView['categories']) ?>
+    <?= $formHelper->errors($formView['categories']) ?>
 </div>
 
-<script type="text/javascript">
-    tinymce.init({
-        selector: 'textarea',
-        height: 500,
-        menubar: false,
-        plugins: [
-            'advlist autolink lists link image charmap print preview anchor textcolor',
-            'searchreplace visualblocks code fullscreen',
-            'insertdatetime media table contextmenu paste code help wordcount'
-        ],
-        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-        content_css: [
-            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-            '//www.tinymce.com/css/codepen.min.css']
-    });
-</script>
+<div class="form-check">
+    <label class="form-check-label">
+        <?= $formHelper->widget($formView['public']) ?>
+        <?= $formView['public']->vars['label'] ?>
+    </label>
+</div>
 

@@ -107,15 +107,6 @@ $menuItem = $new ? null : $form->getData();
                 <div class="row input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <?= $formView['slug']->vars['label'] ?>
-                        </span>
-                    </div>
-                    <?= $formHelper->errors($formView['slug']) ?>
-                    <?= $formHelper->widget($formView['slug'], ['attr' => []]) ?>
-                </div>
-                <div class="row input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
                             <?= $formView['parent']->vars['label'] ?>
                         </span>
                     </div>
@@ -130,6 +121,17 @@ $menuItem = $new ? null : $form->getData();
                     </div>
                     <?= $formHelper->errors($formView['left']) ?>
                     <?= $formHelper->widget($formView['left'], ['attr' => []]) ?>
+                </div>
+                <div class="row input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <?= $formView['slug']->vars['label'] ?>
+                        </span>
+                    </div>
+                    <?= $formHelper->errors($formView['slug']) ?>
+                    <?= $formHelper->widget($formView['slug'], ['attr' => [
+                        'readonly' => 'readonly'
+                    ]]) ?>
                 </div>
             </div>
 

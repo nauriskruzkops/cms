@@ -39,43 +39,35 @@ $isNewPost = (!$post->getId());
 <div class="row">
     <div class="col-sm-12">
         <?= $formHelper->start($form->createView());?>
-            <div class="white-box">
-                <div class="row">
-                    <div class="col-8">
-                        <?= $view->render('@AdminBundle/Resources/views/post/partial/form.html.php',[
-                            'form' => $form,
-                            'post' => $post
-                        ])?>
-                        <hr>
-                        <div class="form-group text-right">
-                            <input class="btn btn-primary" type="submit" value="Submit">
-                            <a href="<?= $view['router']->path('adm_post_list') ?>" class="btn btn-link">Cancel</a>
-                            <?php if (!$isNewPost) :?>
-                                <button class="btn btn-light" type="submit" name="delete_post">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            <?php endif;?>
-                        </div>
-                    </div>
-                    <div class="col-4">
+            <div class="row">
+                <div class="col-8">
+                    <div class="white-box">
                         <div class="form-group">
-                            <?= $formHelper->label($formView['categories']) ?>
-                            <?= $formHelper->errors($formView['categories']) ?>
-                            <?= $formHelper->widget($formView['categories']) ?>
+                            <div id="<?= $formView['text']->vars['full_name']?>" class="form-control-editor">
+                                <?= $formView['text']->vars['value']?>
+                            </div>
                         </div>
-
                     </div>
+                </div>
+                <div class="col-4">
+                    <?= $view->render('@AdminBundle/Resources/views/post/partial/form.html.php',[
+                        'form' => $form,
+                        'post' => $post
+                    ])?>
+                    <hr>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
+                        <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
+                        <a href="<?= $view['router']->path('adm_post_list') ?>" class="btn btn-link">Cancel</a>
+                        <?php if (!$isNewPost) :?>
+                            <button class="btn btn-light pull-right" type="submit" name="delete_post">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        <?php endif;?>
+                    </div>
+
                 </div>
             </div>
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
 </div>
-<script type="text/javascript">
-    $(function() {
-        $( 'textarea' ).ckeditor({
-            height: 400,
-            inline: true,
-            imageUploadUrl: 'image-upload'
-        });
-    });
-</script>

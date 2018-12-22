@@ -10,6 +10,7 @@ $mainMenuItems = $mainMenu['items'] ?? [];
 <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto pull-right">
         <?php foreach ($mainMenuItems as $mainMenu) :?>
+            <?php if ($mainMenu->getSlug() === 'index') continue; ?>
             <?php $lang = $mainMenu->getMenu()->getLocale(); ?>
             <?php if ($mainMenu->getChildren()->count()) :?>
                 <li class="nav-item dropdown">
@@ -24,7 +25,7 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                 </li>
             <?php else :?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= $view['router']->path($mainMenu->getSlug(), ['_locale' => $lang]) ?>"><?= $mainMenu->getTitle()?></a>
+                    <a class="nav-link" href="/<?= $mainMenu->getSlug()?>"><?= $mainMenu->getTitle()?></a>
                 </li>
             <?php endif;?>
         <?php endforeach;?>

@@ -16,7 +16,7 @@ $view->extend('AdminBundle::layout/base.html.php');
             <div class="card-body">
                 <h2>Login</h2>
                 <p></p>
-                <?php foreach ($view['session']->getFlashes() as $type => $flash_messages): ?>
+                <?php foreach ($view['session']->getFlashes() as $type => $flash_messages) :?>
                     <?php
                     $alertType = 'alert-success';
                     if ($type == 'error') {

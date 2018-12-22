@@ -7,7 +7,9 @@ use App\Controller\IndexController;
 use App\Controller\PageController;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Shared\Entity\MenuItemRelation;
 use Shared\Entity\MenuItems;
+use Shared\Entity\Page;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -37,6 +39,7 @@ class SiteRoutes
 
     /**
      * @return RouteCollection
+     * @throws \Doctrine\ORM\ORMException
      */
     public function loadRoutes()
     {
@@ -47,6 +50,8 @@ class SiteRoutes
         $routes = new RouteCollection();
 
         $defaults = array(
+            'slug' => SiteRoutes::TYPE_ROOT,
+            'type' => SiteRoutes::TYPE_PAGE,
             '_controller' => IndexController::class,
             '_locale' => $default_locale,
         );
@@ -57,9 +62,9 @@ class SiteRoutes
         $routes->add('index', $route);
 
         $menuItems = $this->getSiteMap();
-
         foreach ($menuItems as $item) {
-            $routes->add($item->getSlug(), $this->createRoute($item));
+            list($routeKey, $route) = $this->createRoute($item);
+            $routes->add($routeKey, $route);
         }
 
         return $routes;
@@ -67,8 +72,8 @@ class SiteRoutes
 
     /**
      * @param MenuItems $item
-     * @param $controller
-     * @return Route
+     * @return array
+     * @throws \Doctrine\ORM\ORMException
      */
     private function createRoute(MenuItems $item)
     {
@@ -76,6 +81,8 @@ class SiteRoutes
         $language = $item->getMenu()->getLocale();
         $slug = $item->getSlug();
         $type = $item->getType();
+        $defaults = [];
+
 
         if ($type === SiteRoutes::TYPE_PAGE ) {
             $controller = PageController::class;
@@ -83,16 +90,34 @@ class SiteRoutes
             $controller = IndexController::class;
         } elseif ($type === SiteRoutes::TYPE_POST ) {
             $controller = IndexController::class;
+            if (!$item->getRelations()->isEmpty()) {
+                $slug = $item->getRelations()->first()->getSlug();
+            }
         } elseif ($type === SiteRoutes::TYPE_ROOT ) {
             $controller = IndexController::class;
         } else {
             $controller = ErrorController::class;
         }
 
-        $defaults = array(
-            '_controller' => $controller,
-            '_locale' => $language,
-        );
+        if (empty($slug) or $slug === '/' or $slug === 'index') {
+            $controller = IndexController::class;
+            $slug = null;
+        }
+
+        if (!$item->getRelations()->isEmpty()) {
+            /** @var MenuItemRelation $relation */
+            $relation = $item->getRelations()->first();
+            $relationObject = $this->em->getReference($relation->getObjectClass(), $relation->getObjectId());
+            if ($relationObject) {
+                $slug = $relationObject->getSlug();
+            }
+        }
+
+        $defaults['type'] = $type;
+        $defaults['slug'] = $slug;
+        $defaults['title'] = $item->getTitle();
+        $defaults['_controller'] = $controller;
+        $defaults['_locale'] = $language;
 
         if ($defaultLocale === $language) {
             $urlPattern = sprintf('/%s', $slug);
@@ -101,8 +126,10 @@ class SiteRoutes
         }
 
         $route = new Route($urlPattern, $defaults);
-
-        return $route;
+        return [
+            $item->getSlug(),
+            $route
+        ];
     }
 
     /**
