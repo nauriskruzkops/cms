@@ -1,11 +1,4 @@
 'Adm:edit': Edit
-'AdminBundle:Back': Back
-'AdminBundle:Title': Title
-'AdminBundle:Value': Value
-'AdminBundle:Transl.': Transl.
-'AdminBundle:Yes': 'Yes'
-'AdminBundle:No': 'No'
-'AdminBundle:edit': edit
 'Adm:List': List
 'Adm:Save': Save
 'Adm:Cancel': Cancel
@@ -19,3 +12,27 @@
 'Adm:Off': 'Off'
 'Adm:Yes': 'Yes'
 'Adm:No': 'No'
+'Adm:SaveAndExit': 'Save and Exit'
+'Adm:Public': Public
+'Adm:Hide': Hide
+'Adm:Addnew': 'Add new'
+'Adm:Language': Language
+'Adm:Template': Template
+'Adm:Enabled': Enabled
+'Adm:MoveUp': 'Move Up'
+'Adm:MoveDown': 'Move Down'
+'Adm:Back': Back
+'Adm:Value': Value
+'Adm:Transl.': Transl.
+'Adm:Nav:Dashboard': 'Dashboard'
+'Adm:Nav:Content': 'Content'
+'Adm:Nav:Pages': 'Pages'
+'Adm:Nav:Posts': 'Posts'
+'Adm:Nav:Menu': 'Menu'
+'Adm:Nav:Settings': 'Settings'
+'Adm:Nav:Users': 'Users'
+'Adm:AddNewBlock': 'Add New Block'
+'Adm:Users': 'Users'
+'Adm:FullName': 'Full Name'
+'Adm:Email': 'Email'
+'Adm:Username': 'Username'

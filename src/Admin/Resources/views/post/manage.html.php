@@ -42,11 +42,25 @@ $isNewPost = (!$post->getId());
             <div class="row">
                 <div class="col-8">
                     <div class="white-box">
-                        <div class="form-group">
-                            <div id="<?= $formView['text']->vars['full_name']?>" class="form-control-editor">
-                                <?= $formView['text']->vars['value']?>
-                            </div>
-                        </div>
+                        <iframe id="<?= $formView['text']->vars['full_name']?>" src="<?= $view['router']->path('adm_post_raw', [
+                                'relation' => 'post', 'id' => ($post && $post->getId()) ? $post->getId() : 0
+                        ]) ?>" data-post-name="<?= $formView['text']->vars['full_name']?>" style="height: 400px; border: 0; width: 100%" frameborder="0"></iframe>
+                        <script type="text/javascript">
+                            $(function () {
+                                var iframeContainer = document.getElementById('<?= $formView['text']->vars['full_name']?>');
+                                $('form[name=<?= $form->getName()?>]').submit(function (e) {
+                                    var thisForm = $(this);
+                                    var iframeBody = iframeContainer.contentWindow.document.body;
+                                    var iframeHtml = $('#inline_edit_content', iframeBody).html();
+                                    var input = $('<input>');
+                                    input.attr('type', 'hidden')
+                                        .attr('name', $(iframeContainer).attr('data-post-name'))
+                                        .val(iframeHtml);
+                                    $(thisForm).append(input);
+                                    return true;
+                                })
+                            })
+                        </script>
                     </div>
                 </div>
                 <div class="col-4">
@@ -70,4 +84,46 @@ $isNewPost = (!$post->getId());
             </div>
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <h2 style="text-align: center;">Title 1</h2>
+        <p style="text-align: center;">Custom text</p>
+        <p style="text-align: center;">
+            <a class="btn btn-secondary" role="button" href="#">View details &raquo;</a>
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h2 style="text-align: center;">Title 1</h2>
+        <p style="text-align: center;">Custom text</p>
+        <p style="text-align: center;">
+            <a class="btn btn-secondary" role="button" href="#">View details &raquo;</a>
+        </p>
+    </div>
+    <div class="col-sm-4">
+        <h2 style="text-align: center;">Title 1</h2>
+        <p style="text-align: center;">Custom text</p>
+        <p style="text-align: center;">
+            <a class="btn btn-secondary" role="button" href="#">View details &raquo;</a>
+        </p>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-sm-12">1</div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-sm-6">1</div>
+    <div class="col-sm-6">2</div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-sm-4">1</div>
+    <div class="col-sm-4">2</div>
+    <div class="col-sm-4">3</div>
 </div>

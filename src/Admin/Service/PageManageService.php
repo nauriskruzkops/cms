@@ -86,6 +86,8 @@ class PageManageService
                 $post->setText($data['post_text']);
             }
         }
+        $post->setIsPartOf(true);
+        $post->setPublic($block->isPublic());
 
         return $page;
     }

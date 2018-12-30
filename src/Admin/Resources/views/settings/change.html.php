@@ -24,7 +24,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
             <h1>Change settings</h1>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-default" href="<?= $view['router']->path('adm_settings') ?>"><?= $view['translator']->trans('AdminBundle:Back') ?></a>
+            <a class="btn btn-default" href="<?= $view['router']->path('adm_settings') ?>"><?= $view['translator']->trans('Adm:Back') ?></a>
         </div>
     </div>
 </div>

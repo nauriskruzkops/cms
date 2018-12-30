@@ -1,9 +1,7 @@
 <?php
 
-use App\Helpers\MenuHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
-use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 /**
  * @var GlobalVariables $app
@@ -32,10 +30,14 @@ $view->extend('layout/extend/base.html.php');
     </div>
 </header>
 
-<main role="main">
+<main class="<?= $view['layout']($page ?? null)->pageClass()?>" role="main">
     <?php $view['slots']->output('_content') ?>
-    <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017-2018 Crocolab, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    <div class="sp20"></div>
+    <footer>
+        <div class="sp5"></div>
+        <div class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2017-2018 Crocolab, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        </div>
     </footer>
 </main>

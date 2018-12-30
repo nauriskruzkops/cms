@@ -44,6 +44,21 @@ class User implements UserInterface, \Serializable {
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
      */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $surname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
     private $username;
 
     /**
@@ -75,7 +90,7 @@ class User implements UserInterface, \Serializable {
 
     public function __toString()
     {
-        return (string) $this->getUsername();
+        return (string) $this->getFullName();
     }
 
     /**
@@ -89,13 +104,69 @@ class User implements UserInterface, \Serializable {
     /**
      * @return string
      */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param string $surname
+     * @return User
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
     /**
-     * @param mixed $username
+     * @param string $username
      * @return User
      */
     public function setUsername($username)
@@ -105,8 +176,24 @@ class User implements UserInterface, \Serializable {
         return $this;
     }
 
+    public function getFullName()
+    {
+        $fullName = [$this->name, $this->name];
+        $fullName = implode(' ', array_filter($fullName));
+
+        if (empty($fullName)) {
+            $fullName = $this->email;
+        }
+
+        if (empty($fullName)) {
+            $fullName = $this->username;
+        }
+
+        return $fullName;
+    }
+
     /**
-     * @return mixed
+     * @return string
      */
     public function getPassword()
     {
@@ -114,7 +201,7 @@ class User implements UserInterface, \Serializable {
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      * @return User
      */
     public function setPassword($password)
@@ -125,7 +212,7 @@ class User implements UserInterface, \Serializable {
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     public function isActive()
     {
@@ -138,7 +225,7 @@ class User implements UserInterface, \Serializable {
     }
 
     /**
-     * @param mixed $active
+     * @param boolean $active
      * @return User
      */
     public function setActive($active)

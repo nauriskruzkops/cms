@@ -16,9 +16,9 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
     <thead>
         <tr>
             <th style="width: 5%">#</th>
-            <th style="width: 30%"><?= $view['translator']->trans('AdminBundle:Title') ?></th>
-            <th style="width: 60%"><?= $view['translator']->trans('AdminBundle:Value') ?></th>
-            <th><?= $view['translator']->trans('AdminBundle:Transl.') ?></th>
+            <th style="width: 30%"><?= $view['translator']->trans('Adm:Title') ?></th>
+            <th style="width: 60%"><?= $view['translator']->trans('Adm:Value') ?></th>
+            <th><?= $view['translator']->trans('Adm:Transl.') ?></th>
             <th> </th>
         </tr>
     </thead>
@@ -49,10 +49,10 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
                     <?php endif;?>
                 </td>
                 <td>
-                    <?= $setting->getTranslatable() ? $view['translator']->trans('AdminBundle:Yes') : $view['translator']->trans('AdminBundle:No')?>
+                    <?= $setting->getTranslatable() ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No')?>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-default" href="<?= $view['router']->path('adm_settings_change', ['key' => $setting->getKey()]) ?>"><?= $view['translator']->trans('AdminBundle:edit') ?></a>
+                    <a class="btn btn-sm btn-default" href="<?= $view['router']->path('adm_settings_change', ['key' => $setting->getKey()]) ?>"><?= $view['translator']->trans('Adm:edit') ?></a>
                 </td>
             </tr>
         <?php endforeach;?>

@@ -37,7 +37,7 @@ class PostsController extends \Admin\Controller\AbstractController
 
         /** @var PostRepository $postRepo */
         $postRepo = $em->getRepository(Post::class);
-        $posts = $postRepo->findAll();
+        $posts = $postRepo->findBy(['isPartOf' => false]);
 
         return $this->render('AdminBundle::post/partial/list.html.php', [
             'posts' => $posts,
@@ -162,7 +162,7 @@ class PostsController extends \Admin\Controller\AbstractController
         /** @var Post $post */
         $post = $postRepo->find($request->get('id'));
 
-        return $this->render('AdminBundle::posts/partial/iframe.html.php', [
+        return $this->render('AdminBundle::post/partial/iframe.html.php', [
             'content' => $post ? $post->getText() : ''
         ]);
     }

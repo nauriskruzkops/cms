@@ -41,7 +41,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link"><?= $view['translator']->trans('Adm:Language') ?></a>
+                <a class="nav-link"><?= $view['translator']->trans('Adm:Language') ?>:</a>
             </li>
             <?php foreach ($view['settings']->values('languages') as $langCode => $lang) :?>
                 <?php $activeLang = $locale == $langCode ? 'active' : '' ;?>

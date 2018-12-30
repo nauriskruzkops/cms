@@ -50,6 +50,15 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
         tags:
         - { name: templating.helper, alias: menu }
+    App\Helpers\PageHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+        - { name: templating.helper, alias: page }
+    App\Helpers\LayoutHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+        - { name: templating.helper, alias: layout }
+
     App\Helpers\LocaleHelper:
         arguments: ['@App\Services\LocaleService']
         tags:
@@ -61,6 +70,9 @@ services:
         tags: ['controller.service_arguments']
 
     # ADMIN SERVICES
+    Admin\Service\:
+        resource: '../src/Admin/Service/*'
+        arguments: ['@doctrine.orm.entity_manager']
     Admin\Service\SettingService:
         arguments: ['@doctrine.orm.entity_manager']
     Admin\Service\PageManageService:

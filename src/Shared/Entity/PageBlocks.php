@@ -144,7 +144,7 @@ class PageBlocks {
     /**
      * @return mixed
      */
-    public function getisPublic()
+    public function isPublic()
     {
         return $this->isPublic;
     }
