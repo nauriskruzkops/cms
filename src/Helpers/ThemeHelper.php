@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Helpers;
+
+use Admin\Service\SettingService;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Asset\PathPackage;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
+use Symfony\Component\Templating\Helper\Helper;
+use Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine;
+
+class ThemeHelper extends Helper
+{
+
+    /** @var PhpEngine  */
+    private $view;
+
+    /**
+     * @var SettingService
+     */
+    private $settingService;
+
+    /**
+     * @var string
+     */
+    private $theme;
+
+    /**
+     * LayoutHelper constructor.
+     * @param TimedPhpEngine $templating
+     * @param SettingService $settingService
+     */
+    public function __construct(TimedPhpEngine $templating, SettingService $settingService)
+    {
+        $this->view = $templating;
+        $this->locale = $this->view['locale'];
+        $this->settingService = $settingService;
+        $this->theme = $settingService->value('site_theme', 'default');
+    }
+
+    /**
+     * @return $this
+     */
+    public function __invoke()
+    {
+        return $this;
+    }
+
+    /**
+     * @param $template
+     * @return string
+     */
+    public function extend($template)
+    {
+        $path = $this->theme.'/'.ltrim($template, '/');
+        return $this->view->extend($path);
+    }
+
+    /**
+     * @param $path
+     * @param array $parameters
+     * @return string
+     */
+    public function render($path, $parameters = [])
+    {
+        try {
+            $path = $this->theme . '/' . ltrim($path, '/');
+            return $this->view->render($path, $parameters);
+        } catch (\InvalidArgumentException $e) {
+            return sprintf('ERROR on render content from %s', $path);
+        }
+    }
+
+    public function assetsGetUrl($resource, $pckg)
+    {
+        $packageCode = $this->theme.'_'.$pckg;
+
+        $package = new PathPackage('/assets/theme/'.$this->theme.DIRECTORY_SEPARATOR.$pckg, new StaticVersionStrategy('v1'));
+
+        $packages = new Packages();
+        $packages->addPackage($packageCode, $package);
+        $this->view->set(new AssetsHelper($packages));
+
+        return $this->view['assets']->getUrl($resource, $packageCode);
+    }
+
+    /**
+     * Returns the canonical name of this helper.
+     *
+     * @return string The canonical name
+     */
+    public function getName()
+    {
+        return 'theme';
+    }
+}

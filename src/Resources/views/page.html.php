@@ -10,36 +10,31 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var PhpEngine $view
  * @var Page $page
  */
-$view->extend('layout/extend/layout.html.php');
+$view['theme']->extend('layout/extend/layout.html.php');
 ?>
 
-<div style="margin-top: 70px"></div>
-<div class="clearfix"></div>
 
-<div class="container">
-    <?php if ($page->getSetting('SHOW_TITLE')) :?>
-        <div class="page-header">
-            <div class="container">
-                <h1><?= $page->getTitle()?></h1>
-            </div>
-            <hr>
-        </div>
-    <?php  endif;?>
-</div>
-
-<?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
-    <?php foreach ($page->getBlocks() as $block) :?>
-        <?php if ($block->isPublic() && $block->getPost()) :?>
-            <div class="page_block type-<?= $page->getTemplate()?> block_border_b">
-                <div class="container">
-                    <?= $block->getPost()->getText()?>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        <?php endif;?>
-    <?php endforeach;?>
-<?php else:?>
-    <div class="container">
-        <?= $page->getContent()?>
+<section class="page-title" style="background-image:url(<?= $view['theme']->assetsGetUrl('background/12.jpg', 'images') ?>)">
+    <div class="auto-container">
+        <h1><?= $page->getTitle()?></h1>
     </div>
-<?php endif;?>
+</section>
+
+<div class="approach-section">
+    <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
+        <?php foreach ($page->getBlocks() as $block) :?>
+            <?php if ($block->isPublic() && $block->getPost()) :?>
+                <div class="page_block type-<?= $page->getTemplate()?> block_border_b">
+                    <div class="container">
+                        <?= $block->getPost()->getText()?>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            <?php endif;?>
+        <?php endforeach;?>
+    <?php else:?>
+        <div class="container">
+            <?= $page->getContent()?>
+        </div>
+    <?php endif;?>
+</div>

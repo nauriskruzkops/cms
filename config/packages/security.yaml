@@ -23,6 +23,7 @@ security:
             security: true
             anonymous: ~
             provider: shared_entity
+            access_denied_handler: Admin\Security\AccessDeniedHandler
             form_login:
                 login_path: ADM_login
                 check_path: ADM_login
@@ -37,6 +38,11 @@ security:
             logout:
                 path:   ADM_logout
                 target: ADM_login
+    role_hierarchy:
+        ROLE_MANAGER: ROLE_USER
+        ROLE_ADMIN: [ROLE_MANAGER]
     access_control:
          - { path: ^/admin, roles: ROLE_USER }
+         - { path: ^/admin/settings, roles: ROLE_MANAGER }
+         - { path: ^/admin/users, roles: ROLE_ADMIN }
          - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY  }

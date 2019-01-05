@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  */
-$view->extend('layout/extend/layout.html.php');
+$view['theme']->extend('layout/extend/layout.html.php');
 ?>
 
 <div class="container">

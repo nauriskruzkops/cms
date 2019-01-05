@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  */
-$view->extend('layout/extend/base.html.php');
+$view['theme']->extend('layout/extend/base.html.php');
 
 ?>
 <header>
@@ -22,8 +22,8 @@ $view->extend('layout/extend/base.html.php');
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <?= $view->render('layout/partial/main_top_menu.html.php',[])?>
-                    <?= $view->render('layout/partial/main_top_lang_menu.html.php',[])?>
+                    <?= $view['theme']->render('layout/partial/main_top_menu.html.php',[])?>
+                    <?= $view['theme']->render('layout/partial/main_top_lang_menu.html.php',[])?>
                 </div>
             </div>
         </nav>

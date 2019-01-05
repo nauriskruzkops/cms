@@ -58,11 +58,14 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: layout }
-
     App\Helpers\LocaleHelper:
         arguments: ['@App\Services\LocaleService']
         tags:
         - { name: templating.helper, alias: locale }
+    App\Helpers\ThemeHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+        - { name: templating.helper, alias: theme }
 
     # ADMIN CONTROLLER
     Admin\Controller\:
@@ -73,6 +76,8 @@ services:
     Admin\Service\:
         resource: '../src/Admin/Service/*'
         arguments: ['@doctrine.orm.entity_manager']
+    Admin\Security\AccessDeniedHandler:
+        arguments: ['@templating.engine.php']
     Admin\Service\SettingService:
         arguments: ['@doctrine.orm.entity_manager']
     Admin\Service\PageManageService:
