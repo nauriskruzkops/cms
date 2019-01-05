@@ -57,6 +57,7 @@ class Menu {
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->enabled = false;
     }
 
     /**

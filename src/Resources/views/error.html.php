@@ -12,8 +12,10 @@ $view['theme']->extend('layout/extend/layout.html.php');
 ?>
 
 <div class="container">
-    <hr class="featurette-divider">
-    <h1>Here is something wrong!</h1>
-    <p>Sorry, come back later.</p>
-    <hr class="featurette-divider">
+    <div style="margin: 5% 0; padding: 5% 0">
+        <hr class="featurette-divider">
+        <h1>Here is something wrong!</h1>
+        <p>Sorry, come back later.</p>
+        <hr class="featurette-divider">
+    </div>
 </div>

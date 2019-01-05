@@ -63,8 +63,10 @@ class SiteRoutes
 
         $menuItems = $this->getSiteMap();
         foreach ($menuItems as $item) {
-            list($routeKey, $route) = $this->createRoute($item);
-            $routes->add($routeKey, $route);
+            if ($item->getSlug()) {
+                list($routeKey, $route) = $this->createRoute($item);
+                $routes->add($routeKey, $route);
+            }
         }
 
         return $routes;
@@ -81,6 +83,7 @@ class SiteRoutes
         $language = $item->getMenu()->getLocale();
         $slug = $item->getSlug();
         $type = $item->getType();
+        $uniqSlag = $item->getId();
         $defaults = [];
 
 
@@ -127,7 +130,7 @@ class SiteRoutes
 
         $route = new Route($urlPattern, $defaults);
         return [
-            $item->getSlug(),
+            $uniqSlag,
             $route
         ];
     }

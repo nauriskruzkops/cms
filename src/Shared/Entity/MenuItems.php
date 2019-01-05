@@ -416,6 +416,14 @@ class MenuItems {
     }
 
     /**
+     * @return boolean
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
      * @param boolean $enabled
      * @return MenuItems
      */
