@@ -30,7 +30,7 @@ $view['theme']->extend('layout/extend/base.html.php');
     </div>
 </header>
 
-<main class="<?= $view['layout']($page ?? null)->pageClass()?>" role="main">
+<main class="<?= $view['layout']($page ?? null)->pageClass()?>" style="margin-top: 60px" role="main">
     <?php $view['slots']->output('_content') ?>
     <div class="sp20"></div>
     <footer>

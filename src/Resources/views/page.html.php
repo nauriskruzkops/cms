@@ -1,24 +1,29 @@
 <?php
 
+use App\Helpers\PageHelper;
 use Shared\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
-use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 /**
  * @var GlobalVariables $app
  * @var PhpEngine $view
  * @var Page $page
+ * @var PageHelper $pageHelper
  */
 $view['theme']->extend('layout/extend/layout.html.php');
+$pageHelper = $view['page']($page);
 ?>
 
-
-<section class="page-title" style="background-image:url(<?= $view['theme']->assetsGetUrl('background/12.jpg', 'images') ?>)">
-    <div class="auto-container">
-        <h1><?= $page->getTitle()?></h1>
-    </div>
-</section>
+<?php if ($pageHelper->hasHeader()) :?>
+    <section class="page-title" style="<?= $pageHelper->headerBackground()?>">
+        <div class="container auto-container">
+            <?php if ($pageHelper->hasHeader()) :?>
+                <h1><?= $page->getTitle()?></h1>
+            <?php endif;?>
+        </div>
+    </section>
+<?php endif;?>
 
 <div class="approach-section">
     <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>

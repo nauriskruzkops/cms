@@ -20,7 +20,7 @@ $view['theme']->extend('layout/extend/layout.html.php');
         <?php if ($block->isPublic() && $block->getPost()) :?>
             <section class="mechanical-section" style="background-color:#f4f4f4">
                 <div class="auto-container">
-                    <div class="inner-container">
+                    <div class="container inner-container">
                         <div class="row clearfix">
                             <?= $block->getPost()->getText()?>
                         </div>

@@ -48,6 +48,45 @@ class PageHelper extends Helper
     }
 
     /**
+     * @return boolean
+     */
+    public function hasHeader()
+    {
+        return true;
+    }
+
+    /**
+     * @return boolean
+     * @throws \Admin\Exception\PageSettingsException
+     */
+    public function hasHeaderTitle()
+    {
+        return ($this->page->getSetting('SHOW_TITLE', false));
+    }
+
+    /**
+     * @return string
+     * @throws \Admin\Exception\PageSettingsException
+     */
+    public function headerBackground()
+    {
+        $style = [];
+        $backgroundImg = $this->page->getSetting('HEADER_BACKGROUND_IMG');
+        if ($backgroundImg) {
+            $style[] = sprintf('background-image:url(%s)', $backgroundImg);
+        }
+
+        $backgroundColor = $this->page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
+        if ($backgroundColor) {
+            $style[] = sprintf('background-color:%s', $backgroundColor);
+        }
+
+        return implode(';', $style);
+    }
+
+
+
+    /**
      * Returns the canonical name of this helper.
      *
      * @return string The canonical name
