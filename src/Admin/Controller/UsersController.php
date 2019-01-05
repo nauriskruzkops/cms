@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Admin\Exception\Exception;
 use Admin\Form\UserForm;
 use Admin\Service\UserManageService;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UsersController extends AbstractController
 {
@@ -21,6 +23,12 @@ class UsersController extends AbstractController
      */
     public function index(Request $request)
     {
+//        try {
+//            $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
+//        } catch (AccessDeniedException $e) {
+//            return $this->denyAccess($e);
+//        }
+
         $locale = $request->query->get('locale', $this->settings()->value('language'));
 
         /** @var User[] $user */
@@ -43,7 +51,7 @@ class UsersController extends AbstractController
     {
         $user = new User();
 
-        return $this->processForm($request, $user, 'adm_page_add', $userManageService);
+        return $this->processForm($request, $user, 'adm_user_add', $userManageService);
     }
 
     /**
@@ -91,7 +99,6 @@ class UsersController extends AbstractController
             if ($form->isValid()) {
                 try {
                     $service->saveUserData($form, $request);
-
                     $this->addFlash('info', 'Cool, user saved!');
                     return $this->redirectToRoute(
                         $request->get('btn_save_exit', 1) === 1 ? 'adm_user' :'adm_users',
@@ -102,8 +109,6 @@ class UsersController extends AbstractController
                 }
             } else {
                 $formError = $form->getErrors();
-                var_dump('FORM','NOT', 'VALID');
-                var_dump($formError->current()->getMessage());
             }
         }
 

@@ -36,36 +36,32 @@ $isNewUser = (!$user->getId());
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-12">
-        <?= $formHelper->start($form->createView());?>
-            <div class="row">
-                <div class="col-8">
-                    <div class="white-box">
-                        <?= $view->render('@AdminBundle/Resources/views/users/partial/form.html.php',[
-                            'form' => $form,
-                            'user' => $user,
-                        ])?>
-
-                        <hr>
-
-                        <div class="form-group">
-                            <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
-                            <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
-                            <a href="<?= $view['router']->path('adm_users') ?>" class="btn btn-link"><?= $view['translator']->trans('Adm:Cancel') ?></a>
-                            <?php if (!$isNewUser) :?>
-                                <button class="btn btn-light pull-right" type="submit" name="delete_user">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            <?php endif;?>
-                        </div>
-
-                    </div>
+<div class="white-box">
+    <?= $formHelper->start($form->createView());?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $view->render('@AdminBundle/Resources/views/users/partial/form.html.php',['form' => $form, 'user' => $user,])?>
+            </div>
+            <div class="col-md-6">
+                <?= $view->render('@AdminBundle/Resources/views/users/partial/password-form.html.php',['form' => $form, 'user' => $user,])?>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
+                    <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
+                    <a href="<?= $view['router']->path('adm_users') ?>" class="btn btn-link"><?= $view['translator']->trans('Adm:Cancel') ?></a>
+                    <?php if (!$isNewUser) :?>
+                        <button class="btn btn-light pull-right" type="submit" name="delete_user">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    <?php endif;?>
                 </div>
             </div>
-
-        <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
-    </div>
+        </div>
+    <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
 </div>
 
 <script type="text/javascript">

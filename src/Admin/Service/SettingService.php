@@ -45,13 +45,16 @@ class SettingService
     /**
      * @param $key
      *
+     * @param null $defaultValue
      * @return string
      */
-    public function value($key)
+    public function value($key, $defaultValue = null)
     {
         if (($setting = $this->valueAsObject($key))) {
             return $setting->getValue();
         }
+
+        return $defaultValue;
     }
 
     /**

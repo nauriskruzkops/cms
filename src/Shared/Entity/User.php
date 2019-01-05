@@ -178,7 +178,7 @@ class User implements UserInterface, \Serializable {
 
     public function getFullName()
     {
-        $fullName = [$this->name, $this->name];
+        $fullName = [$this->name, $this->surname];
         $fullName = implode(' ', array_filter($fullName));
 
         if (empty($fullName)) {
@@ -240,7 +240,7 @@ class User implements UserInterface, \Serializable {
      */
     public function getRoles()
     {
-        return $this->roles;
+        return array_unique($this->roles);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Admin\Form;
 
+use Admin\Form\EventListener\UserListener;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Category;
@@ -9,6 +10,7 @@ use Shared\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,21 +60,31 @@ class UserForm extends AbstractType
                     'placeholder' => 'Email',
                 ],
             ])
-            ->add('password', PasswordType::class, [
+            ->add('username', TextType::class, [
                 'required' => false,
-                'label' => 'Password',
+                'label' => 'Username',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Password',
+                    'placeholder' => 'Username',
                 ],
             ])
-            ->add('enabled', CheckboxType::class, [
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field form-control']],
+                'required' => false,
+                'first_options'  => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat Password'],
+            ])
+
+            ->add('active', CheckboxType::class, [
                 'required' => false,
                 'attr' => [
                     'class' => 'form-check-input',
                 ],
                 'label' => 'Enabled',
             ])
+            ->addEventSubscriber(new UserListener($this->em))
         ;
     }
 

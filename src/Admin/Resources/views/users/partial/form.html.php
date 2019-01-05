@@ -27,7 +27,6 @@ $request = $app->getRequest();
     <label><?= $formView['surname']->vars['label'] ?></label>
     <?= $formHelper->widget($formView['surname']) ?>
     <?= $formHelper->errors($formView['surname']) ?>
-    <small class="form-text text-muted">.....</small>
 </div>
 
 <div class="form-group">
@@ -36,16 +35,10 @@ $request = $app->getRequest();
     <?= $formHelper->errors($formView['email']) ?>
 </div>
 
-<div class="form-group">
-    <label><?= $formView['password']->vars['label'] ?></label>
-    <?= $formHelper->widget($formView['password']) ?>
-    <?= $formHelper->errors($formView['password']) ?>
-</div>
-
 <div class="form-check">
     <label class="form-check-label">
-        <?= $formHelper->widget($formView['enabled']) ?>
-        <?= $formView['enabled']->vars['label'] ?>
+        <?= $formHelper->widget($formView['active']) ?>
+        <?= $formView['active']->vars['label'] ?>
     </label>
 </div>
 
