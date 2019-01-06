@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManager;
 use Shared\Entity\Page;
 use Shared\Entity\PageBlocks;
 use Shared\Entity\Post;
+use Shared\Repository\PageRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -37,6 +38,9 @@ class PageManageService
         /** @var Page $post */
         $page = $form->getData();
 
+        /** @var PageRepository $repository */
+        $repository = $this->em->getRepository(Page::class);
+
         /** @var  $postData */
         $postData = $request->get($form->getName());
         $postBlocks = $postData['blocks'] ?? [];
@@ -48,11 +52,16 @@ class PageManageService
             }
         }
 
+        $parentPage = $form->get('parent')->getData();
+
         try {
             if ($page->getId()) {
                 $this->em->merge($page);
+                $repository->persistAsFirstChildOf($page, $parentPage);
             } else {
                 $this->em->persist($page);
+                $repository->persistAsFirstChildOf($page, $parentPage);
+
             }
             $this->em->flush();
         } catch (\Exception $e) {

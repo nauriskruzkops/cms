@@ -48,7 +48,7 @@ class Page {
     private $title;
 
     /**
-     * @Gedmo\Slug(fields={"title"}, style="lower")
+     * @Gedmo\Slug(fields={"title"}, unique=false)
      * @ORM\Column(type="string", length=254, nullable=true)
      */
     private $slug;
@@ -127,6 +127,14 @@ class Page {
     /**
      * @return string
      */
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    /**
+     * @return string
+     */
     public function getSlug()
     {
         return $this->slug;
@@ -191,10 +199,11 @@ class Page {
 
     /**
      * @param $code
+     * @param null $default
      * @return \DateTime|string
      * @throws PageSettingsException
      */
-    public function getSetting($code)
+    public function getSetting($code, $default = null)
     {
         /** @var PageSettings[]|ArrayCollection $settings */
         $settings = $this->settings->filter(function (PageSettings $pageSettings) use ($code) {
@@ -215,6 +224,8 @@ class Page {
             }
             return $setting->getValue();
         }
+
+        return $default;
     }
 
     /**

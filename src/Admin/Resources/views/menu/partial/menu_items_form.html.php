@@ -18,6 +18,7 @@ $formHelper = $view['form'];
 $menu = $form->getData();
 
 
+
 ?>
 <div class="col-12">
     <h3><?= $view['translator']->trans('Adm:MenuItems') ?></h3>
@@ -28,7 +29,7 @@ $menu = $form->getData();
                 <div class="list-group">
                     <?php foreach ($form->getIterator() as $arrayKey => $formItems) :?>
                         <?php $menuItem = $formItems->getData()?>
-                        <a href="#" class="list-group-item list-group-item-action" data-action="show-menu-item" data-item="<?= $menuItem->getId()?>"<?=
+                        <div href="#" class="list-group-item list-group-item-action" data-action="show-menu-item" data-item="<?= $menuItem->getId()?>"<?=
                             ''?> style="margin-left: <?= ($menuItem->getLevel()*20)?>px">
                             <span data-source="menu-item-name">
                                 <?= $this->escape($menuItem->getTitle())?>
@@ -44,7 +45,7 @@ $menu = $form->getData();
                                     ]
                                 ]) ?>
                             </span>
-                        </a>
+                        </div>
                     <?php endforeach;?>
                 </div>
                 <div class="sp5"></div>
@@ -54,7 +55,9 @@ $menu = $form->getData();
             </div>
             <div class="sp10"></div>
         </div>
-        <div class="d-md-block col-md-1"></div>
+        <div class="d-md-block col-md-1">
+
+        </div>
         <div class="col-md-12 col-lg-8">
             <?php foreach ($form->getIterator() as $arrayKey => $formItems) :?>
                 <?php $menuItem = $formItems->getData()?>

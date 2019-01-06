@@ -43,40 +43,49 @@ class RequestPageService
         $request = $this->requestStack->getMasterRequest();
         $route = $request->get('_route');
         $locale = $request->get('_locale');
+        /** @var MenuItems $menuItem */
+        $menuItem = unserialize($request->get('_menuItem'));
 
         if (empty($route)) {
             $route = 'index'; // Default route
         }
 
-        /** @var PageRepository $repository */
-        $repository = $this->em->getRepository(MenuItems::class);
-        $qb = $repository->createQueryBuilder('mi');
-        $qb->select(['mi', 'p'])
-            ->join('mi.menu', 'm')
-            ->join('mi.relations', 'r')
-            ->join(
-                Page::class,
-                'p',
-                \Doctrine\ORM\Query\Expr\Join::WITH,
-                'p.id = r.objectId'
-            )
+        if ($menuItem && $menuItem->getRelations()) {
+            foreach ($menuItem->getRelations() as $relation) {
+                /** @var PageRepository $repository */
+                $repository = $this->em->getRepository($relation->getObjectClass());
+                $content = $repository->find($relation->getObjectId());
+                break;
+            }
+        } else {
+            $repository = $this->em->getRepository(MenuItems::class);
+            $qb = $repository->createQueryBuilder('mi');
+            $qb->select(['mi', 'p'])
+                ->join('mi.menu', 'm')
+                ->join('mi.relations', 'r')
+                ->join(
+                    Page::class,
+                    'p',
+                    \Doctrine\ORM\Query\Expr\Join::WITH,
+                    'p.id = r.objectId'
+                )
+                ->where($qb->expr()->eq('mi.slug', ':slug'))
+                    ->setParameter('slug', $route)
+                ->andWhere($qb->expr()->eq('m.locale', ':locale'))
+                    ->setParameter('locale', $locale)
+                ;
+            $query = $qb->getQuery();
+            $result = $query->getResult();
+            if ($result) {
+                $content = $result[1];
+                $menuItem = $result[0];
+            }
+        }
 
-            ->where($qb->expr()->eq('mi.slug', ':slug'))
-            ->setParameter('slug', $route)
-
-            ->andWhere($qb->expr()->eq('m.locale', ':locale'))
-            ->setParameter('locale', $locale)
-
-            ->andWhere($qb->expr()->eq('mi.enabled', ':enabled'))
-            ->setParameter('enabled', true)
-        ;
-        $query = $qb->getQuery();
-        $result = $query->getResult();
-
-        if ($result and count($result) > 0) {
+        if ($menuItem) {
             return [
-                'content' => $result[0],
-                'menuItem' => $result[1],
+                'content' => $content ?? null,
+                'menuItem' => $menuItem,
             ];
         }
 

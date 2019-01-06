@@ -47,8 +47,7 @@ class MenuForm extends AbstractType
             ->add('code', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
-                    '-- Choose position --' => null,
-                    'Main menu' => 'MAIN_TOP_MENU',
+                    $this->settings->getChoiceMenuPositions()
                 ],
                 'attr' => [
                     'class' => 'form-control',
@@ -57,7 +56,7 @@ class MenuForm extends AbstractType
             ])
             ->add('locale', ChoiceType::class, [
                 'required' => true,
-                'choices' => $this->settings->getChoiseLocales(),
+                'choices' => $this->settings->getChoiceLocales(),
                 'empty_data' => null,
                 'attr' => [
                     'class' => 'form-control',
@@ -77,12 +76,12 @@ class MenuForm extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Menu::class,
-        ));
-        $resolver->setDefaults(array(
+        ]);
+        $resolver->setDefaults([
             'empty_data' => new Menu(),
-        ));
+        ]);
     }
 }
 

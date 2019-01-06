@@ -10,10 +10,21 @@ class PageRepository extends NestedTreeRepository
     public function getNestedQueryBuilder()
     {
         $qb = $this->createQueryBuilder('p');
-        $qb->orderBy('p.left', 'ASC');
-        $qb->orderBy('p.level', 'ASC');
-
+        $qb->select('p')
+            ->orderBy('p.root', 'ASC')
+            ->orderBy('p.left', 'ASC')
+        ;
         return $qb;
+    }
+
+    public function getNestedArray($locale)
+    {
+        $qb = $this->getNestedQueryBuilder();
+        $qb->where('p.locale = :locale')
+            ->setParameter('locale', $locale);
+        $result = $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        return $this->buildTreeArray($result);
     }
 
     public function findAll()

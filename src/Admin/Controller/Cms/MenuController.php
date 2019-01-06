@@ -5,6 +5,8 @@ namespace Admin\Controller\Cms;
 use Admin\Form\MenuForm;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Menu;
+use Shared\Entity\MenuItems;
+use Shared\Repository\MenuItemsRepository;
 use Shared\Repository\MenuRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -160,5 +162,35 @@ class MenuController extends \Admin\Controller\AbstractController
             ['title' => 'Link 1', 'value' => 'Value link'],
             ['title' => 'Link 2', 'value' => 'Value link'],
         ]);
+    }
+
+    /**
+     * @Route("/admin/menu/item/{item}/move", name="adm_menu_item_move")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function move(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var MenuItemsRepository $itemsRepository */
+        $itemsRepository = $em->getRepository(MenuItems::class);
+
+        /** @var MenuItems $item */
+        $item = $itemsRepository->find($request->get('item'));
+
+        //$verify = $pageRepo->verify();
+        //$pageRepo->recover();
+
+        if ($request->get('direction') == 'up') {
+            $itemsRepository->moveUp($item, 1);
+            $em->flush();
+        }
+        if ($request->get('direction') == 'down') {
+            $itemsRepository->moveDown($item, 1);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('adm_menu_edit', ['id' => $item->getMenu()->getId()]);
     }
 }

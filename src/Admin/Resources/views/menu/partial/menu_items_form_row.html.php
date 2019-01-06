@@ -63,15 +63,6 @@ $menuItem = $new ? null : $form->getData();
                     <?= $formHelper->errors($formView['parent']) ?>
                     <?= $formHelper->widget($formView['parent'], ['attr' => ['disabled' => 'disabled']]) ?>
                 </div>
-                <div class="row input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <?= $formView['left']->vars['label'] ?>
-                        </span>
-                    </div>
-                    <?= $formHelper->errors($formView['left']) ?>
-                    <?= $formHelper->widget($formView['left'], ['attr' => ['disabled' => 'disabled']]) ?>
-                </div>
             </div>
 
         </div>
@@ -116,15 +107,6 @@ $menuItem = $new ? null : $form->getData();
                 <div class="row input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">
-                            <?= $formView['left']->vars['label'] ?>
-                        </span>
-                    </div>
-                    <?= $formHelper->errors($formView['left']) ?>
-                    <?= $formHelper->widget($formView['left'], ['attr' => []]) ?>
-                </div>
-                <div class="row input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
                             <?= $formView['slug']->vars['label'] ?>
                         </span>
                     </div>
@@ -132,6 +114,19 @@ $menuItem = $new ? null : $form->getData();
                     <?= $formHelper->widget($formView['slug'], ['attr' => [
                         'readonly' => 'readonly'
                     ]]) ?>
+                </div>
+                <div class="row input-group mb-3">
+                    <label>Order position</label>
+                    <div class="input-group">
+                        <span class="pull-right" style="margin-right: 5px">
+                            <a class="small text-muted" href="<?= $view['router']->path('adm_menu_item_move', [
+                                'item' => $menuItem->getId(), 'direction' => 'up'
+                            ]) ?>">Move up <i class="fa fa-arrow-up"></i></a>
+                            <a class="small text-muted" href="<?= $view['router']->path('adm_menu_item_move', [
+                                'item' => $menuItem->getId(), 'direction' => 'down'
+                            ]) ?>">Move down <i class="fa fa-arrow-down"></i></a>
+                        </span>
+                    </div>
                 </div>
             </div>
 

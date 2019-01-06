@@ -83,7 +83,7 @@ class MenuHelper extends Helper
         $menu = $this->getMenu(MenuHelper::MAIN_TOP_MENU);
         return [
             'menu' => $menu,
-            'items' =>  $menu ? $this->getMenuItems($menu, 0) : [],
+            'items' =>  $menu ? $this->getMenuItems($menu) : [],
         ];
     }
 
@@ -91,11 +91,12 @@ class MenuHelper extends Helper
      * @param Menu $menu
      * @return MenuItems[]
      */
-    public function getMenuItems(Menu $menu, $level = null)
+    public function getMenuItems(Menu $menu)
     {
-        /** @var MenuItemsRepository $menuRepository */
-        $menuItemRepository = $this->em->getRepository(MenuItems::class);
-        $items = $menuItemRepository->getSiteMenuItems($menu, $level);
+        /** @var MenuItems[] $items */
+        $items = $menu->getItems()->filter(function (MenuItems $item) {
+            return ($item->isEnabled() && $item->getParent());
+        });
 
         return $items;
     }

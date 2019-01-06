@@ -48,7 +48,7 @@ class CategoryForm extends AbstractType
             ])
             ->add('locale', ChoiceType::class, [
                 'required' => false,
-                'attr' => $this->settings->getChoiseLocales(),
+                'attr' => $this->settings->getChoiceLocales(),
             ])
         ;
     }

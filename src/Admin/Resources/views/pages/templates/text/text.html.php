@@ -14,10 +14,12 @@ use Symfony\Component\Form\Form;
  * @var Form $form
  */
 
+$formView = $form->createView();
+$formHelper = $view['form'];
 ?>
 
 <div id="iframeContainer">
-    <iframe id="inline_edit_iframe" src="<?= $view['router']->path('adm_page_raw', ['relation' => 'page', 'id' => $page->getId() ?? 0]) ?>" frameborder="0" style="width: 100%; height:700px; border: 0"></iframe>
+    <iframe id="inline_edit_iframe" src="<?= $view['router']->path('adm_page_raw', ['relation' => 'page', 'id' => $page->getId() ?? 0]) ?>" frameborder="0" style="width: 100%; height:600px; border: 0"></iframe>
     <?= $formHelper->widget($formView['content']) ?>
 </div>
 

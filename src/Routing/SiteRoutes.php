@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManager;
 use Shared\Entity\MenuItemRelation;
 use Shared\Entity\MenuItems;
 use Shared\Entity\Page;
+use Shared\Repository\MenuItemsRepository;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -65,7 +66,9 @@ class SiteRoutes
         foreach ($menuItems as $item) {
             if ($item->getSlug()) {
                 list($routeKey, $route) = $this->createRoute($item);
-                $routes->add($routeKey, $route);
+                if (!empty(trim($routeKey, '/'))) {
+                    $routes->add($routeKey, $route);
+                }
             }
         }
 
@@ -79,13 +82,21 @@ class SiteRoutes
      */
     private function createRoute(MenuItems $item)
     {
+        /** @var MenuItemsRepository $repository */
+        $repository = $this->em->getRepository(MenuItems::class);
+
+        $fullSlug = implode('/',(array_map(function (MenuItems $item) {
+            if ($item->getSlug() && $item->getSlug() !== 'index') {
+                return $item->getSlug();
+            }
+        }, $repository->getPath($item))));
+
         $defaultLocale = $this->settingService->value('language');
         $language = $item->getMenu()->getLocale();
         $slug = $item->getSlug();
         $type = $item->getType();
-        $uniqSlag = $item->getId();
+        $uniqSlag = $fullSlug;
         $defaults = [];
-
 
         if ($type === SiteRoutes::TYPE_PAGE ) {
             $controller = PageController::class;
@@ -121,6 +132,7 @@ class SiteRoutes
         $defaults['title'] = $item->getTitle();
         $defaults['_controller'] = $controller;
         $defaults['_locale'] = $language;
+        $defaults['_menuItem'] = serialize($item);
 
         if ($defaultLocale === $language) {
             $urlPattern = sprintf('/%s', $slug);

@@ -64,14 +64,6 @@ class MenuItemsForm extends AbstractType
                 ],
                 'label' => 'Type',
             ])
-            ->add('left', IntegerType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Sort',
-                ],
-                'label' => 'Sort',
-            ])
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
                 'attr' => [],

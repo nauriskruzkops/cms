@@ -62,30 +62,33 @@ $view->extend('AdminBundle::layout/layout.html.php');
                     <th colspan="2" style="width: 1%"> </th>
                 </tr>
                 </thead>
+                    <?php
+                        $html = '';
+                        function nestedTreeRow($pages, &$html='', $view) // added pass by reference
+                        {
+                            foreach($pages as $key => $node)
+                            {
+                                $html .= '
+                                    <tr>
+                                        <td>'.$node['id'].'</td>'.
+                                        '<td>'.str_repeat('-- ', $node['level']).'<a href="'.$view['router']->path('adm_page_edit', ['id' => $node['id']]).'">'.$node['title'].'</a></td>'.
+                                        '<td>'.ucfirst($node['template']).'</td>'.
+                                        '<td>'.($node['public'] ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No')).'</td>'.
+                                        '<td><a class="btn btn-default" href="'.$view['router']->path('adm_page_edit', ['id' => $node['id']]).'">'.$view['translator']->trans('Adm:edit').'</a></td>'.
+                                        '<td>
+                                            <a class="btn btn-xs btn-primary small" href="'.$view['router']->path('adm_page_move', ['id' => $node['id'], 'direction' => 'up']).'">'.$view['translator']->trans('Adm:MoveUp').'</a>
+                                            <a class="btn btn-xs btn-secondary small" href="'.$view['router']->path('adm_page_move', ['id' => $node['id'], 'direction' => 'down']).'">'.$view['translator']->trans('Adm:MoveDown').'</a>
+                                         </td>'.
+                                    '</tr>';
+                                if ($node['__children'] ?? false) {
+                                    nestedTreeRow($node['__children'], $html, $view);
+                                }
+                            }
+                            return $html;
+                        }
+                    ?>
                 <tbody>
-                    <?php foreach ($pages as $page) :?>
-                        <tr>
-                            <td><?= $page->getId()?></td>
-                            <td>
-                                <?= str_repeat('-- ', $page->getLevel())?>
-                                <a href="<?= $view['router']->path('adm_page_edit', ['id' => $page->getId()]) ?>"><?= $this->escape($page->getTitle())?></a>
-                                <p class="small text-muted" style="margin-left: <?= $page->getLevel()*20?>px"><?= $this->escape($page->getSlug())?></p>
-                            </td>
-                            <td class="text-center">
-                                <?= ucfirst($this->escape($page->getTemplate()))?>
-                            </td>
-                            <td class="text-center">
-                                <?= $page->isPublic() ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No')?>
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-default" href="<?= $view['router']->path('adm_page_edit', ['id' => $page->getId()]) ?>"><?= $view['translator']->trans('Adm:edit') ?></a>
-                            </td>
-                            <td class="small">
-                                <a class="btn btn-sm btn-link" href="#"><?= $view['translator']->trans('Adm:MoveUp') ?></a>
-                                <a class="btn btn-sm btn-link" href="#"><?= $view['translator']->trans('Adm:MoveDown') ?></a>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
+                <?= nestedTreeRow($pages, $html, $view)?>
                 </tbody>
             </table>
         </div>

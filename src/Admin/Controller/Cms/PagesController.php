@@ -21,14 +21,14 @@ class PagesController extends \Admin\Controller\AbstractController
      */
     public function index(Request $request)
     {
-        $locale = $request->query->get('locale', $this->settings()->value('language'));
+        $locale = (string) $request->query->get('locale', $this->settings()->value('language'));
 
-        /** @var Page[] $page */
-        $pages = $this->getDoctrine()->getManager()
-            ->getRepository(Page::class)->findAllByLocale($locale);
+        /** @var PageRepository $repository */
+        $repository = $this->getDoctrine()->getManager()->getRepository(Page::class);
 
         return $this->render('AdminBundle::pages/index.html.php', [
-            'pages' => new ArrayCollection($pages),
+            'pages' => $repository->getNestedArray($locale),
+            'repository' => $repository,
             'locale' => $locale,
         ]);
     }
@@ -82,6 +82,37 @@ class PagesController extends \Admin\Controller\AbstractController
         $page = $pageRepo->find($request->get('id'));
         $em->remove($page);
         $em->flush();
+
+        return $this->redirectToRoute('adm_page_list');
+    }
+
+    /**
+     * @Route("/admin/page/{id}/move", name="adm_page_move")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function move(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var PageRepository $pageRepo */
+        $pageRepo = $em->getRepository(Page::class);
+        //$pageRepo->reorderAll('p.left');
+
+        /** @var Page $page */
+        $page = $pageRepo->find($request->get('id'));
+
+        //$verify = $pageRepo->verify();
+        //$pageRepo->recover();
+
+        if ($request->get('direction') == 'up') {
+            $pageRepo->moveUp($page, 1);
+            $em->flush();
+        }
+        if ($request->get('direction') == 'down') {
+            $pageRepo->moveDown($page, 1);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('adm_page_list');
     }

@@ -80,9 +80,20 @@ class SettingService
     /**
      * @return array
      */
-    public function getChoiseLocales()
+    public function getChoiceLocales()
     {
         $languages = $this->values('languages');
         return array_flip($languages);
     }
+
+    /**
+     * @return array
+     */
+    public function getChoiceMenuPositions()
+    {
+        $languages = $this->values('manu_positions');
+        return array_flip($languages);
+    }
+
+
 }

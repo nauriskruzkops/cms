@@ -18,9 +18,8 @@ class IndexController extends \App\Controller\AbstractController
     {
         try {
             $foundByRequest = $requestPageService->get();
-
-            $menuItem = $foundByRequest['content'];
-            $page = $foundByRequest['menuItem'];
+            $menuItem = $foundByRequest['menuItem'];
+            $page = $foundByRequest['content'];
 
             return $this->render('index.html.php', [
                 'menuItem' => $menuItem,

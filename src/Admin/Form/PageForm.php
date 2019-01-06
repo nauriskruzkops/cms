@@ -78,7 +78,7 @@ class PageForm extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
-                'choices' => $this->settings->getChoiseLocales(),
+                'choices' => $this->settings->getChoiceLocales(),
                 'label' => 'Language',
             ])
             ->add('parent', EntityType::class, [

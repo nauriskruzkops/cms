@@ -8,6 +8,32 @@ use Shared\Entity\MenuItems;
 
 class MenuItemsRepository extends NestedTreeRepository
 {
+    public function getNestedQueryBuilder()
+    {
+        $qb = $this->createQueryBuilder('mi');
+        $qb->select('mi')
+            ->orderBy('mi.root', 'ASC')
+            ->orderBy('mi.left', 'ASC')
+        ;
+        return $qb;
+    }
+
+    public function getNestedArray($menu, $public = null)
+    {
+        $qb = $this->getNestedQueryBuilder();
+
+        $qb->where('mi.menu = :menu')
+            ->setParameter('menu', $menu);
+
+        if ($public) {
+            $qb->where('mi.public = :public')
+                ->setParameter('public', true);
+        }
+        $result = $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        return $this->buildTreeArray($result);
+    }
+
     /**
      * @param Menu $menu
      * @return MenuItems[]
@@ -22,8 +48,8 @@ class MenuItemsRepository extends NestedTreeRepository
         }
 
         $found = $this->findBy($where,[
+            'parent' => 'ASC',
             'left' => 'ASC',
-            'level' => 'ASC',
         ]);
 
         return $found;

@@ -47,7 +47,7 @@ class Menu {
      * @var ArrayCollection|Category[]
      *
      * @ORM\OneToMany(targetEntity="MenuItems", mappedBy="menu", cascade={"persist","remove"})
-     * @ORM\OrderBy({"left" = "ASC", "level" = "ASC"})
+     * @ORM\OrderBy({"left" = "ASC"})
      */
     private $items;
 

@@ -55,6 +55,12 @@ trait PageNested {
     private $children;
 
     /**
+     * @Gedmo\Sortable(groups={"locale","parent"})
+     * @ORM\Column(type="integer")
+     */
+    private $sort;
+
+    /**
      * PageNested constructor.
      */
     public function __construct()
@@ -210,6 +216,25 @@ trait PageNested {
         foreach ($childrens ?? $this->getChildren() as $children) {
             $this->removeChildren($children);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param int $sort
+     * @return self
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
 
         return $this;
     }
