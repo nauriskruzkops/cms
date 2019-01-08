@@ -23,13 +23,27 @@ $formHelper = $view['form'];
 <div id="blocks-container">
     <?php foreach ($form->get('blocks') as $blockKey => $block) :?>
         <?php $pageBlocks = $block->getData(); ?>
-        <?php if ($pageBlocks && $pageBlocks->getPost()) :?>
+        <?php if ($pageBlocks) :?>
+
             <div class="blocks-container-item">
-                <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'post'),[
+                <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_header.html.php', 'post'),[
                     'form' => $form,
                     'block' => $block,
                     'blockKey' => $blockKey,
                 ])?>
+                <?php if ($pageBlocks->getPost()) :?>
+                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'post'),[
+                        'form' => $form,
+                        'block' => $block,
+                        'blockKey' => $blockKey,
+                    ])?>
+                <?php else :?>
+                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'list'),[
+                        'form' => $form,
+                        'block' => $block,
+                        'blockKey' => $blockKey,
+                    ])?>
+                <?php endif;?>
             </div>
         <?php  endif;?>
     <?php endforeach;?>
@@ -38,13 +52,12 @@ $formHelper = $view['form'];
 
 <div class="btn-group dropright">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?= $view['translator']->trans('Adm:AddNewBlocl') ?>:
+        <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" data-action="add_post_block">Post</a>
-        <button class="dropdown-item" name="add_block[post]">Post</button>
-        <button class="dropdown-item" name="add_block[gallery]">Gallery</button>
-        <button class="dropdown-item" name="add_block[array]">Params</button>
+        <a class="dropdown-item" href="#" data-action="add_post_block"><?= $view['translator']->trans('Adm:Post') ?></a>
+        <a class="dropdown-item" href="#" data-action="add_list_block"><?= $view['translator']->trans('Adm:List') ?></a>
+        <a class="dropdown-item" href="#" data-action="add_array_block"><?= $view['translator']->trans('Adm:Params') ?></a>
     </div>
 </div>
 <script type="text/javascript">
@@ -60,7 +73,14 @@ $formHelper = $view['form'];
             newPostBlock.append(newPostField1);
             $('#blocks-container').append(newPostBlock);
             lastBlockKey++;
-        })
+        });
+        $('[data-action=add_list_block]').click(function (v) {
+            var newPostField1 = $('<input type="hidden" name="page_form[new_block]['+lastBlockKey+'][list]" value="new">');
+            var newPostBlock = $('<div>').height(100).html('Please, as first save the page!');
+            newPostBlock.append(newPostField1);
+            $('#blocks-container').append(newPostBlock);
+            lastBlockKey++;
+        });
     })
 </script>
 

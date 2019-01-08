@@ -2,10 +2,9 @@
 
 namespace Shared\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Shared\Entity\Page;
+use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
-class PageBlocksRepository extends EntityRepository
+class PageBlocksRepository extends SortableRepository
 {
 
 }

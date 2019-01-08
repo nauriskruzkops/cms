@@ -35,6 +35,7 @@ class PageBlocks {
     private $post;
 
     /**
+     * @Gedmo\Sortable(groups={"page"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $sort;
@@ -43,6 +44,18 @@ class PageBlocks {
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $title;
+
+    /**
+     * @var array
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $list;
+
+    /**
+     * @var array
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $config;
 
     /**
      * @ORM\Column(type="boolean", options={"default":0})
@@ -55,6 +68,15 @@ class PageBlocks {
     public function __construct()
     {
         $this->isPublic = false;
+    }
+
+    public function __toString()
+    {
+        if (!empty($this->getTitle())) {
+            return $this->getTitle();
+        }
+
+        return (string) $this->getId();
     }
 
     /**
@@ -156,6 +178,47 @@ class PageBlocks {
     public function setIsPublic($isPublic)
     {
         $this->isPublic = $isPublic;
+
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getList():? array
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param array $list
+     * @return PageBlocks
+     */
+    public function setList(array $list): PageBlocks
+    {
+        $this->list = $list;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig():? array
+    {
+        return $this->config;
+    }
+
+    /**
+     * @param array $config
+     * @return PageBlocks
+     */
+    public function setConfig(array $config = []): PageBlocks
+    {
+        $this->config = $config;
+
+        return $this;
+    }
+
+
 }

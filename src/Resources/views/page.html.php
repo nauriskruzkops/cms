@@ -9,37 +9,42 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  * @var Page $page
- * @var PageHelper $pageHelper
  */
 $view['theme']->extend('layout/extend/layout.html.php');
-$pageHelper = $view['page']($page);
+echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $page])
 ?>
 
-<?php if ($pageHelper->hasHeader()) :?>
-    <section class="page-title" style="<?= $pageHelper->headerBackground()?>">
-        <div class="container auto-container">
-            <?php if ($pageHelper->hasHeader()) :?>
-                <h1><?= $page->getTitle()?></h1>
-            <?php endif;?>
+<?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
+    <?php $i=0; foreach ($page->getBlocks() as $block) :?>
+        <?php if ($block->isPublic() && $block->getPost()) :?>
+            <section class="mechanical-section" <?php if ($i%2) :?> style="background-color: #efefef<?php endif;?>">
+                <div class="auto-container">
+                    <div class="container inner-container">
+                        <div class="row clearfix">
+                            <?php if (!$i) :?>
+                                <div class="sec-title">
+                                    <h2><?= $this->escape($block->getTitle())?></h2>
+                                </div>
+                            <?php else: ?>
+                                <div>
+                                    <h2><?= $this->escape($block->getTitle())?></h2>
+                                </div>
+                            <?php endif; ?>
+                            <?= $block->getPost()->getText()?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        <?php endif;?>
+    <?php $i++; endforeach;?>
+<?php else:?>
+    <section class="mechanical-section" style="background-color:#f4f4f4">
+        <div class="auto-container">
+            <div class="inner-container">
+                <div class="row clearfix">
+                    <?= $page->getContent()?>
+                </div>
+            </div>
         </div>
     </section>
 <?php endif;?>
-
-<div class="approach-section">
-    <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
-        <?php foreach ($page->getBlocks() as $block) :?>
-            <?php if ($block->isPublic() && $block->getPost()) :?>
-                <div class="page_block type-<?= $page->getTemplate()?> block_border_b">
-                    <div class="container">
-                        <?= $block->getPost()->getText()?>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            <?php endif;?>
-        <?php endforeach;?>
-    <?php else:?>
-        <div class="container">
-            <?= $page->getContent()?>
-        </div>
-    <?php endif;?>
-</div>

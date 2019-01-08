@@ -49,6 +49,8 @@ class PageManageService
         foreach (array_merge($postBlocks, $postNewBlocks) as $postBlock) {
             if ($postBlock['post'] ?? false) {
                 $page = $this->savePostBlock($page, $postBlock);
+            } else {
+                $page = $this->saveListBlock($page, $postBlock);
             }
         }
 
@@ -69,12 +71,17 @@ class PageManageService
         }
     }
 
+    /**
+     * @param Page $page
+     * @param array $data
+     * @return Page
+     */
     private function savePostBlock(Page $page, array $data)
     {
         if ((int)$data['post'] > 0) {
             /** @var PageBlocks[]|ArrayCollection $findBlock */
             $findBlock = $page->getBlocks()->filter(function (PageBlocks $block) use ($data) {
-                return ($block->getPost()->getId() == (int)$data['post']);
+                return ($block->getPost() && $block->getPost()->getId() == (int)$data['post']);
             });
             if ($findBlock) {
                 /** @var PageBlocks $block */
@@ -98,6 +105,16 @@ class PageManageService
         $post->setIsPartOf(true);
         $post->setPublic($block->isPublic());
 
+        return $page;
+    }
+
+    /**
+     * @param Page $page
+     * @param array $data
+     * @return Page
+     */
+    private function saveListBlock(Page $page, array $data)
+    {
         return $page;
     }
 }

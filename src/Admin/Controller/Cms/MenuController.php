@@ -6,11 +6,11 @@ use Admin\Form\MenuForm;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Menu;
 use Shared\Entity\MenuItems;
+use Shared\Entity\User;
 use Shared\Repository\MenuItemsRepository;
 use Shared\Repository\MenuRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,6 +82,8 @@ class MenuController extends \Admin\Controller\AbstractController
      */
     public function delete(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var MenuRepository $menuRepo */
@@ -113,6 +115,7 @@ class MenuController extends \Admin\Controller\AbstractController
         ]);
 
         if ($request->request->get('delete_menu', false) !== false) {
+            $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
             $em->remove($menu);
             $em->flush();
 
@@ -125,6 +128,8 @@ class MenuController extends \Admin\Controller\AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
+                    $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
                     /** @var Menu $menu */
                     $menu = $form->getData();
                     if ($menu->getId()) {
@@ -134,6 +139,7 @@ class MenuController extends \Admin\Controller\AbstractController
                     }
                     $em->flush();
                     $this->addFlash('info', 'Cool, menu saved!');
+
                     return $this->redirectToRoute('adm_menu_edit', ['id' => $menu->getId()]);
                 } catch (\Exception $e) {
                     $this->addFlash('error', $e->getMessage());
@@ -171,6 +177,8 @@ class MenuController extends \Admin\Controller\AbstractController
      */
     public function move(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var MenuItemsRepository $itemsRepository */

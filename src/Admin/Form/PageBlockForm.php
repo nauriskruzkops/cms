@@ -45,13 +45,6 @@ class PageBlockForm extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
-            ->add('sort', NumberType::class, [
-                'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'style' => 'width: 45px',
-                ],
-            ])
             ->add('post', EntityType::class, array(
                 'class' => Post::class,
                 'query_builder' => function (EntityRepository $er) {

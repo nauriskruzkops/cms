@@ -24,15 +24,18 @@
 'Adm:Back': Back
 'Adm:Value': Value
 'Adm:Transl.': Transl.
-'Adm:Nav:Dashboard': 'Dashboard'
-'Adm:Nav:Content': 'Content'
-'Adm:Nav:Pages': 'Pages'
-'Adm:Nav:Posts': 'Posts'
-'Adm:Nav:Menu': 'Menu'
-'Adm:Nav:Settings': 'Settings'
-'Adm:Nav:Users': 'Users'
+'Adm:Nav:Dashboard': Dashboard
+'Adm:Nav:Content': Content
+'Adm:Nav:Pages': Pages
+'Adm:Nav:Posts': Posts
+'Adm:Nav:Menu': Menu
+'Adm:Nav:Settings': Settings
+'Adm:Nav:Users': Users
 'Adm:AddNewBlock': 'Add New Block'
-'Adm:Users': 'Users'
+'Adm:Users': Users
 'Adm:FullName': 'Full Name'
-'Adm:Email': 'Email'
-'Adm:Username': 'Username'
+'Adm:Email': Email
+'Adm:Username': Username
+'Adm:Delete': 'Delete'
+'Adm:Post': 'Post'
+'Adm:Params': 'Params'

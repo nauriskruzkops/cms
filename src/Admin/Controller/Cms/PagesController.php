@@ -4,8 +4,8 @@ namespace Admin\Controller\Cms;
 
 use Admin\Form\PageForm;
 use Admin\Service\PageManageService;
-use Doctrine\Common\Collections\ArrayCollection;
 use Shared\Entity\Page;
+use Shared\Entity\User;
 use Shared\Repository\PageRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PagesController extends \Admin\Controller\AbstractController
 {
+    const CONTEXT_PAGE = 'page';
+    const CONTEXT_PAGE_BLOCK = 'pageBlock';
+
     /**
      * @Route("/admin/pages", name="adm_page_list")
      * @param Request $request
@@ -55,6 +58,8 @@ class PagesController extends \Admin\Controller\AbstractController
      */
     public function edit(Request $request, PageManageService $pageManageService)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var PageRepository $pageRepo */
@@ -73,21 +78,29 @@ class PagesController extends \Admin\Controller\AbstractController
      */
     public function delete(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var PageRepository $pageRepo */
-        $pageRepo = $em->getRepository(Page::class);
+        $repository = $em->getRepository(Page::class);
+        try {
+            /** @var Page $page */
+            $entity = $repository->find($request->get('id'));
+            $objectToString = (string) $entity;
 
-        /** @var Page $page */
-        $page = $pageRepo->find($request->get('id'));
-        $em->remove($page);
-        $em->flush();
+            $em->remove($entity);
+            $em->flush();
 
+            $this->addFlash('info', sprintf('Page `%s` sucessefully deleted', $objectToString));
+        } catch (\Exception $exception) {
+            $this->addFlash('error', sprintf('Error when page deleting'));
+        }
         return $this->redirectToRoute('adm_page_list');
     }
 
     /**
-     * @Route("/admin/page/{id}/move", name="adm_page_move")
+     * @Route("/admin/page/{id}/move/{context}", name="adm_page_move", defaults={"context":"page"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -95,27 +108,28 @@ class PagesController extends \Admin\Controller\AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        /** @var PageRepository $pageRepo */
-        $pageRepo = $em->getRepository(Page::class);
-        //$pageRepo->reorderAll('p.left');
+        $id = $request->get('id');
 
-        /** @var Page $page */
-        $page = $pageRepo->find($request->get('id'));
+        /** @var PageRepository $repository */
+        $repository = $em->getRepository(Page::class);
+        $entity = $repository->find($id);
 
         //$verify = $pageRepo->verify();
         //$pageRepo->recover();
 
         if ($request->get('direction') == 'up') {
-            $pageRepo->moveUp($page, 1);
+            $repository->moveUp($entity, 1);
             $em->flush();
         }
         if ($request->get('direction') == 'down') {
-            $pageRepo->moveDown($page, 1);
+            $repository->moveDown($entity, 1);
             $em->flush();
         }
 
-        return $this->redirectToRoute('adm_page_list');
+        return $this->redirect($request->headers->get('referer'));
     }
+
+
 
     /**
      * @Route("/admin/page/{id}/raw", name="adm_page_raw", requirements={"relation"="page|post"})
@@ -125,7 +139,6 @@ class PagesController extends \Admin\Controller\AbstractController
     public function iframe(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        //$section = $request->get('section', 'page');
 
         /** @var PageRepository $pageRepo */
         $pageRepo = $em->getRepository(Page::class);
@@ -162,6 +175,8 @@ class PagesController extends \Admin\Controller\AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
+                    $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
                     $service->savePage($form, $request);
 
                     $this->addFlash('info', 'Cool, page saved!');

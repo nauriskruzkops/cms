@@ -5,9 +5,6 @@ namespace Shared\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Traversable;
 
 /**
  * @ORM\Entity(repositoryClass="Shared\Repository\PostRepository")

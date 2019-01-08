@@ -59,24 +59,32 @@ class PageHelper extends Helper
      * @return boolean
      * @throws \Admin\Exception\PageSettingsException
      */
-    public function hasHeaderTitle()
+    public function hasHeaderTitle($page = null)
     {
-        return ($this->page->getSetting('SHOW_TITLE', false));
+        if ($page !== null) {
+            $page = $this->page;
+        }
+        return ($page->getSetting('SHOW_TITLE', false));
     }
 
     /**
      * @return string
      * @throws \Admin\Exception\PageSettingsException
      */
-    public function headerBackground()
+    public function headerBackground($page = null)
     {
-        $style = [];
-        $backgroundImg = $this->page->getSetting('HEADER_BACKGROUND_IMG');
-        if ($backgroundImg) {
-            $style[] = sprintf('background-image:url(%s)', $backgroundImg);
+        if ($page !== null) {
+            $page = $this->page;
         }
 
-        $backgroundColor = $this->page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
+        $style = [];
+        $backgroundImg = $page->getSetting('HEADER_BACKGROUND_IMG');
+        if (true || $backgroundImg) {
+            //$style[] = sprintf('background-image:url(%s)', $backgroundImg);
+            $style[] = sprintf('background-image:url(%s)', $this->view['theme']->assetsGetUrl('49656421_296765910978084.jpg', 'images'));
+        }
+
+        $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
         if ($backgroundColor) {
             $style[] = sprintf('background-color:%s', $backgroundColor);
         }

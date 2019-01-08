@@ -38,7 +38,7 @@ $formHelper = $view['form'];
 
 <div class="btn-group dropright">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?= $view['translator']->trans('Adm:AddNewBlocl') ?>:
+        <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="#" data-action="add_post_block">Post</a>

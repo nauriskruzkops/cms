@@ -79,6 +79,7 @@ class Page {
      * @var ArrayCollection|PageBlocks[]
      *
      * @ORM\OneToMany(targetEntity="\Shared\Entity\PageBlocks", mappedBy="page", cascade={"persist","remove"})
+     * @ORM\OrderBy({"sort" = "ASC"})
      */
     private $blocks;
 
