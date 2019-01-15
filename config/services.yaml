@@ -81,7 +81,9 @@ services:
     Admin\Service\SettingService:
         arguments: ['@doctrine.orm.entity_manager']
     Admin\Service\PageManageService:
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
+    Admin\Service\PostManageService:
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
     Admin\Service\FileUploader:
         arguments:
             $targetDirectory: '%upload_directory%'

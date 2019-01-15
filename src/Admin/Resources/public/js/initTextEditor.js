@@ -15,10 +15,17 @@ $(function () {
             ],
             toolbar: 'insert | undo redo |  formatselect styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks',
             content_css: [
-                '/assets/vendor/bootstrap/css/bootstrap.min.css',
-                '/assets/css/bootstrap-overwrite.css',
-                '/assets/css/theme-base.css',
-                '/assets/css/tools.css',
+                //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
+                //'/assets/theme/default/css/bootstrap-overwrite.css',
+                //'/assets/theme/default/css/theme-base.css',
+                //'/assets/theme/default/css/tools.css',
+                "/assets/theme/theme/css/bootstrap.css?v1",
+                "/assets/theme/theme/plugins/revolution/css/settings.css?v1",
+                "/assets/theme/theme/plugins/revolution/css/layers.css?v1",
+                "/assets/theme/theme/plugins/revolution/css/navigation.css?v1",
+                "/assets/theme/theme/css/style.css?v1",
+                "/assets/theme/theme/css/responsive.css?v1",
+
             ],
             table_default_attributes: {
                 border: '0'
@@ -105,12 +112,12 @@ $(function () {
                 {title: 'Block grey', block: 'div', classes: 'text-muted'},
                 {title: 'Block white', block: 'div', classes: 'text-white-50'},
 
-                {title: 'Table init', selector: 'table', classes: 'table'},
-                {title: 'Table dark', selector: 'table', classes: 'table-dark'},
-                {title: 'Table hover', selector: 'table', classes: 'table-hover'},
-                {title: 'Table striped', selector: '', classes: 'table-striped'},
-                {title: 'Table borders', selector: '', classes: 'table-bordered'},
-                {title: 'Table without borders', selector: 'table', classes: 'table-borderless'},
+                // {title: 'Table init', selector: 'table', classes: 'table'},
+                // {title: 'Table dark', selector: 'table', classes: 'table-dark'},
+                // {title: 'Table hover', selector: 'table', classes: 'table-hover'},
+                // {title: 'Table striped', selector: '', classes: 'table-striped'},
+                // {title: 'Table borders', selector: '', classes: 'table-bordered'},
+                // {title: 'Table without borders', selector: 'table', classes: 'table-borderless'},
                 {
                     title: 'Image move left',
                     selector: 'img',
@@ -123,25 +130,17 @@ $(function () {
                 }
             ],
             templates: [
-                {title: 'Row with single columns', description: 'Row with single columns', content: '' +
-                        '<div class="clearfix"></div>\n' +
-                        '<div class="row">\n' +
-                        '    <div class="col"><p class="lead">text</p></div>\n' +
-                        '</div>'
-                },
                 {title: 'Row with two columns', description: 'Row with two columns', content: '' +
-                        '<div class="clearfix"></div>\n' +
                         '<div class="row">\n' +
-                        '    <div class="col-6"><h2>1</h2><p class="lead">text</p></div>\n' +
-                        '    <div class="col-6"><h2>2</h2><p class="lead">text</p></div>\n' +
+                        '    <div class="col-sm-6">Col1</div>\n' +
+                        '    <div class="col-sm-6">Col2</div>\n' +
                         '</div>'
                 },
                 {title: 'Row with three columns', description: 'Row with three columns', content: '' +
-                        '<div class="clearfix"></div>\n' +
                         '<div class="row">\n' +
-                        '    <div class="col-4"><h2>1</h2><p class="lead">text</p></div>\n' +
-                        '    <div class="col-4"><h2>2</h2><p class="lead">text</p></div>\n' +
-                        '    <div class="col-4"><h2>3</h2><p class="lead">text</p></div>\n' +
+                        '    <div class="col-sm-6">Col1</div>\n' +
+                        '    <div class="col-sm-6">Col2</div>\n' +
+                        '    <div class="col-sm-6">Col3</div>\n' +
                         '</div>'
                 },
                 {title: 'Line featurette-divider', description: 'Line featurette-divider', content: '' +

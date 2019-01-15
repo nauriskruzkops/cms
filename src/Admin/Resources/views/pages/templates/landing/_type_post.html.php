@@ -20,13 +20,15 @@ $blockData = $block->getData();
 $formBlockView = $block->createView();
 
 ?>
-<input type="hidden" name="<?= $formBlockView['post']->vars['full_name']?>" value="<?= $formBlockView['post']->vars['value']?>">
-<iframe src="<?= $view['router']->path('adm_post_raw', ['relation' => 'post', 'id' => $formBlockView['post']->vars['value'] ?? 0]) ?>" id="post_text_<?=$blockKey?>" <?php
-    ?>data-post-id="<?= $formBlockView['post']->vars['value']?>" <?php
-    ?>data-post-name="page_form[blocks][<?= $blockKey?>][post_text]" <?php
-    ?>style="height: 500px; border: 0; width: 100%" frameborder="0">
+<div class="row">
+    <input type="hidden" name="<?= $formBlockView['post']->vars['full_name']?>" value="<?= $formBlockView['post']->vars['value']?>">
+    <iframe src="<?= $view['router']->path('adm_post_raw', ['relation' => 'post', 'id' => $formBlockView['post']->vars['value'] ?? 0]) ?>" id="post_text_<?=$blockKey?>" <?php
+        ?>data-post-id="<?= $formBlockView['post']->vars['value']?>" <?php
+        ?>data-post-name="page_form[blocks][<?= $blockKey?>][post_text]" <?php
+        ?>style="height: 500px; border: 0; width: 100%" frameborder="0">
 
-</iframe>
+    </iframe>
+</div>
 <script type="text/javascript">
     $(function () {
         var iframeContainer = document.getElementById('post_text_<?=$blockKey?>');

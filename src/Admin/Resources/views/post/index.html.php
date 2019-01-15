@@ -15,10 +15,10 @@ $view->extend('AdminBundle::layout/layout.html.php');
 <div class="page-title">
     <div class="row">
         <div class="col-6">
-            <h1>Posts</h1>
+            <h1><?= $view['translator']->trans('Adm:Posts') ?></h1>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-default" href="<?= $view['router']->path('adm_post_add') ?>">Add new</a>
+            <a class="btn btn-default" href="<?= $view['router']->path('adm_post_add') ?>"><?= $view['translator']->trans('Adm:AddNew') ?></a>
         </div>
     </div>
 </div>

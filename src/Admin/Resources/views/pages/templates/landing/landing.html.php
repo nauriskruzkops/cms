@@ -24,7 +24,6 @@ $formHelper = $view['form'];
     <?php foreach ($form->get('blocks') as $blockKey => $block) :?>
         <?php $pageBlocks = $block->getData(); ?>
         <?php if ($pageBlocks) :?>
-
             <div class="blocks-container-item">
                 <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_header.html.php', 'post'),[
                     'form' => $form,
