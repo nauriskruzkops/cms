@@ -55,8 +55,10 @@ $formHelper = $view['form'];
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="#" data-action="add_post_block"><?= $view['translator']->trans('Adm:Post') ?></a>
-        <a class="dropdown-item" href="#" data-action="add_list_block"><?= $view['translator']->trans('Adm:List') ?></a>
-        <a class="dropdown-item" href="#" data-action="add_array_block"><?= $view['translator']->trans('Adm:Params') ?></a>
+        <?php /*
+            <a class="dropdown-item" href="#" data-action="add_list_block"><?= $view['translator']->trans('Adm:List') ?></a>
+            <a class="dropdown-item" href="#" data-action="add_array_block"><?= $view['translator']->trans('Adm:Params') ?></a>
+        */?>
     </div>
 </div>
 <script type="text/javascript">
@@ -72,6 +74,7 @@ $formHelper = $view['form'];
             newPostBlock.append(newPostField1);
             $('#blocks-container').append(newPostBlock);
             lastBlockKey++;
+            $('form[name=<?= $form->getName()?>]').submit();
         });
         $('[data-action=add_list_block]').click(function (v) {
             var newPostField1 = $('<input type="hidden" name="page_form[new_block]['+lastBlockKey+'][list]" value="new">');

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Exception\ContentNotFoundException;
 use App\Services\RequestPageService;
+use Shared\Entity\Post;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,10 +22,16 @@ class IndexController extends \App\Controller\AbstractController
             $menuItem = $foundByRequest['menuItem'];
             $page = $foundByRequest['content'];
 
+            $services = $this->getDoctrine()
+                ->getRepository(Post::class)
+                ->getPostsByCategory($request->getLocale(),['services']);
+
             return $this->render('index.html.php', [
                 'menuItem' => $menuItem,
                 'page' => $page,
+                'services' => $services,
             ]);
+
         } catch (ContentNotFoundException $e) {
             return $this->render('error.html.php', []);
         }

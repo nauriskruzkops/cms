@@ -21,12 +21,12 @@ class MenuItemsRepository extends NestedTreeRepository
     public function getNestedArray($menu, $public = null)
     {
         $qb = $this->getNestedQueryBuilder();
-
+        $qb->join('mi.menu', 'm');
         $qb->where('mi.menu = :menu')
             ->setParameter('menu', $menu);
 
         if ($public) {
-            $qb->where('mi.public = :public')
+            $qb->andWhere('mi.enabled = :public')
                 ->setParameter('public', true);
         }
         $result = $qb->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);

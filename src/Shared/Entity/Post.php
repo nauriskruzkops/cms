@@ -229,7 +229,7 @@ class Post {
     /**
      * @return bool
      */
-    public function isPartOf(): bool
+    public function isPartOf():? bool
     {
         return $this->isPartOf;
     }
@@ -248,7 +248,7 @@ class Post {
     /**
      * @return bool
      */
-    public function isPublic(): bool
+    public function isPublic():? bool
     {
         return $this->public;
     }

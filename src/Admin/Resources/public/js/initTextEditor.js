@@ -32,13 +32,11 @@ $(function () {
             },
             link_class_list: [
                 {title: 'Simple link', value: ''},
-                {title: 'Button link', value: 'btn btn-sm btn-link'},
-                {title: 'Button Small', value: 'btn btn-sm btn-default'},
-                {title: 'Button Normal', value: 'btnbtn-default'},
-                {title: 'Button Big', value: 'btn btn-lg btn-default'},
-                {title: 'Button Small', value: 'btn btn-sm btn-primary'},
-                {title: 'Button Normal', value: 'btn btn-primary'},
-                {title: 'Button Big', value: 'btn btn-lg btn-primary'},
+                {title: 'Button link', value: 'btn btn-default'},
+                {title: 'Button link', value: 'btn btn-primary'},
+                {title: 'Button link', value: 'theme-btn btn-style-one'},
+                {title: 'Button link', value: 'theme-btn btn-style-two'},
+                {title: 'Button link', value: 'theme-btn btn-style-three'},
             ],
             image_title: true,
             automatic_uploads: true,
@@ -105,19 +103,11 @@ $(function () {
                 {title: 'Text white', inline: 'span', classes: 'text-white-50'},
                 {title: 'Text warning', inline: 'span', classes: 'text-warning'},
                 {title: 'Text danger', inline: 'span', classes: 'text-danger'},
-
                 {title: 'Paragraph grey', block: 'p', classes: 'text-muted'},
                 {title: 'Paragraph', block: 'p', classes: 'text-white-50'},
-
                 {title: 'Block grey', block: 'div', classes: 'text-muted'},
                 {title: 'Block white', block: 'div', classes: 'text-white-50'},
 
-                // {title: 'Table init', selector: 'table', classes: 'table'},
-                // {title: 'Table dark', selector: 'table', classes: 'table-dark'},
-                // {title: 'Table hover', selector: 'table', classes: 'table-hover'},
-                // {title: 'Table striped', selector: '', classes: 'table-striped'},
-                // {title: 'Table borders', selector: '', classes: 'table-bordered'},
-                // {title: 'Table without borders', selector: 'table', classes: 'table-borderless'},
                 {
                     title: 'Image move left',
                     selector: 'img',

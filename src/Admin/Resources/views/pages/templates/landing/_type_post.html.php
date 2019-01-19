@@ -46,7 +46,7 @@ $formBlockView = $block->createView();
         })
     })
 </script>
-<?php if ($blockKey === 0) :?>
+<?php if ($blockKey !== 0) :?>
     <hr>
 <?php endif;?>
 

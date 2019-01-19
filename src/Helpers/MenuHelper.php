@@ -81,9 +81,14 @@ class MenuHelper extends Helper
     public function getMainTopMenu()
     {
         $menu = $this->getMenu(MenuHelper::MAIN_TOP_MENU);
+        $menuItems = $this->em->getRepository(MenuItems::class)->getNestedArray($menu, true);
+        if ($menuItems && ($menuItems[0] ?? false) && $menuItems[0]['level'] === 0) {
+            $menuItems = $menuItems['0']['__children'];
+        }
+
         return [
             'menu' => $menu,
-            'items' =>  $menu ? $this->getMenuItems($menu) : [],
+            'items' => $menuItems ?? [],
         ];
     }
 

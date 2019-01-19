@@ -36,6 +36,11 @@
 'Adm:FullName': 'Full Name'
 'Adm:Email': Email
 'Adm:Username': Username
-'Adm:Delete': 'Delete'
-'Adm:Post': 'Post'
-'Adm:Params': 'Params'
+'Adm:Delete': Delete
+'Adm:Post': Post
+'Adm:Params': Params
+'Adm:Posts': 'Posts'
+'Adm:AddNew': 'Add new'
+'Adm:ChooseFile': 'Choose file'
+'Adm:Categories': 'Categories'
+'Adm:Image': 'Image'
