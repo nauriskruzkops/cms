@@ -8,7 +8,7 @@ $mainMenu = $view['menu']->getMainTopMenu();
 $mainMenuItems = $mainMenu['items'] ?? [];
 $languages = $view['settings']->values('languages');
 ?>
-<header class="main-header header-style-one">
+<header class="main-header header-style-two">
 
     <div class="header-top">
         <div class="auto-container">
@@ -22,16 +22,16 @@ $languages = $view['settings']->values('languages');
                 </div>
                 <?php if ($languages) :?>
                     <div class="top-right">
-                        <div class="links">
-                            <ul class="">
+                        <div class="language-icon">
+                            <ul class="clearfix">
                                 <?php foreach ($languages as $languageKey => $languageTitle) :?>
-                                    <li style="margin-right: 8px;">
-                                        <?php if ($languageKey == $view['locale']) :?>
-                                            <a class=""><?= $this->escape($languageKey)?></a>
-                                        <?php else :?>
-                                            <a class="" href="<?= $view['router']->path('index', ['_locale' => $languageKey]) ?>" title="<?= $this->escape($languageTitle)?>"><?= $this->escape($languageKey)?></a>
-                                        <?php endif;?>
-                                    </li>
+                                <li style="margin-left: 5px">
+                                    <?php if ($languageKey == $view['locale']) :?>
+                                        <a class="nav-item"><?= $this->escape(strtoupper($languageKey))?></a>
+                                    <?php else :?>
+                                        <a class="nav-item" href="<?= $view['router']->path('index', ['_locale' => $languageKey]) ?>" title="<?= $this->escape($languageTitle)?>"><?= $this->escape(strtoupper($languageKey))?></a>
+                                    <?php endif;?>
+                                </li>
                                 <?php endforeach;?>
                             </ul>
                         </div>

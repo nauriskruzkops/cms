@@ -13,7 +13,7 @@ $(function () {
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table contextmenu paste code help wordcount template'
             ],
-            toolbar: 'insert | undo redo |  formatselect styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks',
+            toolbar: 'insert | undo redo |  formatselect styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks preview',
             content_css: [
                 //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
                 //'/assets/theme/default/css/bootstrap-overwrite.css',
@@ -30,6 +30,7 @@ $(function () {
             table_default_attributes: {
                 border: '0'
             },
+            plugin_preview_width: 1000,
             link_class_list: [
                 {title: 'Simple link', value: ''},
                 {title: 'Button link', value: 'btn btn-default'},
@@ -99,14 +100,9 @@ $(function () {
             },
             style_formats: [
                 {title: 'Bold text', inline: 'b'},
-                {title: 'Text grey', inline: 'span', classes: 'text-black-50'},
-                {title: 'Text white', inline: 'span', classes: 'text-white-50'},
-                {title: 'Text warning', inline: 'span', classes: 'text-warning'},
-                {title: 'Text danger', inline: 'span', classes: 'text-danger'},
-                {title: 'Paragraph grey', block: 'p', classes: 'text-muted'},
-                {title: 'Paragraph', block: 'p', classes: 'text-white-50'},
-                {title: 'Block grey', block: 'div', classes: 'text-muted'},
-                {title: 'Block white', block: 'div', classes: 'text-white-50'},
+
+                {title: 'Styled text block', block: 'div', classes: 'styled-text'},
+                {title: 'Agent box', block: 'div', classes: 'inner-agent'},
 
                 {
                     title: 'Image move left',
@@ -119,24 +115,7 @@ $(function () {
                     styles: {'float': 'right', 'margin': '0 0 10px 10px'}
                 }
             ],
-            templates: [
-                {title: 'Row with two columns', description: 'Row with two columns', content: '' +
-                        '<div class="row">\n' +
-                        '    <div class="col-sm-6">Col1</div>\n' +
-                        '    <div class="col-sm-6">Col2</div>\n' +
-                        '</div>'
-                },
-                {title: 'Row with three columns', description: 'Row with three columns', content: '' +
-                        '<div class="row">\n' +
-                        '    <div class="col-sm-6">Col1</div>\n' +
-                        '    <div class="col-sm-6">Col2</div>\n' +
-                        '    <div class="col-sm-6">Col3</div>\n' +
-                        '</div>'
-                },
-                {title: 'Line featurette-divider', description: 'Line featurette-divider', content: '' +
-                        '<hr class="featurette-divider" /></div>'
-                },
-            ]
+            templates: '/admin/post/templates'
         };
 
         tinymce.init(tinymceConfig);

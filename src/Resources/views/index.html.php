@@ -16,12 +16,27 @@ $view['theme']->extend('layout/extend/layout.html.php');
 
 <?= $view['theme']->render('layout/partial/slider.html.php',[])?>
 
+
+<section class="company-section" style="margin-bottom: -30px">
+    <div class="auto-container">
+        <div class="inner-container">
+            <div class="clearfix">
+                <div class="col-md-12">
+                    <h3 style="color: #F1F2F7; text-align: center">
+                        <span>Uzticam</span> koka karkasa paneļu māju ražotājs jau no 2005. gada.
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
     <?php if (!$page->getBlocks()->isEmpty()) :?>
         <?php foreach ($page->getBlocks() as $block) :?>
             <?php if ($block->isPublic()) :?>
                 <?php if ($block->getPost()) :?>
-                    <section class="mechanical-section" style="background-color:#f4f4f4">
+                    <section class="mechanical-section" style="background-color: transparent;">
                         <div class="auto-container">
                             <div class="container inner-container">
                                 <div class="row clearfix">
@@ -45,19 +60,6 @@ $view['theme']->extend('layout/extend/layout.html.php');
         </div>
     </section>
 <?php endif;?>
-
-<section class="call-to-action-section">
-    <div class="auto-container">
-        <div class="row clearfix">
-            <div class="column col-md-9 col-sm-12 col-xs-12">
-                <h2>Uzticam koka karkasa paneļu māju ražotājs jau no 2005. gada.</h2>
-            </div>
-            <div class="btn-column col-md-3 col-sm-12 col-xs-12">
-                <a href="#contact-form" class="theme-btn btn-style-two">Pieteikties<br>konsultācijai</a>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="services-section-three" style="background-color:#d6d6d6">
     <div class="auto-container">

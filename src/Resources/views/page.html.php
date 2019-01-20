@@ -9,9 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  * @var Page $page
+ * @var PageHelper $pageHelper
  */
 $view['theme']->extend('layout/extend/layout.html.php');
+$pageHelper = $view['page']($page);
+
 echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $page])
+
 ?>
 
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
@@ -21,15 +25,19 @@ echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $p
                 <div class="auto-container">
                     <div class="container inner-container">
                         <div class="row clearfix">
-                            <?php if (!$i) :?>
-                                <div class="sec-title">
-                                    <h2><?= $this->escape($block->getTitle())?></h2>
-                                </div>
-                            <?php else: ?>
-                                <div>
-                                    <h2><?= $this->escape($block->getTitle())?></h2>
-                                </div>
-                            <?php endif; ?>
+                            <?php if (!empty($block->getTitle())) :?>
+                                <?php if ($i === 0) :?>
+                                    <?php if ($pageHelper->hasHeaderTitle()) :?>
+                                        <div class="sec-title">
+                                            <h2><?= $this->escape($block->getTitle())?></h2>
+                                        </div>
+                                    <?php endif;?>
+                                <?php else: ?>
+                                    <div>
+                                        <h2><?= $this->escape($block->getTitle())?></h2>
+                                    </div>
+                                <?php endif; ?>
+                            <?php endif;?>
                             <?= $block->getPost()->getText()?>
                         </div>
                     </div>

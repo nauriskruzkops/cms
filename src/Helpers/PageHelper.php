@@ -48,20 +48,27 @@ class PageHelper extends Helper
     }
 
     /**
-     * @return boolean
-     */
-    public function hasHeader()
-    {
-        return true;
-    }
-
-    /**
+     * @param Page|null $page
      * @return boolean
      * @throws \Admin\Exception\PageSettingsException
      */
-    public function hasHeaderTitle($page = null)
+    public function hasHeader(?Page $page = null)
     {
-        if ($page !== null) {
+        if (!$page instanceof Page) {
+            $page = $this->page;
+        }
+
+        return ($page->getSetting('SHOW_PAGE_HEADER', true));
+    }
+
+    /**
+     * @param Page|null $page
+     * @return boolean
+     * @throws \Admin\Exception\PageSettingsException
+     */
+    public function hasHeaderTitle(?Page $page = null)
+    {
+        if (!$page instanceof Page) {
             $page = $this->page;
         }
         return ($page->getSetting('SHOW_TITLE', false));

@@ -64,10 +64,12 @@ class SiteRoutes
 
         $menuItems = $this->getSiteMap();
         foreach ($menuItems as $item) {
-            if ($item->getSlug()) {
+            if ($item['slug'] ?? false) {
                 list($routeKey, $route) = $this->createRoute($item);
-                if (!empty(trim($routeKey, '/'))) {
-                    $routes->add($routeKey, $route);
+                if (!$routes->get($routeKey)) {
+                    if (!empty(trim($routeKey, '/'))) {
+                        $routes->add($routeKey, $route);
+                    }
                 }
             }
         }
@@ -76,73 +78,37 @@ class SiteRoutes
     }
 
     /**
-     * @param MenuItems $item
+     * @param array $item
      * @return array
      * @throws \Doctrine\ORM\ORMException
      */
-    private function createRoute(MenuItems $item)
+    private function createRoute($item)
     {
-        /** @var MenuItemsRepository $repository */
-        $repository = $this->em->getRepository(MenuItems::class);
-
-        $fullSlug = implode('/',(array_map(function (MenuItems $item) {
-            if ($item->getSlug() && $item->getSlug() !== 'index') {
-                return $item->getSlug();
-            }
-        }, $repository->getPath($item))));
-
         $defaultLocale = $this->settingService->value('language');
-        $language = $item->getMenu()->getLocale();
-        $slug = $item->getSlug();
-        $type = $item->getType();
-        $uniqSlag = $fullSlug;
+
         $defaults = [];
+        $defaults['type'] = $item['template'];
+        $defaults['slug'] = $item['slug'];
+        $defaults['title'] = $item['title'];
 
-        if ($type === SiteRoutes::TYPE_PAGE ) {
-            $controller = PageController::class;
-        } elseif ($type === SiteRoutes::TYPE_CATEGORY ) {
-            $controller = IndexController::class;
-        } elseif ($type === SiteRoutes::TYPE_POST ) {
-            $controller = IndexController::class;
-            if (!$item->getRelations()->isEmpty()) {
-                $slug = $item->getRelations()->first()->getSlug();
-            }
-        } elseif ($type === SiteRoutes::TYPE_ROOT ) {
-            $controller = IndexController::class;
+        $defaults['_locale'] = $item['locale'];
+        $defaults['_page_id'] = $item['id'] ?? null;
+
+        if ($defaults['type'] == Page::TEMPL_ROOT) {
+            $defaults['_controller'] = IndexController::class;
+        }  else {
+            $defaults['_controller'] = PageController::class;
+        }
+
+        if ($defaultLocale === $defaults['_locale']) {
+            $urlPattern = sprintf('/%s', $defaults['slug']);
         } else {
-            $controller = ErrorController::class;
-        }
-
-        if (empty($slug) or $slug === '/' or $slug === 'index') {
-            $controller = IndexController::class;
-            $slug = null;
-        }
-
-        if (!$item->getRelations()->isEmpty()) {
-            /** @var MenuItemRelation $relation */
-            $relation = $item->getRelations()->first();
-            $relationObject = $this->em->getReference($relation->getObjectClass(), $relation->getObjectId());
-            if ($relationObject) {
-                $slug = $relationObject->getSlug();
-            }
-        }
-
-        $defaults['type'] = $type;
-        $defaults['slug'] = $slug;
-        $defaults['title'] = $item->getTitle();
-        $defaults['_controller'] = $controller;
-        $defaults['_locale'] = $language;
-        $defaults['_menuItem'] = serialize($item);
-
-        if ($defaultLocale === $language) {
-            $urlPattern = sprintf('/%s', $slug);
-        } else {
-            $urlPattern = sprintf('/{_locale}/%s', $slug);
+            $urlPattern = sprintf('/{_locale}/%s', $defaults['slug']);
         }
 
         $route = new Route($urlPattern, $defaults);
         return [
-            $uniqSlag,
+            $defaults['slug'],
             $route
         ];
     }
@@ -152,11 +118,7 @@ class SiteRoutes
      */
     private function getSiteMap()
     {
-        $menuItems = $this->em->getRepository(MenuItems::class)->findBy(
-            ['enabled' => true],
-            ['left' => 'ASC', 'level' => 'ASC']
-        );
-
-        return new ArrayCollection($menuItems);
+        $pages = $this->em->getRepository(Page::class)->getNested('lv');
+        return new ArrayCollection($pages);
     }
 }

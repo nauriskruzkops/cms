@@ -23,4 +23,7 @@ $pageHelper = $view['page']($page);
             </ul>
         </div>
     </section>
+<?php else:?>
+    <div class="clearfix"></div>
+    <div class="clearfix" style="margin-bottom: 100px"></div>
 <?php endif;?>

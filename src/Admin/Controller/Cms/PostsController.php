@@ -165,4 +165,64 @@ class PostsController extends \Admin\Controller\AbstractController
             'content' => $post ? $post->getText() : ''
         ]);
     }
+
+    /**
+     * @Route("/admin/post/templates", name="adm_post_templates")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postTemplatesAction()
+    {
+        $templates[] = [
+            "title" => "Simple page",
+            "description" => "Simple page",
+            "content" => $this->render('theme/templates/simple-page.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Company Overview",
+            "description" => "Company Overview",
+            "content" => $this->render('theme/templates/company-overview.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Approach section",
+            "description" => "Approach section",
+            "content" => $this->render('theme/templates/approach-section.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service section #1",
+            "description" => "Service page #1",
+            "content" => $this->render('theme/templates/services-section-1.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service section #2",
+            "description" => "Service page #2",
+            "content" => $this->render('theme/templates/services-section-2.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service page #1",
+            "description" => "Service page #1",
+            "content" => $this->render('theme/templates/service-page-1.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service page #2",
+            "description" => "Service page #1",
+            "content" => $this->render('theme/templates/service-page-2.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Contact page",
+            "description" => "Contact page",
+            "content" => $this->render('theme/templates/contact-page.html.php', [])->getContent()
+        ];
+
+
+
+        return $this->json($templates);
+    }
 }
