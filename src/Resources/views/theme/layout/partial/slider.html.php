@@ -4,19 +4,20 @@
 /* background-color: #b2b2b2 */
 
 ?>
-<section class="slider-banner-section" style="background-image: url(<?= $view['theme']->assetsGetUrl('49656421_296765910978084.jpg', 'images') ?>)">
+<section class="slider-banner-section" style="background-image: url(/assets/images/slider-1.jpg);" >
+    <img src="/assets/images/slider-1.jpg" style="visibility: hidden;">
     <div class="image-layer" style="background-image:url();"></div>
 
     <div class="auto-container">
         <div class="content">
-            <span style="font-size: 120%; color:black; font-weight: bold; background-color: rgba(255,255,255,0.53); text-transform: uppercase; ">
+            <span style="font-size: 120%; color:#FFFFFF; font-weight: bold; text-transform: uppercase; ">
                 &ensp; Latvijā rūpnieciski ražotas augstas kvalitātes &ensp;
             </span>
-            <h2 style="color:black; font-weight: bold; background-color: rgba(255,255,255,0.53); text-transform: uppercase;">koka karkasa paneļa mājas</h2>
+            <h2 style="color:white; font-weight: bold; text-transform: uppercase;">koka karkasa paneļa <span style="color: #f5802d">mājas</span></h2>
         </div>
         <br>
         <p class="text-right">
-            <a href="#" class="theme-btn btn-style-two">Piesakies konsultācijai</a>
+            <a href="#" class="theme-btn btn-style-four">Piesakies konsultācijai</a>
         </p>
     </div>
 </section>

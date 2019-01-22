@@ -8,24 +8,16 @@ $mainMenu = $view['menu']->getMainTopMenu();
 $mainMenuItems = $mainMenu['items'] ?? [];
 $languages = $view['settings']->values('languages');
 ?>
-<header class="main-header header-style-two">
-
-    <div class="header-top">
-        <div class="auto-container">
-            <div class="inner-container clearfix">
-
-                <div class="top-left">
-                    <ul class="links clearfix">
-                        <li><a href="#"><span class="icon fa fa-phone"></span><?= $this->escape($view['settings']->value('primary_phone')) ?></a></li>
-                        <li><a href="#"><span class="icon fa fa-envelope-o"></span><?= $this->escape($view['settings']->value('primary_email')) ?></a></li>
-                    </ul>
-                </div>
-                <?php if ($languages) :?>
+<header class="main-header header-style-one">
+    <?php if ($languages) :?>
+        <div class="header-top">
+            <div class="auto-container">
+                <div class="inner-container clearfix">
                     <div class="top-right">
                         <div class="language-icon">
                             <ul class="clearfix">
                                 <?php foreach ($languages as $languageKey => $languageTitle) :?>
-                                <li style="margin-left: 5px">
+                                <li>
                                     <?php if ($languageKey == $view['locale']) :?>
                                         <a class="nav-item"><?= $this->escape(strtoupper($languageKey))?></a>
                                     <?php else :?>
@@ -36,11 +28,11 @@ $languages = $view['settings']->values('languages');
                             </ul>
                         </div>
                     </div>
-                <?php endif;?>
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </div>
-    </div>
+    <?php endif;?>
 
     <div class="main-box">
         <div class="auto-container">

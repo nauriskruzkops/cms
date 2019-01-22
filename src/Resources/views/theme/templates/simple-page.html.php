@@ -1,36 +1,57 @@
-<div class="blog-single">
-    <div class="inner-box">
-        <div class="image">
-            <img src="images/resource/news-11.jpg" alt="">
+<section class="contact-section">
+    <div class="auto-container">
+        <div class="sec-title">
+            <h2>Sazināties ar mums</h2>
         </div>
-        <div class="lower-content">
-            <div class="upper-box clearfix">
-                <div class="posted-date pull-left">25 March 2018</div>
-                <ul class="post-meta pull-right">
-                    <li>By: Admin</li>
-                    <li>renovation, building</li>
-                    <li>Comments: 5</li>
-                </ul>
-            </div>
-            <div class="lower-box">
-                <h3>Override the digital divide with additional click throughs</h3>
-                <div class="text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur velit esse cillum dolore eu.</p>
-                    <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.</p>
-                    <h4>Two Column Text Sample</h4>
-                    <div class="row clearfix">
+        <div class="row clearfix">
+            <div class="form-column col-md-8 col-sm-12 col-xs-12">
+                <div class="inner-column">
+                    <div class="default-form contact-form">
+                        <form method="post" action="#" id="contact-form" novalidate="novalidate">
+                            <div class="row clearfix">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="firstname" value="" placeholder="Your name" required="">
+                                </div>
 
-                        <div class="column col-md-6 col-sm-12 col-xs-12">
-                            <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.</p>
-                        </div>
-                        <div class="column col-md-6 col-sm-12 col-xs-12">
-                            <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.</p>
-                        </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="email" value="" placeholder="Your email address" required="">
+                                </div>
 
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="phone" value="" placeholder="Phone number" required="">
+                                </div>
+
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="subject" value="" placeholder="Subject" required="">
+                                </div>
+
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <textarea name="message" placeholder="Type your massage here..."></textarea>
+                                </div>
+
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" class="theme-btn btn-style-one">Submit now</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <p>Here is main text quis nostrud exercitation ullamco laboris nisi here is itealic text ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla rure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat <a href="#">here is link</a> cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
             </div>
+
+            <!--Info Column-->
+            <div class="info-column col-md-4 col-sm-12 col-xs-12">
+                <div class="inner-column">
+                    <h2>Vitbuve SIA</h2>
+                    <ul class="list-style-three">
+                        <li><span class="icon fa fa-map-marker"></span>"Amatnieki", Limbaži,<br>	Limbažu nov., LV-4001</li>
+                        <li><span class="icon fa fa-phone"></span>+371 67288161</li>
+                        <li><span class="icon fa fa-envelope"></span>info@vitbuve.lv</li>
+                    </ul>
+                    <h3>Offisa laiks</h3>
+                    <div class="times">Pi-Pk : 10.00 līdz 16.00 <br> Se-Sv : Atpūšamies</div>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>
+</section>

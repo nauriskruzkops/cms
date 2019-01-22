@@ -692,7 +692,6 @@ img{
 	width:100%;
 	background: rgb(0,0,0);
 	background-color:rgba(0,0,0,0.20);
-	background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 25%);
 	border-bottom:1px solid rgba(255,255,255,0.15);
 }
 
@@ -807,21 +806,21 @@ img{
 .header-top .social-icon, .header-top .language-icon{
 	position:relative;
 	float:left;
+	color:#ffffff;
 }
 
 .header-top .social-icon li{
 	position:relative;
 	float:left;
-	color:#ffffff;
 	margin-left:18px;	
 }
 
-.header-top .social-icon li a{
+.header-top .social-icon li a, .header-top .language-icon a{
 	position:relative;
     display:block;
     line-height:30px;
     font-size:16px;
-    color:#f7bd00;
+    color:#ffffff;
     transition: all 500ms ease;
     -moz-transition: all 500ms ease;
     -webkit-transition: all 500ms ease;
@@ -837,26 +836,6 @@ img{
 
 .header-top .social-icon li a:hover{
 	opacity:0.80;
-}
-
-/* Language */
-
-.header-top .language-icon li{
-	position:relative;
-	float:left;
-	color: #000000;
-	margin-left:2px;
-	padding-right:2px;
-	border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.header-top .language-icon li a{
-	font-size: 90%;
-	color: #000000;
-}
-
-.header-top .language-icon li:last-child{
-	border-right: 0;
 }
 
 /*Main Box*/
@@ -4802,10 +4781,10 @@ img{
 }
 
 .slider-banner-section .content h2 span{
-	color:#242424;
-	font-style:italic;
-	border-bottom:1px solid #242424;
-	font-family: 'Playfair Display', serif;
+	/*color:#242424;*/
+	/*font-style:italic;*/
+	/*border-bottom:1px solid #242424;*/
+	/*font-family: 'Playfair Display', serif;*/
 }
 
 .slider-banner-section .content .text{

@@ -53,7 +53,7 @@ class UserManageService
             } else {
                 $this->em->persist($user);
             }
-            //$this->em->flush();
+            $this->em->flush();
         } catch (\Exception $e) {
             throw new Exception('Sorry, something wrong, user data not saved', $e->getCode(), $e);
         }

@@ -13,6 +13,7 @@
     <link href="<?= $view['theme']->assetsGetUrl('revolution/css/navigation.css', 'plugins') ?>" rel="stylesheet" type="text/css">
     <link href="<?= $view['theme']->assetsGetUrl('style.css', 'css') ?>" rel="stylesheet">
     <link href="<?= $view['theme']->assetsGetUrl('responsive.css', 'css') ?>" rel="stylesheet">
+    <link href="<?= $view['theme']->assetsGetUrl('style-overwrite.css', 'css') ?>" rel="stylesheet">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">

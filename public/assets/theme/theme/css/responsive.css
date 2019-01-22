@@ -19,7 +19,7 @@
 	.main-header.header-style-one{
 		position:relative;
 		margin:0px !important;
-		background-color:rgba(0,0,0,1);
+		background-color: rgba(0, 0, 0, 0.75);
 	}
 	
 	.banner-section{
@@ -516,7 +516,7 @@
 		padding-bottom:15px;
 	}
 	
-	.header-top .social-icon{
+	.header-top .social-icon, .header-top .language-icon{
 		float:none;
 		margin-left:0px;
 		text-align:center;

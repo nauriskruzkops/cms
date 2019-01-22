@@ -1,0 +1,48 @@
+.header-top .language-icon li a,
+.header-top .language-icon li a:link,
+.header-top .language-icon li a:visited {
+	color: #ffffff;
+	font-size: 90%;
+}
+
+.header-top .language-icon li{
+	position:relative;
+	float:left;
+	color: #ffffff;
+	margin-left:2px;
+	padding-right:2px;
+}
+
+.header-top .language-icon li a {
+	padding: 0 6px;
+}
+
+.header-top .language-icon li a:before {
+	content: " .";
+	float: right;
+	position: absolute;
+	right: 0;
+	margin-top:-4px;
+	margin-right: -2px;
+}
+.header-top .language-icon li:last-child a:before {
+	content: "";
+}
+
+/* MAIN MENU */
+
+.main-menu {
+
+}
+
+
+/* SLIDER */
+.slider-banner-section {
+	background-repeat: no-repeat;
+	width: 100%;
+	height: auto;
+}
+
+.slider-banner-section .auto-container {
+	margin-top: -40%;
+}

@@ -174,10 +174,23 @@ class PostsController extends \Admin\Controller\AbstractController
     public function postTemplatesAction()
     {
         $templates[] = [
+            "title" => "Simple section",
+            "description" => "Simple section",
+            "content" => $this->render('theme/templates/simple-section-white.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Simple section",
+            "description" => "Simple section",
+            "content" => $this->render('theme/templates/simple-section-grey.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
             "title" => "Simple page",
             "description" => "Simple page",
             "content" => $this->render('theme/templates/simple-page.html.php', [])->getContent()
         ];
+
 
         $templates[] = [
             "title" => "Company Overview",
