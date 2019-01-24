@@ -92,7 +92,6 @@ class PostForm extends AbstractType
             ])
             ->addEventSubscriber(new PostListener($this->em))
         ;
-        $builder->setAttributes(['aa'=>'bbb']);
     }
 
     /**
@@ -102,7 +101,6 @@ class PostForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
-            'attributes' => ['a'=>'multipart/form-data']
         ]);
     }
 }

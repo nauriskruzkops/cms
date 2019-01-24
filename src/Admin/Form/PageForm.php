@@ -2,6 +2,7 @@
 
 namespace Admin\Form;
 
+use Admin\Form\EventListener\PageListener;
 use Admin\Service\SettingService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -42,6 +44,7 @@ class PageForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAttribute('enctype', 'multipart/form-data')
             ->add('title', TextType::class, [
                 'required' => false,
                 'label' => 'Page title',
@@ -104,6 +107,10 @@ class PageForm extends AbstractType
                 'by_reference' => false,
                 'allow_extra_fields' => true,
             ])
+            ->add('image', FileType::class, [
+                'required' => false,
+                'mapped' => false,
+            ])
             ->add('blocks', CollectionType::class, [
                 'entry_type' => PageBlockForm::class,
                 'entry_options' => ['label' => false],
@@ -121,6 +128,7 @@ class PageForm extends AbstractType
                 ],
                 'label' => 'Page is available for public',
             ])
+            ->addEventSubscriber(new PageListener($this->em))
         ;
     }
 

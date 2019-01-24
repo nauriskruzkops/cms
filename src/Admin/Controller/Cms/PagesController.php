@@ -176,10 +176,9 @@ class PagesController extends \Admin\Controller\AbstractController
             if ($form->isValid()) {
                 try {
                     $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
-
                     $service->savePage($form, $request);
-
                     $this->addFlash('info', 'Cool, page saved!');
+
                     return $this->redirectToRoute(
                         $request->get('btn_save_exit', 1) === 1 ? 'adm_page_edit' :'adm_page_list',
                         ['id' => $page->getId()]);
@@ -190,7 +189,7 @@ class PagesController extends \Admin\Controller\AbstractController
             } else {
                 $formError = $form->getErrors();
                 var_dump('FORM','NOT', 'VALID');
-                var_dump($formError->current()->getMessage());
+                var_dump($formError->current());
             }
         }
 

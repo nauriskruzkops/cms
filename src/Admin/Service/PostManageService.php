@@ -3,8 +3,12 @@
 namespace Admin\Service;
 
 use Admin\Exception\Exception;
+use Admin\Exception\FileUploadException;
+use Admin\Exception\PageException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Shared\Entity\Page;
 use Shared\Entity\Post;
 use Symfony\Component\Form\Form;
@@ -39,7 +43,8 @@ class PostManageService
      * @param Form $form
      * @param Request $request
      * @return Post
-     * @throws Exception
+     * @throws PageException
+     * @throws FileUploadException
      */
     public function savePost(Form $form, Request $request)
     {
@@ -49,7 +54,11 @@ class PostManageService
         if ($request->files->has('post_image')) {
             $uploadedFile = $request->files->get('post_image');
             if ($uploadedFile) {
-                $filename = $this->fileUploader->upload($uploadedFile);
+                try {
+                    $filename = $this->fileUploader->upload($uploadedFile);
+                } catch (FileUploadException|OptimisticLockException|ORMException $e) {
+                    throw new FileUploadException('Sorry, something wrong, post not saved', $e->getCode(), $e);
+                }
                 $post->setImage($filename);
             }
         }
@@ -63,7 +72,7 @@ class PostManageService
             }
             $this->em->flush();
         } catch (\Exception $e) {
-            throw new Exception('Sorry, something wrong, post not saved', $e->getCode(), $e);
+            throw new PageException('Sorry, something wrong, post not saved', $e->getCode(), $e);
         }
 
         return $post;

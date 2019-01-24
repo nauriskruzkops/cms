@@ -75,10 +75,12 @@ class PageHelper extends Helper
     }
 
     /**
+     * @param null $page
+     * @param bool $withStyle
      * @return string
      * @throws \Admin\Exception\PageSettingsException
      */
-    public function headerBackground($page = null)
+    public function headerBackground($page = null, $withStyle = true)
     {
         if ($page !== null) {
             $page = $this->page;
@@ -86,20 +88,26 @@ class PageHelper extends Helper
 
         $style = [];
         $backgroundImg = $page->getSetting('HEADER_BACKGROUND_IMG');
-        if (true || $backgroundImg) {
-            //$style[] = sprintf('background-image:url(%s)', $backgroundImg);
+        if ($backgroundImg) {
+            if (!$withStyle) {
+                return $this->view['assets']->getUrl($backgroundImg, 'upload');
+            }
+            $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
+        } else {
+            if (!$withStyle) {
+                return $this->view['theme']->assetsGetUrl('49656421_296765910978084.jpg', 'images');
+            }
             $style[] = sprintf('background-image:url(%s)', $this->view['theme']->assetsGetUrl('49656421_296765910978084.jpg', 'images'));
         }
 
+        $style[] = 'background-position: center center';
+        $style[] = 'background-attachment:fixed';
+
         $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
-        if ($backgroundColor) {
-            $style[] = sprintf('background-color:%s', $backgroundColor);
-        }
+        $style[] = sprintf('background-color:%s', $backgroundColor);
 
         return implode(';', $style);
     }
-
-
 
     /**
      * Returns the canonical name of this helper.

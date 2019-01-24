@@ -72,15 +72,21 @@ $isNewPage = (!$page->getId());
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label><?= $formView['title']->vars['label'] ?></label>
-                        <?= $formHelper->errors($formView['title']) ?>
-                        <?= $formHelper->widget($formView['title']) ?>
-                    </div>
-                    <div class="form-group">
-                        <label><?= $formView['slug']->vars['label'] ?></label>
-                        <?= $formHelper->errors($formView['slug']) ?>
-                        <?= $formHelper->widget($formView['slug']) ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><?= $formView['title']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['title']) ?>
+                                <?= $formHelper->widget($formView['title']) ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><?= $formView['slug']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['slug']) ?>
+                                <?= $formHelper->widget($formView['slug']) ?>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <?= $view->render('@AdminBundle/Resources/views/pages/partial/settings.html.php',[
