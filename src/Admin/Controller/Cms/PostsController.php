@@ -180,17 +180,10 @@ class PostsController extends \Admin\Controller\AbstractController
         ];
 
         $templates[] = [
-            "title" => "Simple section",
+            "title" => "Simple section grey",
             "description" => "Simple section",
             "content" => $this->render('theme/templates/simple-section-grey.html.php', [])->getContent()
         ];
-
-        $templates[] = [
-            "title" => "Simple page",
-            "description" => "Simple page",
-            "content" => $this->render('theme/templates/simple-page.html.php', [])->getContent()
-        ];
-
 
         $templates[] = [
             "title" => "Company Overview",

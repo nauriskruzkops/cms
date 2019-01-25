@@ -1,4 +1,4 @@
-<div class="services-section-five">
+<div class="services-section-five page-block">
     <div class="auto-container">
         <h2>We help customers built World Class <span class="theme_color">Construction</span> Projects Since 1970</h2>
         <div class="row clearfix">

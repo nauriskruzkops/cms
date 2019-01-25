@@ -1,4 +1,4 @@
-<section class="project-single-section">
+<section class="project-single-section page-block">
     <div class="auto-container">
         <div class="sec-title">
             <h2>Building Construction</h2>

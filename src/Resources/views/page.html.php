@@ -17,7 +17,6 @@ $pageHelper = $view['page']($page);
 echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $page])
 
 ?>
-
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
     <?php $i=0; foreach ($page->getBlocks() as $block) :?>
         <?php if ($block->isPublic() && $block->getPost()) :?>

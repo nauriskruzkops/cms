@@ -1,4 +1,4 @@
-<section class="services-section">
+<section class="services-section page-block">
     <div class="auto-container">
         <div class="row clearfix">
 

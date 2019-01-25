@@ -1,4 +1,4 @@
-<section class="contact-section">
+<section class="contact-section page-block">
     <div class="auto-container">
         <div class="sec-title">
             <h2>Sazināties ar mums</h2>

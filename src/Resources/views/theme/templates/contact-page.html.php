@@ -1,4 +1,4 @@
-<section id="contact-form" class="message-section">
+<section id="contact-form" class="message-section page-block">
     <div class="auto-container">
         <div class="sec-title">
             <h2>Sazināties ar mums</h2>

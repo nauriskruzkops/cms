@@ -21,17 +21,13 @@ $view['theme']->extend('layout/extend/layout.html.php');
         <?php foreach ($page->getBlocks() as $block) :?>
             <?php if ($block->isPublic()) :?>
                 <?php if ($block->getPost()) :?>
-
-                    <div class="row">
-                        <?= $block->getPost()->getText()?>
-                    </div>
-
+                    <?= $block->getPost()->getText()?>
                 <?php endif;?>
             <?php endif;?>
         <?php endforeach;?>
     <?php endif;?>
 <?php else:?>
-    <section class="mechanical-section" style="background-color:#f4f4f4">
+    <section class="mechanical-section page-block" style="background-color:#f4f4f4">
         <div class="auto-container">
             <div class="inner-container">
                 <div class="row clearfix">
@@ -42,7 +38,7 @@ $view['theme']->extend('layout/extend/layout.html.php');
     </section>
 <?php endif;?>
 
-<section class="services-section-three" style="background-color:#d6d6d6">
+<section class="services-section-three page-block" style="background-color:#d6d6d6">
     <div class="auto-container">
         <?= $view['actions']->render(
             new ControllerReference('App\\Controller\\ServicesController::partialByCategory',[

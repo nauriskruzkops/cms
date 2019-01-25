@@ -1,9 +1,6 @@
-<section class="company-page-section">
+<section class="company-page-section page-block">
     <div class="auto-container">
-
-        <!--Title Box-->
         <div class="title-box">
-            <!--Sec Title-->
             <div class="sec-title">
                 <h2>Company Overview</h2>
             </div>
@@ -21,16 +18,13 @@
             </div>
         </div>
 
-        <!--Idea Section-->
         <div class="idea-section">
             <div class="row clearfix">
-                <!--Image Column-->
                 <div class="image-column col-md-5 col-sm-12 col-xs-12">
                     <div class="image">
                         <img src="images/resource/company-1.jpg" alt="">
                     </div>
                 </div>
-                <!--Content Column-->
                 <div class="content-column col-md-7 col-sm-12 col-xs-12">
                     <div class="inner-column">
                         <h2>Big idea with big thinking to come reality</h2>
@@ -43,7 +37,6 @@
                 </div>
             </div>
         </div>
-        <!--End Idea Section-->
 
     </div>
 </section>

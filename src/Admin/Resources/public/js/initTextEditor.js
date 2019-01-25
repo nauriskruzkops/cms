@@ -13,7 +13,7 @@ $(function () {
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table contextmenu paste code help wordcount template'
             ],
-            toolbar: 'insert | undo redo |  formatselect styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks preview',
+            toolbar: 'insert | undo redo | styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks preview',
             content_css: [
                 //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
                 //'/assets/theme/default/css/bootstrap-overwrite.css',
@@ -24,6 +24,7 @@ $(function () {
                 "/assets/theme/theme/plugins/revolution/css/layers.css?v1",
                 "/assets/theme/theme/plugins/revolution/css/navigation.css?v1",
                 "/assets/theme/theme/css/style.css?v1",
+                "/assets/theme/theme/css/style-overwrite.css?v1",
                 "/assets/theme/theme/css/responsive.css?v1",
 
             ],
@@ -99,21 +100,45 @@ $(function () {
                 });
             },
             style_formats: [
-                {title: 'Bold text', inline: 'b'},
-
-                {title: 'Styled text block', block: 'div', classes: 'styled-text'},
-                {title: 'Agent box', block: 'div', classes: 'inner-agent'},
-
-                {
-                    title: 'Image move left',
-                    selector: 'img',
-                    styles: {'float': 'left', 'margin': '0 10px 0 10px'}
-                },
-                {
-                    title: 'Image move right',
-                    selector: 'img',
-                    styles: {'float': 'right', 'margin': '0 0 10px 10px'}
-                }
+                {title: 'Headers', items: [
+                        {title: 'Header 1', format: 'h1'},
+                        {title: 'Header 2', format: 'h2'},
+                        {title: 'Header 3', format: 'h3'},
+                        {title: 'Header 4', format: 'h4'},
+                        {title: 'Header 5', format: 'h5'},
+                        {title: 'Header 6', format: 'h6'}
+                    ]},
+                {title: 'Inline', items: [
+                        {title: 'Bold', icon: 'bold', format: 'bold'},
+                        {title: 'Italic', icon: 'italic', format: 'italic'},
+                        {title: 'Underline', icon: 'underline', format: 'underline'},
+                        {title: 'Strikethrough', icon: 'strikethrough', format: 'strikethrough'},
+                        {title: 'Superscript', icon: 'superscript', format: 'superscript'},
+                        {title: 'Subscript', icon: 'subscript', format: 'subscript'},
+                        {title: 'Code', icon: 'code', format: 'code'}
+                    ]},
+                {title: 'Blocks', items: [
+                        {title: 'Paragraph', format: 'p'},
+                        {title: 'Blockquote', format: 'blockquote'},
+                        {title: 'Div', format: 'div'},
+                        {title: 'Pre', format: 'pre'},
+                    ]},
+                {title: 'Alignment', items: [
+                        {title: 'Left', icon: 'alignleft', format: 'alignleft'},
+                        {title: 'Center', icon: 'aligncenter', format: 'aligncenter'},
+                        {title: 'Right', icon: 'alignright', format: 'alignright'},
+                        {title: 'Justify', icon: 'alignjustify', format: 'alignjustify'},
+                        {
+                            title: 'Image left',
+                            selector: 'img', icon: 'alignleft',
+                            styles: {'float': 'left', 'margin': '0 10px 0 10px'}
+                        },
+                        {
+                            title: 'Image right',
+                            selector: 'img', icon: 'alignright',
+                            styles: {'float': 'right', 'margin': '0 0 10px 10px'}
+                        }
+                    ]}
             ],
             templates: '/admin/post/templates'
         };

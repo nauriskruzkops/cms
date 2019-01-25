@@ -1,4 +1,4 @@
-<section class="services-section-three">
+<section class="services-section-three page-block">
     <div class="auto-container">
         <!--Title Box-->
         <div class="title-box">
