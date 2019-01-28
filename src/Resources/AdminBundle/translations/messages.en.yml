@@ -39,8 +39,12 @@
 'Adm:Delete': Delete
 'Adm:Post': Post
 'Adm:Params': Params
-'Adm:Posts': 'Posts'
+'Adm:Posts': Posts
 'Adm:AddNew': 'Add new'
 'Adm:ChooseFile': 'Choose file'
-'Adm:Categories': 'Categories'
-'Adm:Image': 'Image'
+'Adm:Categories': Categories
+'Adm:Image': Image
+'Adm:Nav:Appearance': Appearance
+'Adm:Nav:Site': Site
+'Adm:Nav:General': General
+'Adm:Nav:System': System

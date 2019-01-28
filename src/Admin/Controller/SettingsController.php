@@ -13,12 +13,14 @@ class SettingsController extends AbstractController
 {
     /**
      * @Route("/admin/settings", name="adm_settings")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request)
     {
         $this->settings();
-
-        $listHtml = $this->processList($request);
+        $group = $request->get('group', 'site');
+        $listHtml = $this->processList($request, $group);
 
         return $this->render('AdminBundle::settings/index.html.php', [
             'listHtml' => $listHtml->getContent(),
@@ -27,15 +29,16 @@ class SettingsController extends AbstractController
 
     /**
      * @param Request $request
+     * @param $group
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function processList(Request $request)
+    public function processList(Request $request, $group)
     {
         $em = $this->getDoctrine();
 
         /** @var SettingsRepository $settingsRepository */
         $settingsRepository = $em->getRepository(Settings::class);
-        $settings = $settingsRepository->findAll(['group' => 'ASC', 'key' => 'ASC']);
+        $settings = $settingsRepository->getByGroup($group);
 
         return $this->render('AdminBundle::settings/partial/list.html.php', [
             'settings' => $settings,

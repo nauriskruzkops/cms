@@ -27,15 +27,16 @@ class MenuController extends \Admin\Controller\AbstractController
         $em = $this->getDoctrine();
         $page = 1;
         $limit = 20;
+        $locale = (string) $request->query->get('locale', $this->settings()->value('language'));
 
         /** @var MenuRepository $menuRepo */
         $menuRepo = $em->getRepository(Menu::class);
-        $menus = $menuRepo->findAll();
-
+        $menus = $menuRepo->findBy(['locale' => $locale]);
 
         return $this->render('AdminBundle::menu/index.html.php', [
             'menus' => $menus,
             'page' => $page,
+            'locale' => $locale,
         ]);
     }
 

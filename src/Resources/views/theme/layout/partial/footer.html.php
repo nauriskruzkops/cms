@@ -16,7 +16,7 @@ $mainMenuItems = $mainMenu['items'] ?? [];
     <div class="auto-container">
         <div class="upper-box">
             <ul class="list-style-one clearfix">
-                <li><span class="icon flaticon-pin"></span><?= $this->escape($view['settings']->value('primary_address')) ?></li>
+                <li><span class="icon flaticon-pin"></span><?= $this->escape($view['settings']->value('address_primary')) ?></li>
                 <li><span class="icon flaticon-envelope-1"></span>Epasts : <br><?= $this->escape($view['settings']->value('primary_email')) ?></li>
                 <li><span class="icon flaticon-technology-2"></span>Tālrunis : <br><?= $this->escape($view['settings']->value('primary_phone')) ?></li>
             </ul>
@@ -50,12 +50,13 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                             </div>
                         </div>
                         <?php if (($footerMenu1 = $menuHelper->getMenu('FOOTER_MENU_1'))) :?>
+
                             <div class="footer-column col-md-5 col-sm-6 col-xs-12">
                                 <div class="footer-widget links-widget">
                                     <h2><?= $this->escape($footerMenu1->getTitle())?></h2>
                                     <div class="widget-content">
                                         <ul class="list">
-                                            <?php foreach ($footerMenu1->getItems()->filter(function ( MenuItems $item) { return $item->getEnabled(); }) as $fMenuItem) :?>
+                                            <?php foreach ($footerMenu1->getItems()->filter(function ($item) { return $item->isEnabled(); }) as $fMenuItem) :?>
                                                 <li><a href="<?= $this->escape($fMenuItem->getSlug())?>"><?= $this->escape($fMenuItem->getTitle())?></a></li>
                                             <?php endforeach;?>
                                         </ul>

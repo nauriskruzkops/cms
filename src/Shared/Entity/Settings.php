@@ -16,10 +16,10 @@ class Settings {
     const TYPE_TEXT = 'text';
     const TYPE_INTEGER = 'integer';
     const TYPE_DATE = 'date';
+    const TYPE_FILE = 'file';
 
-    const RELATION_GLOBAL = 'system';
-    const RELATION_COMPANY = 'company';
-    const RELATION_EMPLOYEE = 'employee';
+    const GROUP_SITE = 'site';
+    const GROUP_SYSTEM = 'systeam';
 
     /**
      * @ORM\Column(type="integer")

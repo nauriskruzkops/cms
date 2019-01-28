@@ -44,7 +44,7 @@ $isNewPost = (!$post->getId());
                     <div class="white-box">
                         <iframe id="<?= $formView['text']->vars['full_name']?>" src="<?= $view['router']->path('adm_post_raw', [
                                 'relation' => 'post', 'id' => ($post && $post->getId()) ? $post->getId() : 0
-                        ]) ?>" data-post-name="<?= $formView['text']->vars['full_name']?>" style="height: 400px; border: 0; width: 100%" frameborder="0"></iframe>
+                        ]) ?>" data-post-name="<?= $formView['text']->vars['full_name']?>" style="height: 700px; border: 0; width: 100%" frameborder="0"></iframe>
                         <script type="text/javascript">
                             $(function () {
                                 var iframeContainer = document.getElementById('<?= $formView['text']->vars['full_name']?>');

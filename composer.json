@@ -2,9 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.1.3",
-        "ext-ctype": "*",
-        "ext-iconv": "*",
+        "php": "7.1.*",
         "gedmo/doctrine-extensions": "dev-master",
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "*",
@@ -24,7 +22,8 @@
         "symfony/twig-bundle": "*",
         "symfony/validator": "*",
         "symfony/web-link": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "youknowriad/standalone-gutenberg": "^1.0"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
@@ -79,6 +78,27 @@
         "symfony": {
             "allow-contrib": false,
             "require": "4.1.*"
+        },
+        "installer-types": ["npm-package"],
+        "installer-paths": {
+            "src/Admin/Resources/public/vendor/{$name}": [
+                "type:npm-package"
+            ]
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "youknowriad/standalone-gutenberg",
+                "version": "1.0",
+                "type": "package",
+                "source": {
+                    "type": "git",
+                    "reference": "master",
+                    "url": "git@github.com:youknowriad/standalone-gutenberg.git"
+                }
+            }
+        }
+    ]
 }

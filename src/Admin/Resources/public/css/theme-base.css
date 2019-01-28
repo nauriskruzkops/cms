@@ -63,22 +63,28 @@ strong {
     font-size: 140%;
 }
 
-#sidebarNav > li, #sidebarNav > li a {
+#sidebarNav ul, #sidebarNav ul li {
+    margin: 0; padding: 0;
     position: relative;
     display: block;
 }
 
-#sidebarNav > li a {
-    padding: 13px 10px;
-    color: #c5c5c5;
+#sidebarNav ul li a {
+    margin: 0; padding: 10px 10px;
+    color: #ededed;
 }
 
-#sidebarNav > li.active a {
-    background-color: #F1F2F7;
-    color: #313131;
-    font-weight: 400;
+#sidebarNav ul li a:hover {
+    background-color: rgba(255, 118, 118, 0.44);
 }
 
+#sidebarNav ul > li > ul > li a, #sidebarNav ul > li > div > ul > li a {
+    padding-left: 30px;
+}
+
+#sidebarNav > ul > li {
+
+}
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     background-color: #FF7676 !important;
