@@ -33,20 +33,6 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                     </a>
                                 </div>
                                 <div class="text"><?= $this->escape($view['settings']->value('site_description')) ?></div>
-                                <ul class="social-icon-two">
-                                    <?php if(!empty($view['settings']->value('social_facebook'))) :?>
-                                        <li><a href="<?= $this->escape($view['settings']->value('social_facebook'))?>"><span class="fa fa-facebook"></span></a></li>
-                                    <?php endif;?>
-                                    <?php if(!empty($view['settings']->value('social_twitter'))) :?>
-                                        <li><a href="<?= $this->escape($view['settings']->value('social_twitter'))?>"><span class="fa fa-twitter"></span></a></li>
-                                    <?php endif;?>
-                                    <?php if(!empty($view['settings']->value('social_instagram'))) :?>
-                                        <li><a href="<?= $this->escape($view['settings']->value('social_instagram'))?>"><span class="fa fa-instagram"></span></a></li>
-                                    <?php endif;?>
-                                    <?php if(!empty($view['settings']->value('social_youtube'))) :?>
-                                        <li><a href="<?= $this->escape($view['settings']->value('social_youtube'))?>"><span class="fa fa-youtube"></span></a></li>
-                                    <?php endif;?>
-                                </ul>
                             </div>
                         </div>
                         <?php if (($footerMenu1 = $menuHelper->getMenu('FOOTER_MENU_1'))) :?>
@@ -85,24 +71,40 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                             </div>
                         <?php endif;?>
 
-                        <?php if (false) :?>
+
                             <div class="footer-column col-md-6 col-sm-6 col-xs-12">
-                                <div class="footer-widget newsletter-widget">
-                                    <h2>Newsletter</h2>
-                                    <div class="widget-content">
-                                        <div class="text">Get our offers & News in your inbox</div>
-                                        <div class="emailed-form">
-                                            <form method="post" action="/">
-                                                <div class="form-group">
-                                                    <input type="email" name="email" value="" placeholder="Email address" required>
-                                                    <button type="submit" class="theme-btn btn-style-one">Subscribe now</button>
-                                                </div>
-                                            </form>
+                                <ul class="social-icon-two">
+                                    <?php if(!empty($view['settings']->value('social_facebook'))) :?>
+                                        <li><a href="<?= $this->escape($view['settings']->value('social_facebook'))?>"><span class="fa fa-facebook"></span></a></li>
+                                    <?php endif;?>
+                                    <?php if(!empty($view['settings']->value('social_twitter'))) :?>
+                                        <li><a href="<?= $this->escape($view['settings']->value('social_twitter'))?>"><span class="fa fa-twitter"></span></a></li>
+                                    <?php endif;?>
+                                    <?php if(!empty($view['settings']->value('social_instagram'))) :?>
+                                        <li><a href="<?= $this->escape($view['settings']->value('social_instagram'))?>"><span class="fa fa-instagram"></span></a></li>
+                                    <?php endif;?>
+                                    <?php if(!empty($view['settings']->value('social_youtube'))) :?>
+                                        <li><a href="<?= $this->escape($view['settings']->value('social_youtube'))?>"><span class="fa fa-youtube"></span></a></li>
+                                    <?php endif;?>
+                                </ul>
+                                <?php if (false) :?>
+                                    <div class="footer-widget newsletter-widget">
+                                        <h2>Newsletter</h2>
+                                        <div class="widget-content">
+                                            <div class="text">Get our offers & News in your inbox</div>
+                                            <div class="emailed-form">
+                                                <form method="post" action="/">
+                                                    <div class="form-group">
+                                                        <input type="email" name="email" value="" placeholder="Email address" required>
+                                                        <button type="submit" class="theme-btn btn-style-one">Subscribe now</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php endif;?>
                             </div>
-                        <?php endif; ?>
+
                     </div>
                 </div>
 

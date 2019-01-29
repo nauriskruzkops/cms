@@ -56,6 +56,19 @@ section.page-block .blog-single .inner-box .lower-content .lower-box{
 	padding-top: 0;
 }
 
+/* FOOTER */
+.main-footer .footer-widget {
+	margin-bottom: 10px;
+}
+
+.main-footer .widgets-section {
+	padding-bottom: 10px;
+}
+
+.main-footer .footer-widget.logo-widget .text {
+	font-size: 90%;
+}
+
 /* TOOLS */
 textarea.mce-textbox {
 	overflow: auto;
