@@ -1,3 +1,5 @@
 /.env
 /vendor/
+/public/uploads/
+/src/Shared/Uploads/
 

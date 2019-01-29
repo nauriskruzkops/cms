@@ -76,7 +76,7 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                     <h2><?= $this->escape($footerMenu2->getTitle())?></h2>
                                     <div class="widget-content">
                                         <ul class="list">
-                                            <?php foreach ($footerMenu2->getItems()->filter(function ( MenuItems $item) { return $item->getEnabled(); }) as $fMenuItem) :?>
+                                            <?php foreach ($footerMenu2->getItems()->filter(function ($item) { return $item->getEnabled(); }) as $fMenuItem) :?>
                                                 <li><a href="<?= $this->escape($fMenuItem->getSlug())?>"><?= $this->escape($fMenuItem->getTitle())?></a></li>
                                             <?php endforeach;?>
                                         </ul>
