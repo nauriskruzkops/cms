@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManager;
 use Shared\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine;
 
 class PageHelper extends Helper
 {
@@ -28,7 +27,7 @@ class PageHelper extends Helper
      * @param SettingService $settingService
      * @param EntityManager $em
      */
-    public function __construct(TimedPhpEngine $templating, SettingService $settingService)
+    public function __construct(PhpEngine $templating, SettingService $settingService)
     {
         $this->view = $templating;
         $this->locale = $this->view['locale'];

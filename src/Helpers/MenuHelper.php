@@ -10,7 +10,7 @@ use Shared\Repository\MenuItemsRepository;
 use Shared\Repository\MenuRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine as TimedPhpEngine;
 
 class MenuHelper extends Helper
 {
@@ -38,7 +38,7 @@ class MenuHelper extends Helper
      * @param SettingService $settingService
      * @param EntityManager $em
      */
-    public function __construct(TimedPhpEngine $templating, SettingService $settingService, EntityManager $em)
+    public function __construct(PhpEngine $templating, SettingService $settingService, EntityManager $em)
     {
         $this->view = $templating;
         $this->locale = $this->view['locale'];

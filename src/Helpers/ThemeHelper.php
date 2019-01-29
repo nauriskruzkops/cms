@@ -11,7 +11,6 @@ use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine;
 
 class ThemeHelper extends Helper
 {
@@ -31,10 +30,10 @@ class ThemeHelper extends Helper
 
     /**
      * LayoutHelper constructor.
-     * @param TimedPhpEngine $templating
+     * @param PhpEngine $templating
      * @param SettingService $settingService
      */
-    public function __construct(TimedPhpEngine $templating, SettingService $settingService)
+    public function __construct(PhpEngine $templating, SettingService $settingService)
     {
         $this->view = $templating;
         $this->locale = $this->view['locale'];

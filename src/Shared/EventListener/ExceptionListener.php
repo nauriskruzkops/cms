@@ -2,21 +2,21 @@
 
 namespace Shared\EventListener;
 
-use Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ExceptionListener
 {
-    /** @var TimedPhpEngine  */
+    /** @var PhpEngine  */
     private $view;
 
     /**
      * ExceptionListener constructor.
-     * @param TimedPhpEngine $view
+     * @param PhpEngine $view
      */
-    public function __construct(TimedPhpEngine $view = null)
+    public function __construct(PhpEngine $view = null)
     {
         $this->view = $view;
     }
@@ -39,6 +39,6 @@ class ExceptionListener
             );
         }
 
-        $event->setResponse($response);
+        return $event->setResponse($response);
     }
 }
