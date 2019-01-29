@@ -1,12 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?= $view['locale']?>">
 <head>
     <title><?= $this->escape($view['settings']->value('site_title')) ?></title>
     <meta charset="utf-8">
+    <?php if((int) $view['settings']->value('site_allow_public_index') !== 1) :?>
+        <meta name="robots" content="noindex">
+        <meta name="googlebot" content="noindex">
+    <?php endif;?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<?= $this->escape($view['settings']->value('site_description')) ?>">
     <link rel="icon" href="data:image/ico;base64,0">
-
     <link href="<?= $view['theme']->assetsGetUrl('bootstrap.css', 'css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= $view['theme']->assetsGetUrl('revolution/css/settings.css', 'plugins') ?>" rel="stylesheet" type="text/css">
     <link href="<?= $view['theme']->assetsGetUrl('revolution/css/layers.css', 'plugins') ?>" rel="stylesheet" type="text/css">
@@ -14,12 +17,10 @@
     <link href="<?= $view['theme']->assetsGetUrl('style.css', 'css') ?>" rel="stylesheet">
     <link href="<?= $view['theme']->assetsGetUrl('responsive.css', 'css') ?>" rel="stylesheet">
     <link href="<?= $view['theme']->assetsGetUrl('style-overwrite.css', 'css') ?>" rel="stylesheet">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
     <!--[if lt IE 9]><script src="<?= $view['theme']->assetsGetUrl('respond.js', 'js') ?>"></script><![endif]-->
-
 </head>
 <body>
 
