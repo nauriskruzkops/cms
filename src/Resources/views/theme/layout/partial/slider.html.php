@@ -15,15 +15,16 @@ $pageHelper = $view['page']($page);
 /* background-color: #b2b2b2 */
 
 ?>
-<section class="slider-banner-section" style="background-image: url(<?= $pageHelper->headerBackground($page, false)?>);" >
-    <img src="<?= $pageHelper->headerBackground($page, false)?>" style="visibility: hidden;">
-    <div class="image-layer" style="background-image:url();"></div>
+<section class="slider-banner-section">
+    <div class="slider-image" style="background-image: url(<?= $pageHelper->headerBackground($page, false)?>);">
+        <img src="<?= $pageHelper->headerBackground($page, false)?>" style="visibility: hidden;">
+    </div>
 
     <div class="auto-container">
         <div class="content">
-            <span style="font-size: 120%; color:#FFFFFF; font-weight: bold; text-transform: uppercase; ">
+            <p style="font-size: 120%; color:#FFFFFF; font-weight: bold; text-transform: uppercase; ">
                 &ensp; Latvijā rūpnieciski ražotas augstas kvalitātes &ensp;
-            </span>
+            </p>
             <h2 style="color:white; font-weight: bold; text-transform: uppercase;">koka karkasa paneļa <span style="color: #f5802d">mājas</span></h2>
         </div>
         <br>
@@ -32,3 +33,4 @@ $pageHelper = $view['page']($page);
         </p>
     </div>
 </section>
+<div class="clearfix"></div>
