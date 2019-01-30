@@ -125,9 +125,13 @@ strong {
 
 /* POST: blocks-container */
 #blocks-container {}
+#blocks-container .block-header {
+    box-shadow: 0px 3px 5px #d0d0d0;
+    position: relative;
+}
 #blocks-container .blocks-container-item {
     margin-bottom: 20px;
-    border-bottom: 1px solid #B0B0B0;
+    border-bottom: 0px solid #B0B0B0;
 }
 #blocks-container .blocks-container-item:last-child {
     margin-bottom: 10px;

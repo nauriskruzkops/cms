@@ -30,13 +30,15 @@ $formHelper = $view['form'];
                     'block' => $block,
                     'blockKey' => $blockKey,
                 ])?>
-                <?php if ($pageBlocks->getType()) :?>
-                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()),[
-                        'form' => $form,
-                        'block' => $block,
-                        'blockKey' => $blockKey,
-                    ])?>
-                <?php endif; ?>
+                <div class="white-box">
+                    <?php if ($pageBlocks->getType()) :?>
+                        <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()),[
+                            'form' => $form,
+                            'block' => $block,
+                            'blockKey' => $blockKey,
+                        ])?>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php  endif;?>
     <?php endforeach;?>

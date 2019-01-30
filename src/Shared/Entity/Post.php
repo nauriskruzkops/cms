@@ -78,6 +78,7 @@ class Post {
     {
         $this->categories = new ArrayCollection();
         $this->isPartOf = false;
+        $this->public = false;
     }
 
     /**

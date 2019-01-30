@@ -4,6 +4,7 @@ namespace Admin\Controller\Cms;
 
 use Shared\Entity\Page;
 use Shared\Entity\PageBlocks;
+use Shared\Entity\Post;
 use Shared\Entity\User;
 use Shared\Repository\PageBlocksRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,13 @@ class PagesBlockController extends \Admin\Controller\AbstractController
             $block = new PageBlocks();
             $block->setType($type);
             $entity->addBlocks($block);
+
+            if ($type == PageBlocks::TYPE_POST) {
+                $post = new Post();
+                $post->setIsPartOf(true);
+                $block->setPost($post);
+            }
+
             $em->flush();
             $this->addFlash('info', sprintf('Page block `%s` added', $type));
         }

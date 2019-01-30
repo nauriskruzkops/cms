@@ -18,7 +18,7 @@ $pageHelper = $view['page']($block->getPage());
 
 ?>
 <?php if ($block->getPost()) :?>
-    <div class="row">
+    <div class="row" style="<?= $pageHelper->blockBackground($block)?>">
         <?php if (!empty($block->getTitle())) :?>
             <?php if ($key === 0) :?>
                 <?php if ($pageHelper->hasHeaderTitle()) :?>

@@ -17,8 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 $pageHelper = $view['page']($block->getPage());
 
 ?>
-
-<section class="services-section-three page-block" style="background-color:#d6d6d6">
+<section class="services-section-three page-block" style="<?= $pageHelper->blockBackground($block)?>">
     <div class="auto-container">
         <?= $view['actions']->render(
             new \Symfony\Component\HttpKernel\Controller\ControllerReference('App\\Controller\\ServicesController::partialByCategory',[

@@ -7,6 +7,10 @@ $(document).ready(function(){
 });
 
 $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
+
+$(function () {
     var globalAjaxModal = $('#globalAjaxModal');
     globalAjaxModal.on('show.bs.modal', function(e) {
         var globalAjaxModalUrl = $(e.relatedTarget).attr('href');

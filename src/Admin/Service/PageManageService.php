@@ -95,6 +95,9 @@ class PageManageService
             }
         }
 
+        $config = $block->getConfig();
+        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
+
         $post->setIsPartOf(true);
         $post->setPublic($block->isPublic());
 

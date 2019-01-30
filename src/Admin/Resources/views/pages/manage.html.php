@@ -40,15 +40,15 @@ $isNewPage = (!$page->getId());
     <div class="col-sm-12">
         <?= $formHelper->start($form->createView());?>
             <div class="row">
-                <div class="col-8">
-                    <div class="white-box">
+                <div class="col-9">
+                    <div class="">
                         <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/%s/%s.html.php', $page->getTemplate(), $page->getTemplate()),[
                             'form' => $form,
                             'page' => $page,
                         ])?>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
