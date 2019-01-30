@@ -45,6 +45,10 @@ class PageBlockForm extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
+            ->add('type', HiddenType::class, [
+                'required' => true,
+                'attr' => [],
+            ])
             ->add('post', EntityType::class, array(
                 'class' => Post::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -61,6 +65,10 @@ class PageBlockForm extends AbstractType
                     'placeholder' => 'Posts',
                 ],
             ))
+//            ->add('config', TextType::class, [
+//                'required' => false,
+//                'attr' => [],
+//            ])
             ->add('isPublic', CheckboxType::class, [
                 'required' => false,
                 'attr' => [],

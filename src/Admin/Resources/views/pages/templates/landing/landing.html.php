@@ -30,19 +30,13 @@ $formHelper = $view['form'];
                     'block' => $block,
                     'blockKey' => $blockKey,
                 ])?>
-                <?php if ($pageBlocks->getPost()) :?>
-                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'post'),[
+                <?php if ($pageBlocks->getType()) :?>
+                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()),[
                         'form' => $form,
                         'block' => $block,
                         'blockKey' => $blockKey,
                     ])?>
-                <?php else :?>
-                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'list'),[
-                        'form' => $form,
-                        'block' => $block,
-                        'blockKey' => $blockKey,
-                    ])?>
-                <?php endif;?>
+                <?php endif; ?>
             </div>
         <?php  endif;?>
     <?php endforeach;?>
@@ -54,36 +48,10 @@ $formHelper = $view['form'];
         <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" data-action="add_post_block"><?= $view['translator']->trans('Adm:Post') ?></a>
-        <?php /*
-            <a class="dropdown-item" href="#" data-action="add_list_block"><?= $view['translator']->trans('Adm:List') ?></a>
-            <a class="dropdown-item" href="#" data-action="add_array_block"><?= $view['translator']->trans('Adm:Params') ?></a>
-        */?>
+        <?php foreach (PageBlocks::TYPES as $availableType) :?>
+            <a class="dropdown-item" data-target="add-new-block" href="<?= $view['router']->path('adm_pageblock_add', ['page_id'=>$page->getId(), 'type' => $availableType]) ?>">
+                <?= $view['translator']->trans('Adm:'.ucfirst($availableType)) ?>
+            </a>
+        <?php endforeach;?>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        var lastBlockKey = <?= $blockKey ?? 0?>;
-        $('[data-action=add_post_block]').click(function (v) {
-            var newPostEditor = $('<div class="form-control-editor">');
-            newPostEditor.height(300);
-            newPostEditor.attr('data-post-name', 'page_form[new_block]['+lastBlockKey+'][post_text]');
-            var newPostField1 = $('<input type="hidden" name="page_form[new_block]['+lastBlockKey+'][post]" value="new">');
-            var newPostBlock = $('<div>');
-            newPostBlock.append(newPostEditor);
-            newPostBlock.append(newPostField1);
-            $('#blocks-container').append(newPostBlock);
-            lastBlockKey++;
-            $('form[name=<?= $form->getName()?>]').submit();
-        });
-        $('[data-action=add_list_block]').click(function (v) {
-            var newPostField1 = $('<input type="hidden" name="page_form[new_block]['+lastBlockKey+'][list]" value="new">');
-            var newPostBlock = $('<div>').height(100).html('Please, as first save the page!');
-            newPostBlock.append(newPostField1);
-            $('#blocks-container').append(newPostBlock);
-            lastBlockKey++;
-        });
-    })
-</script>
-
-</script>

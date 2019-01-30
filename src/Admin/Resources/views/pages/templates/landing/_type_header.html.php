@@ -36,7 +36,9 @@ $formBlockView = $block->createView();
     <div class="col"></div>
     <div class="col-md-4 col-sm-8">
         <div class="input-group">
+            <input type="hidden" name="<?= $formBlockView->vars['full_name']?>[id]" value="<?= $blockData->getId()?>">
             <?= $formHelper->widget($formBlockView['title'])?>
+            <?= $formHelper->widget($formBlockView['type'])?>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-gears"></i>

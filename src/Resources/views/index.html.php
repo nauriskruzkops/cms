@@ -18,11 +18,12 @@ $view['theme']->extend('layout/extend/layout.html.php');
 
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
     <?php if (!$page->getBlocks()->isEmpty()) :?>
-        <?php foreach ($page->getBlocks() as $block) :?>
+        <?php foreach ($page->getBlocks() as $blockKey => $block) :?>
             <?php if ($block->isPublic()) :?>
-                <?php if ($block->getPost()) :?>
-                    <?= $block->getPost()->getText()?>
-                <?php endif;?>
+                <?= $view['theme']->render(sprintf('page_block/%s.html.php', $block->getType()), [
+                    'block' => $block,
+                    'key' => $blockKey,
+                ])?>
             <?php endif;?>
         <?php endforeach;?>
     <?php endif;?>
@@ -37,15 +38,5 @@ $view['theme']->extend('layout/extend/layout.html.php');
         </div>
     </section>
 <?php endif;?>
-
-<section class="services-section-three page-block" style="background-color:#d6d6d6">
-    <div class="auto-container">
-        <?= $view['actions']->render(
-            new ControllerReference('App\\Controller\\ServicesController::partialByCategory',[
-                'request' => $app->getRequest(), 'categories' => ['services']
-            ])
-        ) ?>
-    </div>
-</section>
 
 

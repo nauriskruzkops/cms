@@ -18,26 +18,14 @@ echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $p
 
 ?>
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
-    <?php $i=0; foreach ($page->getBlocks() as $block) :?>
-        <?php if ($block->isPublic() && $block->getPost()) :?>
-            <div class="row">
-                <?php if (!empty($block->getTitle())) :?>
-                    <?php if ($i === 0) :?>
-                        <?php if ($pageHelper->hasHeaderTitle()) :?>
-                            <div class="sec-title">
-                                <h2><?= $this->escape($block->getTitle())?></h2>
-                            </div>
-                        <?php endif;?>
-                    <?php else: ?>
-                        <div>
-                            <h2><?= $this->escape($block->getTitle())?></h2>
-                        </div>
-                    <?php endif; ?>
-                <?php endif;?>
-                <?= $block->getPost()->getText()?>
-            </div>
+    <?php foreach ($page->getBlocks() as $blockKey => $block) :?>
+        <?php if ($block->isPublic()) :?>
+            <?= $view['theme']->render(sprintf('page_block/%s.html.php', $block->getType()), [
+                    'block' => $block,
+                    'key' => $blockKey,
+            ])?>
         <?php endif;?>
-    <?php $i++; endforeach;?>
+    <?php endforeach;?>
 <?php else:?>
     <section class="mechanical-section" style="background-color:#f4f4f4">
         <div class="auto-container">

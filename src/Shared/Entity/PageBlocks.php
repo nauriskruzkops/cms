@@ -15,12 +15,25 @@ class PageBlocks {
 
     use Traits\Traceability;
 
+    const TYPE_POST = 'post';
+    const TYPE_LIST = 'list';
+
+    const TYPES = [
+      self::TYPE_POST,
+      self::TYPE_LIST,
+    ];
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $type;
 
     /**
      * @ORM\ManyToOne(targetEntity="\Shared\Entity\Page", inversedBy="settings", cascade={"persist"})
@@ -67,7 +80,9 @@ class PageBlocks {
      */
     public function __construct()
     {
+        $this->type = self::TYPE_POST;
         $this->isPublic = false;
+        $this->config = [];
     }
 
     public function __toString()
@@ -85,6 +100,25 @@ class PageBlocks {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     * @return PageBlocks
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -219,6 +253,5 @@ class PageBlocks {
 
         return $this;
     }
-
 
 }

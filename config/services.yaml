@@ -103,6 +103,10 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: settings }
+    Admin\Helpers\CategoryHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@Admin\Service\CategoryService']
+        tags:
+            - { name: templating.helper, alias: category }
 
     # SHARED
     Shared\:
@@ -120,7 +124,7 @@ services:
 #        tags:
 #        - { name: 'doctrine.event_listener', event: postUpdate}
 #        - { name: 'doctrine.event_listener', event: postPersist}
-    Shared\EventListener\ExceptionListener:
-        arguments: ['@templating.engine.php']
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception }
+#    Shared\EventListener\ExceptionListener:
+#        arguments: ['@templating.engine.php']
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.exception }

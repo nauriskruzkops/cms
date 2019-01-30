@@ -1,6 +1,5 @@
 <?php
 
-use Shared\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
@@ -12,21 +11,42 @@ use Symfony\Component\Form\Form;
  * @var FormHelper $formHelper
  * @var Form $block
  * @var \Shared\Entity\PageBlocks $blockData
- * @var integer $blockKey
+ * @var \Admin\Helpers\CategoryHelper $categoryHelper
  */
 
 $formHelper = $view['form'];
 $blockData = $block->getData();
 $formBlockView = $block->createView();
+$categoryHelper = $view['category']($blockData->getPage()->getLocale());
+$config = $blockData->getConfig();
 
+$configInputName = $formBlockView->vars['full_name'];
+$configValues = $blockData->getConfig();
 ?>
-<input type="hidden" name="<?= $formBlockView['post']->vars['full_name']?>" value="<?= $formBlockView['post']->vars['value']?>">
-Block list!
-
-<script type="text/javascript">
-    $(function () {
-        // ...
-    })
-</script>
+<div class="row">
+    <div class="col-md-6">
+        <div>Show all posts by category:</div>
+        <div class="row">
+            <?php foreach ($categoryHelper->getList() as $category) :?>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="form-check">
+                            <?php $checked = in_array($category['slag'], array_values($configValues['category'] ?? [])) ? 'checked' : ''?>
+                            <label>
+                                <input type="checkbox" <?= $checked?> name="<?= $configInputName?>[config][category][]" value="<?= $category['slag']?>"> <?= $this->escape($category['title'])?>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Text</label>
+            <textarea class="form-control" type="hidden" name="<?= $configInputName?>[config][text]"><?= $configValues['text'] ?? ''?></textarea>
+        </div>
+    </div>
+</div>
 
 
