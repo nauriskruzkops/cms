@@ -124,7 +124,7 @@ class PageManageService
             unset($config['text']);
         }
 
-        $block->setConfig(array_merge($config, $data['config'] ?? []));
+        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
 
         return $page;
     }
