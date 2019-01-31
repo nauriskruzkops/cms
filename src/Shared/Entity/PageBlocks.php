@@ -82,7 +82,19 @@ class PageBlocks {
     {
         $this->type = self::TYPE_POST;
         $this->isPublic = false;
-        $this->config = [];
+        $this->config = $this->configDefaults();
+    }
+
+    public function configDefaults()
+    {
+        return [
+            0 => [
+                'description' => null,
+                'bg_color' => '#FFFFFF',
+                'bg_transparent' => true,
+                'bg_image' => null,
+            ],
+        ];
     }
 
     public function __toString()
@@ -240,7 +252,11 @@ class PageBlocks {
      */
     public function getConfig():? array
     {
-        return $this->config;
+        $config = $this->config;
+        if (!empty($config)) {
+            return $config;
+        }
+        return $this->configDefaults();
     }
 
     /**

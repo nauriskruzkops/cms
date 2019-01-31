@@ -20,8 +20,12 @@ $formBlockView = $block->createView();
 $categoryHelper = $view['category']($blockData->getPage()->getLocale());
 $config = $blockData->getConfig();
 
-$configInputName = $formBlockView->vars['full_name'];
-$configValues = $blockData->getConfig();
+$formBlockConfigView = $block->get('config')[0]->createView();
+$formBlockConfig = $blockData->getConfig() ?? [];
+
+$configInputName = $formBlockConfigView->vars['full_name'];
+$configValues = $blockData->getConfig()[0] ?? [];
+
 ?>
 <div class="row">
     <div class="col-md-6">
@@ -33,7 +37,7 @@ $configValues = $blockData->getConfig();
                         <div class="form-check">
                             <?php $checked = in_array($category['slag'], array_values($configValues['category'] ?? [])) ? 'checked' : ''?>
                             <label>
-                                <input type="checkbox" <?= $checked?> name="<?= $configInputName?>[config][category][]" value="<?= $category['slag']?>"> <?= $this->escape($category['title'])?>
+                                <input type="checkbox" <?= $checked?> name="<?= $configInputName?>[category][]" value="<?= $category['slag']?>"> <?= $this->escape($category['title'])?>
                             </label>
                         </div>
                     </div>
@@ -44,7 +48,7 @@ $configValues = $blockData->getConfig();
     <div class="col-md-6">
         <div class="form-group">
             <label>Text</label>
-            <textarea class="form-control" type="hidden" name="<?= $configInputName?>[config][text]"><?= $configValues['text'] ?? ''?></textarea>
+            <?= $formHelper->widget($formBlockConfigView['text'])?>
         </div>
     </div>
 </div>

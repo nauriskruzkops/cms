@@ -95,9 +95,6 @@ class PageManageService
             }
         }
 
-        $config = $block->getConfig();
-        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
-
         $post->setIsPartOf(true);
         $post->setPublic($block->isPublic());
 
@@ -119,15 +116,15 @@ class PageManageService
         /** @var PageBlocks $block */
         $block = $findBlock->first();
 
-        $config = $block->getConfig();
-        if (isset($config['category'])) {
-            unset($config['category']);
-        }
-        if (isset($config['text'])) {
-            unset($config['text']);
-        }
-
-        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
+//        $config = $block->getConfig();
+//        if (isset($config['category'])) {
+//            unset($config['category']);
+//        }
+//        if (isset($config['text'])) {
+//            unset($config['text']);
+//        }
+//
+//        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
 
         return $page;
     }

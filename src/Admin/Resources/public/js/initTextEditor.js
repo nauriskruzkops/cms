@@ -13,7 +13,7 @@ $(function () {
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table contextmenu paste code help wordcount template'
             ],
-            toolbar: 'insert | undo redo | styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks preview',
+            toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks preview',
             content_css: [
                 //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
                 //'/assets/theme/default/css/bootstrap-overwrite.css',

@@ -17,8 +17,9 @@ class ServicesController extends AbstractController
 
         if ($params instanceof PageBlocks) {
             $title = $params->getTitle();
-            $categories = $params->getConfig()['category'] ?? $categories;
-            $description = $params->getConfig()['text'] ?? $description;
+            $configData = is_array($params->getConfig()) ? $params->getConfig()[0] ?? [] : [];
+            $categories = $configData['category'] ?? $categories;
+            $description = $configData['text'] ?? $description;
         }
 
         if (count($categories)) {

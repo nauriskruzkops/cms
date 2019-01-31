@@ -95,6 +95,8 @@ services:
         tags: ['controller.service_arguments']
     Admin\Form\PageSettingsForm:
         arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
+    Admin\Form\PageBlockSettingsForm:
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
 
     # ADMIN HELPERS
     Admin\Helpers\:

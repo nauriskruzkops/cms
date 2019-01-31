@@ -115,8 +115,10 @@ class PageHelper extends Helper
      */
     public function blockBackground(PageBlocks $block)
     {
-        $blockConfig = is_array($block->getConfig()) ? $block->getConfig() : [];
-
+        $blockConfig = is_array($block->getConfig()) ? ($block->getConfig()[0] ?? []) : [];
+        if ($blockConfig['bg_transparent'] ?? true) {
+            return '';
+        }
         $style = [];
         $backgroundImg = $blockConfig['bg_image'] ?? null;
         if ($backgroundImg) {

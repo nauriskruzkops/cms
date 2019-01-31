@@ -25,6 +25,7 @@ class PageSettingsForm extends AbstractType
     /**
      * PageForm constructor.
      * @param EntityManager $em
+     * @param FileUploader $fileUploader
      */
     public function __construct(EntityManager $em, FileUploader $fileUploader)
     {

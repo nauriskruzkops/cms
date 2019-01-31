@@ -11,6 +11,7 @@ use Shared\Entity\Post;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -65,10 +66,13 @@ class PageBlockForm extends AbstractType
                     'placeholder' => 'Posts',
                 ],
             ))
-//            ->add('config', TextType::class, [
-//                'required' => false,
-//                'attr' => [],
-//            ])
+            ->add('config', CollectionType::class, [
+                'entry_type' => PageBlockSettingsForm::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_extra_fields' => true,
+            ])
             ->add('isPublic', CheckboxType::class, [
                 'required' => false,
                 'attr' => [],
