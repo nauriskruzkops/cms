@@ -74,23 +74,34 @@ class UsersController extends AbstractController
     }
 
     /**
+     * @Route("/admin/user/profile", name="adm_user_profile")
+     * @param Request $request
+     * @param UserManageService $userManageService
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function profile(Request $request, UserManageService $userManageService)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        return $this->processForm($request, $user, 'adm_user_profile', $userManageService, true);
+    }
+
+    /**
      * @param Request $request
      * @param User $user
      * @param $route_name
      * @param UserManageService $service
+     * @param bool $isProfile
      * @return array|Response
      */
-    private function processForm(Request $request, User $user, $route_name, UserManageService $service)
+    private function processForm(Request $request, User $user, $route_name, UserManageService $service, $isProfile = false)
     {
         /** @var Form $form */
         $form = $this->createForm(UserForm::class, $user, [
             'action' => $this->generateUrl($route_name, ['id' => $user->getId()]),
             'method' => 'POST',
         ]);
-
-        if ($request->request->get('delete_user', false) !== false) {
-            //return $this->delete($request);
-        }
 
         $form->handleRequest($request);
         $formError = false;
@@ -100,9 +111,14 @@ class UsersController extends AbstractController
                 try {
                     $service->saveUserData($form, $request);
                     $this->addFlash('info', 'Cool, user saved!');
-                    return $this->redirectToRoute(
-                        $request->get('btn_save_exit', 1) === 1 ? 'adm_user' :'adm_users',
-                        ['id' => $user->getId()]);
+                    if ($isProfile) {
+                        return $this->redirectToRoute($route_name);
+                    } else {
+                        return $this->redirectToRoute(
+                            $request->get('btn_save_exit', 1) === 1 ? 'adm_user' : 'adm_users',
+                            ['id' => $user->getId()]);
+                    }
+
                 } catch (\Exception $e) {
                     $this->addFlash('error', $e->getMessage());
                     return $this->redirectToRoute($route_name, ['id' => $user->getId()]);
@@ -112,10 +128,11 @@ class UsersController extends AbstractController
             }
         }
 
-        return $this->render('AdminBundle::users/manage.html.php', [
+        return $this->render(sprintf('AdminBundle::users/%s.html.php', $isProfile ? 'profile' : 'manage' ), [
             'user' => $user,
             'form' => $form,
             'formError' => $formError,
+            'isProfile' => $isProfile,
         ]);
     }
 }

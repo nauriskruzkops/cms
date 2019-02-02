@@ -30,9 +30,7 @@ echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $p
     <section class="mechanical-section" style="background-color:#f4f4f4">
         <div class="auto-container">
             <div class="inner-container">
-                <div class="row clearfix">
-                    <?= $page->getContent()?>
-                </div>
+                <?= $page->getContent()?>
             </div>
         </div>
     </section>

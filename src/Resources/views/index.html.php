@@ -31,9 +31,7 @@ $view['theme']->extend('layout/extend/layout.html.php');
     <section class="mechanical-section page-block" style="background-color:#f4f4f4">
         <div class="auto-container">
             <div class="inner-container">
-                <div class="row clearfix">
-                    <?= $page->getContent()?>
-                </div>
+                <?= $page->getContent()?>
             </div>
         </div>
     </section>

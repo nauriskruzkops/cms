@@ -8,6 +8,8 @@ $(function () {
             menubar: false,
             inline: true,
             inline_styles : false,
+            relative_urls : false,
+            remove_script_host : true,
             plugins: [
                 'advlist autolink lists link image imagetools charmap print preview anchor textcolor fullpage',
                 'searchreplace visualblocks code fullscreen pagebreak',

@@ -7,6 +7,7 @@
  */
 
 ?>
+
 <nav id="mainTopNav" class="navbar navbar-expand-lg navbar-light fixed-top bg-primary align-middle">
     <a class="navbar-brand text-dark" href="<?= $view['router']->path('ADM_index') ?>" style="padding-left: 45px">
         <span class="text-dark"><?= $view['settings']->value('sys_owner')?></span> <strong class="text-dark"><?= $view['settings']->value('sys_title')?></strong>
@@ -26,9 +27,9 @@
                     <i class="fa fa-fw fa-user-circle fa-lg"></i>
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/profile">Profile</a>
+                    <a class="dropdown-item" href="<?= $view['router']->path('adm_user_profile') ?>"><?= $view['translator']->trans('Adm:Profile') ?></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal"><?= $view['translator']->trans('Adm:Logout') ?></a>
                 </div>
             </li>
         </ul>
