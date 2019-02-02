@@ -71,6 +71,9 @@ class PostHelper extends Helper
             $post = $this->post;
         }
         $exploded = explode('<p><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="mce-pagebreak" data-mce-resize="false" data-mce-placeholder=""></p>', $post->getText());
+        if (count($exploded) === 1) {
+            $exploded = explode('<p><img class="mce-pagebreak" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-mce-resize="false" data-mce-placeholder=""></p>', $exploded[0]);
+        }
 
         return $exploded;
     }
