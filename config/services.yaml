@@ -54,6 +54,10 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: page }
+    App\Helpers\PostHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+        - { name: templating.helper, alias: post }
     App\Helpers\LayoutHelper:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:

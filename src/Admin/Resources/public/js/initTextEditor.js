@@ -31,6 +31,7 @@ $(function () {
             table_default_attributes: {
                 border: '0'
             },
+            pagebreak_split_block: true,
             plugin_preview_width: 1000,
             link_class_list: [
                 {title: 'Simple link', value: ''},
