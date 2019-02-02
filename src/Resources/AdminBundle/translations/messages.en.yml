@@ -48,3 +48,6 @@
 'Adm:Nav:Site': Site
 'Adm:Nav:General': General
 'Adm:Nav:System': System
+'Adm:Transparent': Transparent
+'Adm:ShowAllPostsByCategory': 'Show all posts by category'
+'Adm:Style': Style

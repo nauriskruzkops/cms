@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\PageBlockSettingsListener;
 use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
+use Shared\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -56,13 +57,17 @@ class PageBlockSettingsForm extends AbstractType
             ])
             ->add('category', ChoiceType::class, [
                 'required' => false,
-                'choices' => [
-                    'Pakalpojumi' => 'services',
-                    'Blog' => 'blog',
-                    'Jaunumi' => 'news',
-                    'Info' => 'info',
-                ],
+                'choices' => [], // <- Listener
                 'multiple' => true,
+            ])
+            ->add('style', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Grid' => 'grid',
+                    'Slider' => 'slider',
+                    'Blog' => 'blog',
+                ],
+                'multiple' => false,
             ])
             ->add('bg_color', ColorType::class, [
                 'required' => false,
@@ -91,6 +96,17 @@ class PageBlockSettingsForm extends AbstractType
         $resolver->setDefaults([
             'empty_data' => []
         ]);
+    }
+
+    /**
+     * @return \Shared\Entity\Category[]|null
+     */
+    private function getCategories()
+    {
+        /** @var CategoryRepository $repository */
+        $repository = $this->em->getRepository(CategoryRepository::class);
+
+        return $repository->getForFormChoiceType('lv');
     }
 }
 

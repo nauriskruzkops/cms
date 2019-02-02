@@ -25,4 +25,18 @@ class CategoryRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param $locale
+     * @return Category[]|null
+     */
+    public function getForFormChoiceType($locale)
+    {
+        $return = [];
+        $array = $this->findAllByLocale($locale);
+        foreach ($array as $category) {
+            $return[$category['title']] = $category['slag'];
+        }
+        return $return;
+    }
 }

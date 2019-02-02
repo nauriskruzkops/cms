@@ -10,10 +10,10 @@ $(function () {
             inline_styles : false,
             plugins: [
                 'advlist autolink lists link image imagetools charmap print preview anchor textcolor fullpage',
-                'searchreplace visualblocks code fullscreen',
+                'searchreplace visualblocks code fullscreen pagebreak',
                 'insertdatetime media table contextmenu paste code help wordcount template'
             ],
-            toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks preview',
+            toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat pagebreak | code visualblocks preview',
             content_css: [
                 //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
                 //'/assets/theme/default/css/bootstrap-overwrite.css',

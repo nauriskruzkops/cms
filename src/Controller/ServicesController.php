@@ -14,12 +14,14 @@ class ServicesController extends AbstractController
         $title = null;
         $description = null;
         $categories = [];
+        $style = 'grid';
 
         if ($params instanceof PageBlocks) {
             $title = $params->getTitle();
             $configData = is_array($params->getConfig()) ? $params->getConfig()[0] ?? [] : [];
             $categories = $configData['category'] ?? $categories;
             $description = $configData['text'] ?? $description;
+            $style = $configData['style'] ?? $style;
         }
 
         if (count($categories)) {
@@ -28,7 +30,7 @@ class ServicesController extends AbstractController
                 ->getPostsByCategory($request->getLocale(), $categories);
         }
 
-        return $this->render('theme/layout/partial/services.html.php', [
+        return $this->render(sprintf('theme/layout/partial/services-style-%s.html.php', $style), [
             'services' => $services,
             'title' => $title,
             'description' => $description,

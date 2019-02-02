@@ -47,7 +47,7 @@ $formHelper = $view['form'];
 
 <div class="btn-group dropright">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
+        <i class="fa fa-plus"></i> <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
     </button>
     <div class="dropdown-menu">
         <?php foreach (PageBlocks::TYPES as $availableType) :?>

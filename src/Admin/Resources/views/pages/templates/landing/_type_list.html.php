@@ -28,24 +28,27 @@ $configValues = $blockData->getConfig()[0] ?? [];
 
 ?>
 <div class="row">
-    <div class="col-md-6">
-        <div>Show all posts by category:</div>
+    <div class="col-md-5">
+        <div class="small"><?= $view['translator']->trans('Adm:ShowAllPostsByCategory') ?>:</div>
         <div class="row">
-            <?php foreach ($categoryHelper->getList() as $category) :?>
+            <?php foreach ($formBlockConfigView['category'] as $key => $category) :?>
                 <div class="col-md-6">
                     <div class="row">
                         <div class="form-check">
-                            <?php $checked = in_array($category['slag'], array_values($configValues['category'] ?? [])) ? 'checked' : ''?>
-                            <label>
-                                <input type="checkbox" <?= $checked?> name="<?= $configInputName?>[category][]" value="<?= $category['slag']?>"> <?= $this->escape($category['title'])?>
-                            </label>
+                            <?= $formHelper->widget($category)?> <?= $formHelper->label($category)?>
                         </div>
                     </div>
                 </div>
             <?php endforeach;?>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label><?= $view['translator']->trans('Adm:Template') ?>:</label>
+            <?= $formHelper->widget($formBlockConfigView['style'], ['attr' => ['class' => 'form-control']])?>
+        </div>
+    </div>
+    <div class="col-md-5">
         <div class="form-group">
             <label>Text</label>
             <?= $formHelper->widget($formBlockConfigView['text'])?>

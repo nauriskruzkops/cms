@@ -7,7 +7,11 @@ use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Shared\Entity\Category;
+use Shared\Entity\PageBlocks;
+use Shared\Repository\CategoryRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -36,9 +40,30 @@ class PageBlockSettingsListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
+            FormEvents::PRE_SET_DATA   => 'preSetData',
             FormEvents::PRE_SUBMIT   => 'preSubmit',
             FormEvents::POST_SUBMIT   => 'postSubmit',
         ];
+    }
+
+    public function preSetData (FormEvent $event)
+    {
+        $form = $event->getForm();
+        $pageForm = $form->getParent();
+
+        if ($pageForm instanceof \Symfony\Component\Form\Form) {
+            /** @var PageBlocks $pageBlock */
+            $pageBlock = $pageForm->getParent()->getData();
+
+            $categories = $this->getCategories($pageBlock->getPage()->getLocale());
+            $form->remove('category');
+            $form->add('category', ChoiceType::class, [
+                'required' => false,
+                'choices' => $categories,
+                'multiple' => true,
+                'expanded' => true,
+            ]);
+        }
     }
 
     /**
@@ -73,6 +98,17 @@ class PageBlockSettingsListener implements EventSubscriberInterface
         $data = $event->getData();
         //var_dump($data);
         $event->setData($data);
+    }
+
+    /**
+     * @return \Shared\Entity\Category[]|null
+     */
+    private function getCategories($locale)
+    {
+        /** @var CategoryRepository $repository */
+        $repository = $this->em->getRepository(Category::class);
+
+        return $repository->getForFormChoiceType($locale);
     }
 
 }

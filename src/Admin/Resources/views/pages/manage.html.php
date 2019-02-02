@@ -117,6 +117,9 @@ $isNewPage = (!$page->getId());
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
 </div>
+<div class="sp20"></div>
+<div class="sp20"></div>
+<div class="sp20"></div>
 
 <script type="text/javascript">
     $(function () {
