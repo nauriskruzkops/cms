@@ -88,7 +88,7 @@ class MenuHelper extends Helper
 
         array_walk($menuItems, function ($v, $k) use (&$menuItems) {
             if ($v['slug'] === 'index') {
-                $menuItems[$k]['slug'] = '';
+                $menuItems[$k]['slug'] = '/';
             }
         });
 
