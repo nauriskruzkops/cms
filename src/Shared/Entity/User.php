@@ -2,16 +2,20 @@
 
 namespace Shared\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Traversable;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * @ORM\Entity(repositoryClass="Shared\Repository\UserRepository")
  * @ORM\Table(name="users")
- * ToDO: UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(
+ *     fields={"email", "username"},
+ *     errorPath="email",
+ *     message="User with this email is already exists"
+ * )
  */
 class User implements UserInterface, \Serializable {
 
@@ -43,6 +47,12 @@ class User implements UserInterface, \Serializable {
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "Value must be at least {{ limit }} characters long",
+     *      maxMessage = "Value cannot be longer than {{ limit }} characters"
+     * )
      */
     private $name;
 
@@ -52,7 +62,11 @@ class User implements UserInterface, \Serializable {
     private $surname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -65,6 +79,12 @@ class User implements UserInterface, \Serializable {
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $password;
+
+    /**
+     * @Assert\Blank
+     * @Assert\GreaterThan(5, groups={"update"})
+     */
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -85,7 +105,7 @@ class User implements UserInterface, \Serializable {
     {
         $this->roles = [self::ROLE_USER];
         $this->active = true;
-        //$this->salt = md5(uniqid(null, true));
+        $this->salt = md5(uniqid(null, true));
     }
 
     public function __toString()

@@ -18,18 +18,18 @@ $request = $app->getRequest();
 ?>
 
 <div class="form-group">
-    <label><?= $formView['username']->vars['label'] ?></label>
+    <label><?= $formView['plainPassword']->vars['label'] ?></label>
     <?= $formHelper->widget($formView['username']) ?>
     <?= $formHelper->errors($formView['username']) ?>
 </div>
 <div class="form-group">
-    <label><?= $formView['password']['first']->vars['label'] ?></label>
-    <?= $formHelper->widget($formView['password']['first']) ?>
-    <?= $formHelper->errors($formView['password']['first']) ?>
+    <label><?= $formView['plainPassword']['first']->vars['label'] ?></label>
+    <?= $formHelper->widget($formView['plainPassword']['first']) ?>
+    <?= $formHelper->errors($formView['plainPassword']['first']) ?>
 </div>
 
 <div class="form-group">
-    <label><?= $formView['password']['second']->vars['label'] ?></label>
-    <?= $formHelper->widget($formView['password']['second']) ?>
-    <?= $formHelper->errors($formView['password']['second']) ?>
+    <label><?= $formView['plainPassword']['second']->vars['label'] ?></label>
+    <?= $formHelper->widget($formView['plainPassword']['second']) ?>
+    <?= $formHelper->errors($formView['plainPassword']['second']) ?>
 </div>

@@ -6,7 +6,6 @@ use Admin\Exception\Exception;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\User;
 use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserManageService
@@ -31,31 +30,50 @@ class UserManageService
     }
 
     /**
+     * @param Form $form
      * @param User $user
      * @throws Exception
      */
-    public function saveUserData(Form $form, Request $request)
+    public function changePassword(Form $form)
     {
-        /** @var User $user */
-        $user = $form->getData();
+        /** @var User $data */
+        $data = $form->getData();
 
-        if ($form->has('password')) {
-            $plainPassword = $form->get('password')->getData();
+        if ($form->has('plainPassword')) {
+            $plainPassword = $form->get('plainPassword')->getData();
             if ($plainPassword && !empty($plainPassword)) {
-                $encoded = $this->encoder->encodePassword($user, $plainPassword);
-                $user->setPassword($encoded);
+                $encoded = $this->encoder->encodePassword($data, $plainPassword);
+                $data->setPassword($encoded);
             }
         }
 
+        return $form;
+    }
+
+    /**
+     * @param Form $form
+     * @param User $user
+     * @return User
+     * @throws Exception
+     */
+    public function saveUserData(Form $form)
+    {
+        $form = $this->changePassword($form);
+
+        /** @var User $data */
+        $data = $form->getData();
+
         try {
-            if ($user->getId()) {
-                $this->em->merge($user);
+            if ($data->getId()) {
+                $this->em->merge($data);
             } else {
-                $this->em->persist($user);
+                $this->em->persist($data);
             }
             $this->em->flush();
         } catch (\Exception $e) {
             throw new Exception('Sorry, something wrong, user data not saved', $e->getCode(), $e);
         }
+
+        return $data;
     }
 }

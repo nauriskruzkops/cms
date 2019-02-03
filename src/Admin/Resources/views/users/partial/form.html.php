@@ -8,13 +8,14 @@ use Symfony\Component\Form\Form;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  * @var Form $form
+ * @var bool $isProfile
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
  */
 
 $formView = $form->createView();
 $formHelper = $view['form'];
 $request = $app->getRequest();
-
+$isProfile = $isProfile ?? false;
 ?>
 
 <div class="form-group">
@@ -35,10 +36,17 @@ $request = $app->getRequest();
     <?= $formHelper->errors($formView['email']) ?>
 </div>
 
-<div class="form-check">
-    <label class="form-check-label">
-        <?= $formHelper->widget($formView['active']) ?>
-        <?= $formView['active']->vars['label'] ?>
-    </label>
-</div>
+<?php if ($isProfile !== true) :?>
+    <div class="form-group">
+        <label><?= $formView['roles']->vars['label'] ?></label>
+        <?= $formHelper->widget($formView['roles']) ?>
+        <?= $formHelper->errors($formView['roles']) ?>
+    </div>
+    <div class="form-check">
+        <label class="form-check-label">
+            <?= $formHelper->widget($formView['active']) ?>
+            <?= $formView['active']->vars['label'] ?>
+        </label>
+    </div>
+<?php endif; ?>
 

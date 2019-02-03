@@ -97,6 +97,8 @@ class UsersController extends AbstractController
      */
     private function processForm(Request $request, User $user, $route_name, UserManageService $service, $isProfile = false)
     {
+        $oldUserData = clone $user;
+
         /** @var Form $form */
         $form = $this->createForm(UserForm::class, $user, [
             'action' => $this->generateUrl($route_name, ['id' => $user->getId()]),
@@ -109,8 +111,15 @@ class UsersController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $service->saveUserData($form, $request);
+                    /** @var User $user */
+                    $user = $form->getData();
+                    if ($isProfile) { // Workround
+                        $user->setRoles($oldUserData->getRoles());
+                        $user->setActive($oldUserData->isActive());
+                    }
+                    $service->saveUserData($form);
                     $this->addFlash('info', 'Cool, user saved!');
+
                     if ($isProfile) {
                         return $this->redirectToRoute($route_name);
                     } else {

@@ -37,7 +37,7 @@ $isNewUser = (!$user->getId());
     <?= $formHelper->start($form->createView());?>
         <div class="row">
             <div class="col-md-6">
-                <?= $view->render('@AdminBundle/Resources/views/users/partial/form.html.php',['form' => $form, 'user' => $user,])?>
+                <?= $view->render('@AdminBundle/Resources/views/users/partial/form.html.php',['form' => $form, 'user' => $user, 'isProfile' => true])?>
             </div>
             <div class="col-md-6">
                 <?= $view->render('@AdminBundle/Resources/views/users/partial/password-form.html.php',['form' => $form, 'user' => $user,])?>

@@ -33,18 +33,19 @@ class UserListener implements EventSubscriberInterface
 
     /**
      * @param FormEvent $event
-     * @throws \Doctrine\ORM\ORMException
      */
     public function preSubmit(FormEvent $event)
     {
         /** @var array $data */
         $data = $event->getData();
 
-        if($data['password'] ?? false) {
-           if ($data['password']['first'] ?? false) {
-               if (empty($data['password']['first'])) {
-                   unset($data['password']);
+        if(($data['plainPassword'] ?? false)) {
+           if (($data['plainPassword']['first'] ?? false)) {
+               if (empty($data['plainPassword']['first'])) {
+                   unset($data['plainPassword']);
                }
+           } else {
+               unset($data['plainPassword']);
            }
         }
 
