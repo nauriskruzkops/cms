@@ -42,7 +42,7 @@ class PageBlocks {
     private $page;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Shared\Entity\Post", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\Shared\Entity\Post", cascade={"persist","remove"})
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;

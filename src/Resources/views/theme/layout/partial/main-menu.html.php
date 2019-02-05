@@ -39,7 +39,7 @@ $languages = $view['settings']->values('languages');
             <div class="outer-container clearfix">
                 <div class="logo-box">
                     <div class="logo">
-                        <a href="/"><img src="assets/images/logo-3.png" alt=""></a>
+                        <a href="/"><img src="<?= $view['assets']->getUrl('logo-white.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>"></a>
                     </div>
                 </div>
                 <div class="nav-outer clearfix">

@@ -95,13 +95,12 @@ class PageHelper extends Helper
             $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
         } else {
             if (!$withStyle) {
-                return $this->view['theme']->assetsGetUrl('49656421_296765910978084.jpg', 'images');
+                return '';
             }
-            $style[] = sprintf('background-image:url(%s)', $this->view['theme']->assetsGetUrl('49656421_296765910978084.jpg', 'images'));
         }
 
         $style[] = 'background-position: center center';
-        $style[] = 'background-attachment:fixed';
+        //$style[] = 'background-attachment:fixed';
 
         $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
         $style[] = sprintf('background-color:%s', $backgroundColor);

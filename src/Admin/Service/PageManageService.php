@@ -31,6 +31,28 @@ class PageManageService
 
     /**
      * @param Page $page
+     * @return Page
+     */
+    public function initNewPage(Page $page)
+    {
+        if (!$page instanceof Page) {
+            $page = new Page();
+        }
+
+        $pageBlock = new PageBlocks();
+        $pageBlock->setType(PageBlocks::TYPE_POST);
+
+        $blockPost = new Post();
+        $blockPost->setIsPartOf(true);
+
+        $pageBlock->setPost($blockPost);
+        $page->addBlocks($pageBlock);
+
+        return $page;
+    }
+
+    /**
+     * @param Page $page
      * @throws Exception
      */
     public function savePage(Form $form, Request $request)

@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class MenuItemRelationListener implements EventSubscriberInterface
+class MenuItemRelationFormListener implements EventSubscriberInterface
 {
     /** @var EntityManager */
     protected $em;

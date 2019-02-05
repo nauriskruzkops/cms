@@ -20,18 +20,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
             <h1>Pages</h1>
         </div>
         <div class="col-6 text-right">
-            <div class="btn-group" role="group">
-                <div class="btn-group" role="group">
-                    <button id="btnGroupAddNew" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?= $view['translator']->trans('Adm:Addnew') ?>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupAddNew">
-                        <?php foreach (Page::TEMPLATES as $template) :?>
-                        <a class="dropdown-item" href="<?= $view['router']->path('adm_page_add', ['template' => $template]) ?>"><?= $template?></a>
-                        <?php endforeach;?>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -54,13 +43,30 @@ $view->extend('AdminBundle::layout/layout.html.php');
         <div class="white-box">
             <table class="table">
                 <thead>
-                <tr>
-                    <th style="width: 5%">#</th>
-                    <th style="width: 60%"><?= $view['translator']->trans('Adm:Title') ?></th>
-                    <th><?= $view['translator']->trans('Adm:Template') ?></th>
-                    <th><?= $view['translator']->trans('Adm:Enabled') ?></th>
-                    <th colspan="2" style="width: 1%"> </th>
-                </tr>
+                    <tr>
+                        <th class="col-auto">#</th>
+                        <th scope="col"><?= $view['translator']->trans('Adm:Title') ?></th>
+                        <th scope="col"><?= $view['translator']->trans('Adm:Template') ?></th>
+                        <th scope="col"><?= $view['translator']->trans('Adm:Enabled') ?></th>
+                        <th class="col-auto" class="col-auto text-right" colspan="2" style="width: 1%">
+                            <div class="btn-group" role="group">
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupAddNew" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-plus"></i>
+                                        <?= $view['translator']->trans('Adm:Addnew') ?>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupAddNew">
+                                        <?php foreach (Page::TEMPLATES as $template) :?>
+                                            <a class="dropdown-item" href="<?= $view['router']->path('adm_page_add', [
+                                                    'template' => $template,
+                                                    'locale' => $locale,
+                                            ]) ?>"><?= $template?></a>
+                                        <?php endforeach;?>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
                 </thead>
                     <?php
                         $html = '';
@@ -70,7 +76,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
                             {
                                 $html .= '
                                     <tr>
-                                        <td>'.$node['id'].'</td>'.
+                                        <td scope="row">'.$node['id'].'</td>'.
                                         '<td>'.str_repeat('-- ', $node['level']).'<a href="'.$view['router']->path('adm_page_edit', ['id' => $node['id']]).'">'.$node['title'].'</a></td>'.
                                         '<td>'.ucfirst($node['template']).'</td>'.
                                         '<td>'.($node['public'] ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No')).'</td>'.

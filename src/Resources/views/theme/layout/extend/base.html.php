@@ -49,6 +49,7 @@
 <script src="<?= $view['theme']->assetsGetUrl('wow.js', 'js') ?>"></script>
 <script src="<?= $view['theme']->assetsGetUrl('appear.js', 'js') ?>"></script>
 <script src="<?= $view['theme']->assetsGetUrl('script.js', 'js') ?>"></script>
+<script src="<?= $view['theme']->assetsGetUrl('mixitup.js', 'js') ?>"></script>
 
 </body>
 </html>

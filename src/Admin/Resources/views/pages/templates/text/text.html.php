@@ -18,20 +18,21 @@ $formView = $form->createView();
 $formHelper = $view['form'];
 ?>
 
-<div id="iframeContainer">
-    <iframe id="inline_edit_iframe" src="<?= $view['router']->path('adm_page_raw', ['relation' => 'page', 'id' => $page->getId() ?? 0]) ?>" frameborder="0" style="width: 100%; height:600px; border: 0"></iframe>
-    <?= $formHelper->widget($formView['content']) ?>
+<div id="blocks-container">
+    <?php foreach ($form->get('blocks') as $blockKey => $block) :?>
+        <?php $pageBlocks = $block->getData(); ?>
+        <?php if ($pageBlocks) :?>
+            <div class="blocks-container-item">
+                <div class="white-box">
+                    <?php if ($pageBlocks->getType()) :?>
+                        <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()), [
+                            'form' => $form,
+                            'block' => $block,
+                            'blockKey' => $blockKey,
+                        ])?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php  endif;?>
+    <?php endforeach;?>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        var iframeContainer = $('#iframeContainer iframe').first().contents();
-        $('form[name=<?= $form->getName()?>]').submit(function (e) {
-            var iframeBody = document.getElementById('inline_edit_iframe').contentWindow.document.body;
-            var iframeHtml = $('#inline_edit_content', iframeBody).html();
-            var contentInput = $('form[name=<?= $form->getName()?>]').append( "<input type='hidden' name='' />" );
-                contentInput.val(iframeHtml);
-            return true;
-        })
-    })
-</script>

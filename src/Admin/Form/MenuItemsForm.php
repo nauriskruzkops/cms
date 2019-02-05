@@ -2,15 +2,14 @@
 
 namespace Admin\Form;
 
-use Admin\Form\EventListener\MenuItemListener;
+use Admin\Form\EventListener\MenuItemFormListener;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Shared\Entity\MenuItems;
+use Shared\Repository\MenuItemsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
@@ -71,21 +70,23 @@ class MenuItemsForm extends AbstractType
             ->add('parent', EntityType::class, [
                 'class' => MenuItems::class,
                 'required' => false,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.left', 'ASC');
+                'query_builder' => function (MenuItemsRepository $er) {
+                    $qb = $er->createQueryBuilder('m');
+                    return $qb;
                 },
                 'choice_label' => function (MenuItems $er) {
                     return str_repeat('-', $er->getLevel()) .' '. $er->getTitle();
                 },
+                'preferred_choices' => function (MenuItems $er) {
+                    return (!$er->getParent());
+                },
                 'label' => 'Parent menu',
-                'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Parent',
                 ],
             ])
-            ->addEventSubscriber(new MenuItemListener($this->em))
+            ->addEventSubscriber(new MenuItemFormListener($this->em))
         ;
     }
 
@@ -96,13 +97,13 @@ class MenuItemsForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MenuItems::class,
-            'empty_data' => function (FormInterface $form) {
-                $menuItem = new MenuItems();
-                if ($form->getParent() && $form->getParent()->getParent()->getData()) {
-                    $menuItem->setMenu($form->getParent()->getParent()->getData());
-                }
-                return $menuItem;
-            },
+//            'empty_data' => function (FormInterface $form) {
+//                $menuItem = new MenuItems();
+//                if ($form->getParent() && $form->getParent()->getParent()->getData()) {
+//                    $menuItem->setMenu($form->getParent()->getParent()->getData());
+//                }
+//                return $menuItem;
+//            },
         ]);
     }
 }

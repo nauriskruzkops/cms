@@ -12,8 +12,9 @@ $mainMenuItems = $mainMenu['items'] ?? [];
 
 ?>
 
-<footer class="main-footer" style="background-image:url(<?= $view['theme']->assetsGetUrl('background/6.jpg', 'images') ?>)">
+<footer class="main-footer">
     <div class="auto-container">
+        <?php /*
         <div class="upper-box">
             <ul class="list-style-one clearfix">
                 <li><span class="icon flaticon-pin"></span><?= $this->escape($view['settings']->value('address_primary')) ?></li>
@@ -21,15 +22,16 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                 <li><span class="icon flaticon-technology-2"></span>Tālrunis : <br><?= $this->escape($view['settings']->value('primary_phone')) ?></li>
             </ul>
         </div>
+         */?>
         <div class="widgets-section">
             <div class="row clearfix">
                 <div class="big-column col-md-6 col-sm-12 col-xs-12">
                     <div class="row clearfix">
                         <div class="footer-column col-md-7 col-sm-6 col-xs-12">
                             <div class="footer-widget logo-widget">
-                                <div class="logo" style="background-color: #ececec">
+                                <div class="logo">
                                     <a href="/">
-                                        <img src="<?= $view['theme']->assetsGetUrl('logo-2.png', 'images') ?>" alt="">
+                                        <img src="/assets/images/logo-white.png" alt="<?= $this->escape($view['settings']->value('site_title')) ?>">
                                     </a>
                                 </div>
                                 <div class="text"><?= $this->escape($view['settings']->value('site_description')) ?></div>
@@ -104,10 +106,8 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                     </div>
                                 <?php endif;?>
                             </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -18,6 +18,7 @@ use Symfony\Component\Form\Form;
 $formHelper = $view['form'];
 $blockData = $block->getData();
 $formBlockView = $block->createView();
+$totallBlocks = count($form->get('blocks'));
 
 ?>
 <div class="row">
@@ -25,7 +26,7 @@ $formBlockView = $block->createView();
     <iframe src="<?= $view['router']->path('adm_post_raw', ['relation' => 'post', 'id' => $formBlockView['post']->vars['value'] ?? 0]) ?>" id="post_text_<?=$blockKey?>" <?php
         ?>data-post-id="<?= $formBlockView['post']->vars['value']?>" <?php
         ?>data-post-name="page_form[blocks][<?= $blockKey?>][post_text]" <?php
-        ?>style="height: 500px; border: 0; width: 100%" frameborder="0">
+        ?>style="height: <?= $totallBlocks > 1?600:750?>px; border: 0; width: 100%" frameborder="0">
 
     </iframe>
 </div>
