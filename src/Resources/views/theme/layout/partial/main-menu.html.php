@@ -61,7 +61,7 @@ $languages = $view['settings']->values('languages');
                                     {
                                         if ($node['__children'] ?? false) {
                                             $html .= '<li class="dropdown">';
-                                                $html .= sprintf('<a data-toggle="dropdown" href="%s" role="button" aria-haspopup="true" aria-expanded="false">%s</a>',
+                                                $html .= sprintf('<a href="%s" aria-haspopup="true" aria-expanded="false">%s</a>',
                                                     $node['slug'], $view->escape($node['title'])
                                                 );
                                                 $html .= '<ul>';
