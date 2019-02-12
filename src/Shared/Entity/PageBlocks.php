@@ -37,13 +37,13 @@ class PageBlocks {
 
     /**
      * @ORM\ManyToOne(targetEntity="\Shared\Entity\Page", inversedBy="settings", cascade={"persist"})
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $page;
 
     /**
      * @ORM\OneToOne(targetEntity="\Shared\Entity\Post", cascade={"persist","remove"})
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $post;
 
