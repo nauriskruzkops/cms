@@ -2,7 +2,7 @@
 
 namespace Admin\Form;
 
-use Admin\Form\EventListener\MenuItemRelationListener;
+use Admin\Form\EventListener\MenuItemRelationFormListener;
 use App\Routing\SiteRoutes;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -72,7 +72,7 @@ class MenuItemRelationForm extends AbstractType
                 'multiple'  => false,
             ])
 
-            ->addEventSubscriber(new MenuItemRelationListener($this->em))
+            ->addEventSubscriber(new MenuItemRelationFormListener($this->em))
         ;
 
     }

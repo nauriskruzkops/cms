@@ -2,6 +2,8 @@
 
 namespace Admin\Form;
 
+use Admin\Form\EventListener\PageSettingsListener;
+use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Page;
 use Shared\Entity\PageSettings;
@@ -17,13 +19,18 @@ class PageSettingsForm extends AbstractType
     /** @var EntityManager */
     protected $em;
 
+    /** @var FileUploader  */
+    protected $fileUploader;
+
     /**
      * PageForm constructor.
      * @param EntityManager $em
+     * @param FileUploader $fileUploader
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, FileUploader $fileUploader)
     {
         $this->em = $em;
+        $this->fileUploader = $fileUploader;
     }
 
     /**
@@ -45,6 +52,11 @@ class PageSettingsForm extends AbstractType
             ->add('valueText', TextareaType::class, [
                 'required' => false,
             ])
+            ->add('valueImage', TextareaType::class, [
+                'required' => false,
+                'mapped' => false,
+            ])
+            ->addEventSubscriber(new PageSettingsListener($this->em, $this->fileUploader))
         ;
     }
 

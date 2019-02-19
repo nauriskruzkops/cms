@@ -4,14 +4,17 @@ namespace Admin\Form\EventListener;
 
 use Admin\Form\MenuItemRelationForm;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Shared\Entity\MenuItemRelation;
 use Shared\Entity\MenuItems;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class MenuItemListener implements EventSubscriberInterface
+class MenuItemFormListener implements EventSubscriberInterface
 {
     /** @var EntityManager */
     protected $em;
@@ -44,6 +47,33 @@ class MenuItemListener implements EventSubscriberInterface
     {
         $form = $event->getForm();
         $data = $event->getData();
+        // var_dump(1,1,1,1);
+        // var_dump(get_class($form));
+
+        if ($form->getParent() instanceof Form) {
+            $form->add('parent', EntityType::class, [
+                'class' => MenuItems::class,
+                'required' => false,
+                'query_builder' => function (EntityRepository $er) use ($data) {
+                    $qb = $er->createQueryBuilder('u');
+                    $qb->where($qb->expr()->eq('u.root', ':root'))
+                        ->setParameter('root', $data->getRoot()->getId());
+                    $qb->orderBy('u.left', 'ASC');
+
+                    return $qb;
+                },
+                'choice_label' => function (MenuItems $er) {
+                    return str_repeat('-', $er->getLevel()) . ' ' . $er->getTitle();
+                },
+                'label' => 'Parent menu',
+                'empty_data' => '',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Parent',
+                ],
+            ]);
+        }
+
         if ($data && $data->getType()) {
             $menuItemRelation = new MenuItemRelation();
             $menuItemRelation->setType($data->getType());

@@ -3,9 +3,12 @@
 namespace Admin\Controller\Cms;
 
 use Admin\Form\PostForm;
+use Admin\Service\FileUploader;
+use Admin\Service\PostManageService;
 use Shared\Entity\Post;
 use Shared\Repository\PostRepository;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,21 +51,23 @@ class PostsController extends \Admin\Controller\AbstractController
     /**
      * @Route("/admin/post/add", name="adm_post_add")
      * @param Request $request
+     * @param PostManageService $postManageService
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function add(Request $request)
+    public function add(Request $request, PostManageService $postManageService)
     {
         $post = new Post();
 
-        return $this->processForm($request, $post, 'adm_post_add');
+        return $this->processForm($request, $post, 'adm_post_add', $postManageService);
     }
 
     /**
      * @Route("/admin/post/{id}/edit", name="adm_post_edit")
      * @param Request $request
+     * @param PostManageService $postManageService
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, PostManageService $postManageService)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -72,7 +77,7 @@ class PostsController extends \Admin\Controller\AbstractController
         /** @var Post $post */
         $post = $postRepo->find($request->get('id'));
 
-        return $this->processForm($request, $post, 'adm_post_edit');
+        return $this->processForm($request, $post, 'adm_post_edit', $postManageService);
     }
 
     /**
@@ -95,14 +100,14 @@ class PostsController extends \Admin\Controller\AbstractController
         return $this->redirectToRoute('adm_post_list');
     }
 
-
     /**
      * @param Request $request
      * @param Post $post
      * @param $route_name
+     * @param PostManageService $postManageService
      * @return array|Response
      */
-    private function processForm(Request $request, Post $post, $route_name)
+    private function processForm(Request $request, Post $post, $route_name, PostManageService $postManageService)
     {
         /** @var Form $form */
         $form = $this->createForm(PostForm::class, $post, [
@@ -120,13 +125,7 @@ class PostsController extends \Admin\Controller\AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $em = $this->getDoctrine()->getManager();
-                    if ($post->getId()) {
-                        $em->merge($form->getData());
-                    } else {
-                        $em->persist($form->getData());
-                    }
-                    $em->flush();
+                    $post = $postManageService->savePost($form, $request);
                     $this->addFlash('info', 'Cool, post saved!');
                     return $this->redirectToRoute(
                         $request->get('btn_save_exit', 1) === 1 ? 'adm_post_edit' :'adm_post_list',
@@ -165,5 +164,71 @@ class PostsController extends \Admin\Controller\AbstractController
         return $this->render('AdminBundle::post/partial/iframe.html.php', [
             'content' => $post ? $post->getText() : ''
         ]);
+    }
+
+    /**
+     * @Route("/admin/post/templates", name="adm_post_templates")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postTemplatesAction()
+    {
+        $templates[] = [
+            "title" => "Simple section",
+            "description" => "Simple section",
+            "content" => $this->render('theme/templates/simple-section-white.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Simple section grey",
+            "description" => "Simple section",
+            "content" => $this->render('theme/templates/simple-section-grey.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Company Overview",
+            "description" => "Company Overview",
+            "content" => $this->render('theme/templates/company-overview.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Approach section",
+            "description" => "Approach section",
+            "content" => $this->render('theme/templates/approach-section.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service section #1",
+            "description" => "Service page #1",
+            "content" => $this->render('theme/templates/services-section-1.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service section #2",
+            "description" => "Service page #2",
+            "content" => $this->render('theme/templates/services-section-2.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service page #1",
+            "description" => "Service page #1",
+            "content" => $this->render('theme/templates/service-page-1.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Service page #2",
+            "description" => "Service page #1",
+            "content" => $this->render('theme/templates/service-page-2.html.php', [])->getContent()
+        ];
+
+        $templates[] = [
+            "title" => "Contact page",
+            "description" => "Contact page",
+            "content" => $this->render('theme/templates/contact-page.html.php', [])->getContent()
+        ];
+
+
+
+        return $this->json($templates);
     }
 }

@@ -6,9 +6,11 @@ use Admin\Form\MenuForm;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Menu;
 use Shared\Entity\MenuItems;
+use Shared\Entity\Page;
 use Shared\Entity\User;
 use Shared\Repository\MenuItemsRepository;
 use Shared\Repository\MenuRepository;
+use Shared\Repository\PageRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,15 +29,16 @@ class MenuController extends \Admin\Controller\AbstractController
         $em = $this->getDoctrine();
         $page = 1;
         $limit = 20;
+        $locale = (string) $request->query->get('locale', $this->settings()->value('language'));
 
         /** @var MenuRepository $menuRepo */
         $menuRepo = $em->getRepository(Menu::class);
-        $menus = $menuRepo->findAll();
-
+        $menus = $menuRepo->findBy(['locale' => $locale]);
 
         return $this->render('AdminBundle::menu/index.html.php', [
             'menus' => $menus,
             'page' => $page,
+            'locale' => $locale,
         ]);
     }
 
@@ -164,10 +167,19 @@ class MenuController extends \Admin\Controller\AbstractController
      */
     public function sitemap(Request $request)
     {
-        return new JsonResponse([
-            ['title' => 'Link 1', 'value' => 'Value link'],
-            ['title' => 'Link 2', 'value' => 'Value link'],
-        ]);
+        /** @var PageRepository $repository */
+        $repository = $this->getDoctrine()->getManager()->getRepository(Page::class);
+        $pages = $repository->findAllByLocale('lv');
+        $pageSiteMap = [];
+
+        foreach ($pages as $page) {
+            $pageSiteMap[] = [
+                'title' => $page->getTitle(),
+                'value' => '/'.(($page->getSlug() !== 'index') ? $page->getSlug() : ''),
+            ];
+        }
+
+        return new JsonResponse($pageSiteMap);
     }
 
     /**

@@ -24,26 +24,21 @@ $formHelper = $view['form'];
     <?php foreach ($form->get('blocks') as $blockKey => $block) :?>
         <?php $pageBlocks = $block->getData(); ?>
         <?php if ($pageBlocks) :?>
-
             <div class="blocks-container-item">
                 <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_header.html.php', 'post'),[
                     'form' => $form,
                     'block' => $block,
                     'blockKey' => $blockKey,
                 ])?>
-                <?php if ($pageBlocks->getPost()) :?>
-                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'post'),[
-                        'form' => $form,
-                        'block' => $block,
-                        'blockKey' => $blockKey,
-                    ])?>
-                <?php else :?>
-                    <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', 'list'),[
-                        'form' => $form,
-                        'block' => $block,
-                        'blockKey' => $blockKey,
-                    ])?>
-                <?php endif;?>
+                <div class="white-box">
+                    <?php if ($pageBlocks->getType()) :?>
+                        <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()),[
+                            'form' => $form,
+                            'block' => $block,
+                            'blockKey' => $blockKey,
+                        ])?>
+                    <?php endif; ?>
+                </div>
             </div>
         <?php  endif;?>
     <?php endforeach;?>
@@ -52,36 +47,13 @@ $formHelper = $view['form'];
 
 <div class="btn-group dropright">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
+        <i class="fa fa-plus"></i> <?= $view['translator']->trans('Adm:AddNewBlock') ?>:
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#" data-action="add_post_block"><?= $view['translator']->trans('Adm:Post') ?></a>
-        <a class="dropdown-item" href="#" data-action="add_list_block"><?= $view['translator']->trans('Adm:List') ?></a>
-        <a class="dropdown-item" href="#" data-action="add_array_block"><?= $view['translator']->trans('Adm:Params') ?></a>
+        <?php foreach (PageBlocks::TYPES as $availableType) :?>
+            <a class="dropdown-item" data-target="add-new-block" href="<?= $view['router']->path('adm_pageblock_add', ['page_id'=>$page->getId(), 'type' => $availableType]) ?>">
+                <?= $view['translator']->trans('Adm:'.ucfirst($availableType)) ?>
+            </a>
+        <?php endforeach;?>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        var lastBlockKey = <?= $blockKey ?? 0?>;
-        $('[data-action=add_post_block]').click(function (v) {
-            var newPostEditor = $('<div class="form-control-editor">');
-            newPostEditor.height(300);
-            newPostEditor.attr('data-post-name', 'page_form[new_block]['+lastBlockKey+'][post_text]');
-            var newPostField1 = $('<input type="hidden" name="page_form[new_block]['+lastBlockKey+'][post]" value="new">');
-            var newPostBlock = $('<div>');
-            newPostBlock.append(newPostEditor);
-            newPostBlock.append(newPostField1);
-            $('#blocks-container').append(newPostBlock);
-            lastBlockKey++;
-        });
-        $('[data-action=add_list_block]').click(function (v) {
-            var newPostField1 = $('<input type="hidden" name="page_form[new_block]['+lastBlockKey+'][list]" value="new">');
-            var newPostBlock = $('<div>').height(100).html('Please, as first save the page!');
-            newPostBlock.append(newPostField1);
-            $('#blocks-container').append(newPostBlock);
-            lastBlockKey++;
-        });
-    })
-</script>
-
-</script>

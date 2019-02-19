@@ -130,7 +130,7 @@ class Page {
      */
     public function __toString()
     {
-        return $this->getTitle();
+        return (string) $this->getId().'#'.$this->getTitle();
     }
 
     /**

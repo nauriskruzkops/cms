@@ -40,15 +40,15 @@ $isNewPage = (!$page->getId());
     <div class="col-sm-12">
         <?= $formHelper->start($form->createView());?>
             <div class="row">
-                <div class="col-8">
-                    <div class="white-box">
+                <div class="col-9">
+                    <div class="">
                         <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/%s/%s.html.php', $page->getTemplate(), $page->getTemplate()),[
                             'form' => $form,
                             'page' => $page,
                         ])?>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
@@ -72,15 +72,21 @@ $isNewPage = (!$page->getId());
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label><?= $formView['title']->vars['label'] ?></label>
-                        <?= $formHelper->errors($formView['title']) ?>
-                        <?= $formHelper->widget($formView['title']) ?>
-                    </div>
-                    <div class="form-group">
-                        <label><?= $formView['slug']->vars['label'] ?></label>
-                        <?= $formHelper->errors($formView['slug']) ?>
-                        <?= $formHelper->widget($formView['slug']) ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><?= $formView['title']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['title']) ?>
+                                <?= $formHelper->widget($formView['title']) ?>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label><?= $formView['slug']->vars['label'] ?></label>
+                                <?= $formHelper->errors($formView['slug']) ?>
+                                <?= $formHelper->widget($formView['slug']) ?>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <?= $view->render('@AdminBundle/Resources/views/pages/partial/settings.html.php',[
@@ -111,6 +117,9 @@ $isNewPage = (!$page->getId());
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
 </div>
+<div class="sp20"></div>
+<div class="sp20"></div>
+<div class="sp20"></div>
 
 <script type="text/javascript">
     $(function () {

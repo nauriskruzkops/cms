@@ -24,7 +24,20 @@ $view->extend('AdminBundle::layout/layout.html.php');
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link"><?= $view['translator']->trans('Adm:Language') ?>:</a>
+            </li>
+            <?php foreach ($view['settings']->values('languages') as $langCode => $lang) :?>
+                <?php $activeLang = $locale == $langCode ? 'active' : '' ;?>
+                <li class="nav-item">
+                    <a class="nav-link <?= $activeLang?>" href="<?= $view['router']->path('adm_menu_list', ['locale' => $langCode]) ?>"><?= $lang?></a>
+                </li>
+            <?php endforeach;?>
+        </ul>
+
         <div class="white-box">
             <table class="table">
                 <thead>

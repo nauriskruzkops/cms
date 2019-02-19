@@ -2,9 +2,11 @@
 
 namespace Admin\Form;
 
+use Admin\Form\EventListener\MenuFormListener;
 use Admin\Service\SettingService;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Menu;
+use Shared\Entity\MenuItems;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -68,6 +70,7 @@ class MenuForm extends AbstractType
                 'allow_add' => true,
                 'by_reference' => false,
             ])
+            ->addEventSubscriber(new MenuFormListener($this->em))
         ;
     }
 
@@ -78,8 +81,6 @@ class MenuForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Menu::class,
-        ]);
-        $resolver->setDefaults([
             'empty_data' => new Menu(),
         ]);
     }

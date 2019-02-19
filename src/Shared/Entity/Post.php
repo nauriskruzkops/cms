@@ -5,6 +5,9 @@ namespace Shared\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Shared\Repository\PostRepository")
@@ -40,14 +43,18 @@ class Post {
     /**
      * @var ArrayCollection|Category[]
      *
-     * @ORM\ManyToMany(targetEntity="Category")
+     * @ORM\ManyToMany(targetEntity="Category", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="posts_categories",
-     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id", unique=false)}
+     *      joinColumns={@ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="CASCADE")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id", unique=false, onDelete="CASCADE")}
      * )
      */
     private $categories;
 
+    /**
+     * @ORM\Column(type="string", length=254, nullable=true)
+     */
+    private $image;
     /**
      * Post is part of other content
      *
@@ -71,6 +78,7 @@ class Post {
     {
         $this->categories = new ArrayCollection();
         $this->isPartOf = false;
+        $this->public = false;
     }
 
     /**
@@ -201,9 +209,28 @@ class Post {
     }
 
     /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param $image
+     * @return Post
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
      * @return bool
      */
-    public function isPartOf(): bool
+    public function isPartOf():? bool
     {
         return $this->isPartOf;
     }
@@ -222,7 +249,7 @@ class Post {
     /**
      * @return bool
      */
-    public function isPublic(): bool
+    public function isPublic():? bool
     {
         return $this->public;
     }

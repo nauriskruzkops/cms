@@ -10,7 +10,7 @@ use Shared\Repository\MenuItemsRepository;
 use Shared\Repository\MenuRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Bundle\FrameworkBundle\Templating\TimedPhpEngine;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine as TimedPhpEngine;
 
 class MenuHelper extends Helper
 {
@@ -38,7 +38,7 @@ class MenuHelper extends Helper
      * @param SettingService $settingService
      * @param EntityManager $em
      */
-    public function __construct(TimedPhpEngine $templating, SettingService $settingService, EntityManager $em)
+    public function __construct(PhpEngine $templating, SettingService $settingService, EntityManager $em)
     {
         $this->view = $templating;
         $this->locale = $this->view['locale'];
@@ -81,9 +81,20 @@ class MenuHelper extends Helper
     public function getMainTopMenu()
     {
         $menu = $this->getMenu(MenuHelper::MAIN_TOP_MENU);
+        $menuItems = $this->em->getRepository(MenuItems::class)->getNestedArray($menu, true);
+        if ($menuItems && ($menuItems[0] ?? false) && $menuItems[0]['level'] === 0) {
+            $menuItems = $menuItems['0']['__children'];
+        }
+
+        array_walk($menuItems, function ($v, $k) use (&$menuItems) {
+            if ($v['slug'] === 'index') {
+                $menuItems[$k]['slug'] = '/';
+            }
+        });
+
         return [
             'menu' => $menu,
-            'items' =>  $menu ? $this->getMenuItems($menu) : [],
+            'items' => $menuItems ?? [],
         ];
     }
 

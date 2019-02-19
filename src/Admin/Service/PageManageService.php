@@ -31,6 +31,28 @@ class PageManageService
 
     /**
      * @param Page $page
+     * @return Page
+     */
+    public function initNewPage(Page $page)
+    {
+        if (!$page instanceof Page) {
+            $page = new Page();
+        }
+
+        $pageBlock = new PageBlocks();
+        $pageBlock->setType(PageBlocks::TYPE_POST);
+
+        $blockPost = new Post();
+        $blockPost->setIsPartOf(true);
+
+        $pageBlock->setPost($blockPost);
+        $page->addBlocks($pageBlock);
+
+        return $page;
+    }
+
+    /**
+     * @param Page $page
      * @throws Exception
      */
     public function savePage(Form $form, Request $request)
@@ -47,9 +69,9 @@ class PageManageService
         $postNewBlocks = $postData['new_block'] ?? [];
 
         foreach (array_merge($postBlocks, $postNewBlocks) as $postBlock) {
-            if ($postBlock['post'] ?? false) {
+            if ($postBlock['type'] == PageBlocks::TYPE_POST) {
                 $page = $this->savePostBlock($page, $postBlock);
-            } else {
+            } elseif ($postBlock['type'] == PageBlocks::TYPE_LIST) {
                 $page = $this->saveListBlock($page, $postBlock);
             }
         }
@@ -78,21 +100,13 @@ class PageManageService
      */
     private function savePostBlock(Page $page, array $data)
     {
-        if ((int)$data['post'] > 0) {
-            /** @var PageBlocks[]|ArrayCollection $findBlock */
-            $findBlock = $page->getBlocks()->filter(function (PageBlocks $block) use ($data) {
-                return ($block->getPost() && $block->getPost()->getId() == (int)$data['post']);
-            });
-            if ($findBlock) {
-                /** @var PageBlocks $block */
-                $block = $findBlock->first();
-            }
-        } else {
-            $block = new PageBlocks();
-            $post = new Post();
-            $block->setPost($post);
-            $page->addBlocks($block);
-        }
+        /** @var PageBlocks[]|ArrayCollection $findBlock */
+        $findBlock = $page->getBlocks()->filter(function (PageBlocks $block) use ($data) {
+            return ($block->getId() == (int)$data['id']);
+        });
+
+        /** @var PageBlocks $block */
+        $block = $findBlock->first();
 
         if (($post = $block->getPost())) {
             if ($data['title'] ?? false) {
@@ -102,6 +116,7 @@ class PageManageService
                 $post->setText($data['post_text']);
             }
         }
+
         $post->setIsPartOf(true);
         $post->setPublic($block->isPublic());
 
@@ -115,6 +130,24 @@ class PageManageService
      */
     private function saveListBlock(Page $page, array $data)
     {
+        /** @var PageBlocks[]|ArrayCollection $findBlock */
+        $findBlock = $page->getBlocks()->filter(function (PageBlocks $block) use ($data) {
+            return ($block->getId() == (int)$data['id']);
+        });
+
+        /** @var PageBlocks $block */
+        $block = $findBlock->first();
+
+//        $config = $block->getConfig();
+//        if (isset($config['category'])) {
+//            unset($config['category']);
+//        }
+//        if (isset($config['text'])) {
+//            unset($config['text']);
+//        }
+//
+//        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
+
         return $page;
     }
 }

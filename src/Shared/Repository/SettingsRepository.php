@@ -18,4 +18,20 @@ class SettingsRepository extends EntityRepository
         ], $order);
     }
 
+    public function getByGroup($group)
+    {
+        $qb = $this->createQueryBuilder('s');
+        $qb->select('s')
+            ->where(
+            $qb->expr()->eq('s.group', ':group')
+        )->setParameter('group', $group);
+
+        $qb->orderBy('s.group', 'ASC');
+        $qb->addOrderBy('s.key', 'ASC');
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
 }

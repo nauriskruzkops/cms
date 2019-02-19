@@ -17,5 +17,7 @@
     <script src="<?= $view['theme']->assetsGetUrl('jquery/jquery.min.js', 'vendor') ?>"></script>
     <script src="<?= $view['theme']->assetsGetUrl('bootstrap/js/bootstrap.min.js', 'vendor') ?>"></script>
     <script src="<?= $view['theme']->assetsGetUrl('popper.min.js', 'vendor') ?>"></script>
+
+
 </body>
 </html>

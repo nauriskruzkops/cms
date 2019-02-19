@@ -1,4 +1,5 @@
 'Adm:edit': Edit
+'Adm:Edit': Edit
 'Adm:List': List
 'Adm:Save': Save
 'Adm:Cancel': Cancel
@@ -36,6 +37,18 @@
 'Adm:FullName': 'Full Name'
 'Adm:Email': Email
 'Adm:Username': Username
-'Adm:Delete': 'Delete'
-'Adm:Post': 'Post'
-'Adm:Params': 'Params'
+'Adm:Delete': Delete
+'Adm:Post': Post
+'Adm:Params': Params
+'Adm:Posts': Posts
+'Adm:AddNew': 'Add new'
+'Adm:ChooseFile': 'Choose file'
+'Adm:Categories': Categories
+'Adm:Image': Image
+'Adm:Nav:Appearance': Appearance
+'Adm:Nav:Site': Site
+'Adm:Nav:General': General
+'Adm:Nav:System': System
+'Adm:Transparent': Transparent
+'Adm:ShowAllPostsByCategory': 'Show all posts by category'
+'Adm:Style': Style

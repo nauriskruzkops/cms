@@ -4,6 +4,7 @@ namespace Admin\Controller\Cms;
 
 use Shared\Entity\Page;
 use Shared\Entity\PageBlocks;
+use Shared\Entity\Post;
 use Shared\Entity\User;
 use Shared\Repository\PageBlocksRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,43 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PagesBlockController extends \Admin\Controller\AbstractController
 {
+    /**
+     * @Route("/admin/page/{page_id}/block/add/{type}", name="adm_pageblock_add")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function add(Request $request)
+    {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $id = $request->get('page_id');
+        $type = $request->get('type');
+
+        /** @var PageBlocksRepository $repository */
+        $repository = $em->getRepository(Page::class);
+
+        /** @var Page $entity */
+        $entity = $repository->find($id);
+        if ($entity) {
+            $block = new PageBlocks();
+            $block->setType($type);
+            $entity->addBlocks($block);
+
+            if ($type == PageBlocks::TYPE_POST) {
+                $post = new Post();
+                $post->setIsPartOf(true);
+                $block->setPost($post);
+            }
+
+            $em->flush();
+            $this->addFlash('info', sprintf('Page block `%s` added', $type));
+        }
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
     /**
      * @Route("/admin/page/block/{id}/delete", name="adm_pageblock_delete")
      * @param Request $request

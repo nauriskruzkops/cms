@@ -15,6 +15,14 @@ class PageBlocks {
 
     use Traits\Traceability;
 
+    const TYPE_POST = 'post';
+    const TYPE_LIST = 'list';
+
+    const TYPES = [
+      self::TYPE_POST,
+      self::TYPE_LIST,
+    ];
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -23,14 +31,19 @@ class PageBlocks {
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $type;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Shared\Entity\Page", inversedBy="settings", cascade={"persist"})
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="page_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $page;
 
     /**
-     * @ORM\OneToOne(targetEntity="\Shared\Entity\Post", cascade={"persist"})
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="\Shared\Entity\Post", cascade={"persist","remove"})
+     * @ORM\JoinColumn(name="post_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $post;
 
@@ -67,7 +80,21 @@ class PageBlocks {
      */
     public function __construct()
     {
+        $this->type = self::TYPE_POST;
         $this->isPublic = false;
+        $this->config = $this->configDefaults();
+    }
+
+    public function configDefaults()
+    {
+        return [
+            0 => [
+                'description' => null,
+                'bg_color' => '#FFFFFF',
+                'bg_transparent' => true,
+                'bg_image' => null,
+            ],
+        ];
     }
 
     public function __toString()
@@ -85,6 +112,25 @@ class PageBlocks {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     * @return PageBlocks
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -206,7 +252,11 @@ class PageBlocks {
      */
     public function getConfig():? array
     {
-        return $this->config;
+        $config = $this->config;
+        if (!empty($config)) {
+            return $config;
+        }
+        return $this->configDefaults();
     }
 
     /**
@@ -219,6 +269,5 @@ class PageBlocks {
 
         return $this;
     }
-
 
 }

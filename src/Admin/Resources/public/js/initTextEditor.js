@@ -8,30 +8,40 @@ $(function () {
             menubar: false,
             inline: true,
             inline_styles : false,
+            relative_urls : false,
+            remove_script_host : true,
             plugins: [
                 'advlist autolink lists link image imagetools charmap print preview anchor textcolor fullpage',
-                'searchreplace visualblocks code fullscreen',
+                'searchreplace visualblocks code fullscreen pagebreak',
                 'insertdatetime media table contextmenu paste code help wordcount template'
             ],
-            toolbar: 'insert | undo redo |  formatselect styleselect template | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code visualblocks',
+            toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat pagebreak | code visualblocks preview',
             content_css: [
-                '/assets/vendor/bootstrap/css/bootstrap.min.css',
-                '/assets/css/bootstrap-overwrite.css',
-                '/assets/css/theme-base.css',
-                '/assets/css/tools.css',
+                //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
+                //'/assets/theme/default/css/bootstrap-overwrite.css',
+                //'/assets/theme/default/css/theme-base.css',
+                //'/assets/theme/default/css/tools.css',
+                "/assets/theme/theme/css/bootstrap.css?v1",
+                "/assets/theme/theme/plugins/revolution/css/settings.css?v1",
+                "/assets/theme/theme/plugins/revolution/css/layers.css?v1",
+                "/assets/theme/theme/plugins/revolution/css/navigation.css?v1",
+                "/assets/theme/theme/css/style.css?v1",
+                "/assets/theme/theme/css/style-overwrite.css?v1",
+                "/assets/theme/theme/css/responsive.css?v1",
+
             ],
             table_default_attributes: {
                 border: '0'
             },
+            pagebreak_split_block: true,
+            plugin_preview_width: 1000,
             link_class_list: [
                 {title: 'Simple link', value: ''},
-                {title: 'Button link', value: 'btn btn-sm btn-link'},
-                {title: 'Button Small', value: 'btn btn-sm btn-default'},
-                {title: 'Button Normal', value: 'btnbtn-default'},
-                {title: 'Button Big', value: 'btn btn-lg btn-default'},
-                {title: 'Button Small', value: 'btn btn-sm btn-primary'},
-                {title: 'Button Normal', value: 'btn btn-primary'},
-                {title: 'Button Big', value: 'btn btn-lg btn-primary'},
+                {title: 'Button link', value: 'btn btn-default'},
+                {title: 'Button link', value: 'btn btn-primary'},
+                {title: 'Button link', value: 'theme-btn btn-style-one'},
+                {title: 'Button link', value: 'theme-btn btn-style-two'},
+                {title: 'Button link', value: 'theme-btn btn-style-three'},
             ],
             image_title: true,
             automatic_uploads: true,
@@ -93,61 +103,47 @@ $(function () {
                 });
             },
             style_formats: [
-                {title: 'Bold text', inline: 'b'},
-                {title: 'Text grey', inline: 'span', classes: 'text-black-50'},
-                {title: 'Text white', inline: 'span', classes: 'text-white-50'},
-                {title: 'Text warning', inline: 'span', classes: 'text-warning'},
-                {title: 'Text danger', inline: 'span', classes: 'text-danger'},
-
-                {title: 'Paragraph grey', block: 'p', classes: 'text-muted'},
-                {title: 'Paragraph', block: 'p', classes: 'text-white-50'},
-
-                {title: 'Block grey', block: 'div', classes: 'text-muted'},
-                {title: 'Block white', block: 'div', classes: 'text-white-50'},
-
-                {title: 'Table init', selector: 'table', classes: 'table'},
-                {title: 'Table dark', selector: 'table', classes: 'table-dark'},
-                {title: 'Table hover', selector: 'table', classes: 'table-hover'},
-                {title: 'Table striped', selector: '', classes: 'table-striped'},
-                {title: 'Table borders', selector: '', classes: 'table-bordered'},
-                {title: 'Table without borders', selector: 'table', classes: 'table-borderless'},
-                {
-                    title: 'Image move left',
-                    selector: 'img',
-                    styles: {'float': 'left', 'margin': '0 10px 0 10px'}
-                },
-                {
-                    title: 'Image move right',
-                    selector: 'img',
-                    styles: {'float': 'right', 'margin': '0 0 10px 10px'}
-                }
+                {title: 'Headers', items: [
+                        {title: 'Header 1', format: 'h1'},
+                        {title: 'Header 2', format: 'h2'},
+                        {title: 'Header 3', format: 'h3'},
+                        {title: 'Header 4', format: 'h4'},
+                        {title: 'Header 5', format: 'h5'},
+                        {title: 'Header 6', format: 'h6'}
+                    ]},
+                {title: 'Inline', items: [
+                        {title: 'Bold', icon: 'bold', format: 'bold'},
+                        {title: 'Italic', icon: 'italic', format: 'italic'},
+                        {title: 'Underline', icon: 'underline', format: 'underline'},
+                        {title: 'Strikethrough', icon: 'strikethrough', format: 'strikethrough'},
+                        {title: 'Superscript', icon: 'superscript', format: 'superscript'},
+                        {title: 'Subscript', icon: 'subscript', format: 'subscript'},
+                        {title: 'Code', icon: 'code', format: 'code'}
+                    ]},
+                {title: 'Blocks', items: [
+                        {title: 'Paragraph', format: 'p'},
+                        {title: 'Blockquote', format: 'blockquote'},
+                        {title: 'Div', format: 'div'},
+                        {title: 'Pre', format: 'pre'},
+                    ]},
+                {title: 'Alignment', items: [
+                        {title: 'Left', icon: 'alignleft', format: 'alignleft'},
+                        {title: 'Center', icon: 'aligncenter', format: 'aligncenter'},
+                        {title: 'Right', icon: 'alignright', format: 'alignright'},
+                        {title: 'Justify', icon: 'alignjustify', format: 'alignjustify'},
+                        {
+                            title: 'Image left',
+                            selector: 'img', icon: 'alignleft',
+                            styles: {'float': 'left', 'margin': '0 10px 0 10px'}
+                        },
+                        {
+                            title: 'Image right',
+                            selector: 'img', icon: 'alignright',
+                            styles: {'float': 'right', 'margin': '0 0 10px 10px'}
+                        }
+                    ]}
             ],
-            templates: [
-                {title: 'Row with single columns', description: 'Row with single columns', content: '' +
-                        '<div class="clearfix"></div>\n' +
-                        '<div class="row">\n' +
-                        '    <div class="col"><p class="lead">text</p></div>\n' +
-                        '</div>'
-                },
-                {title: 'Row with two columns', description: 'Row with two columns', content: '' +
-                        '<div class="clearfix"></div>\n' +
-                        '<div class="row">\n' +
-                        '    <div class="col-6"><h2>1</h2><p class="lead">text</p></div>\n' +
-                        '    <div class="col-6"><h2>2</h2><p class="lead">text</p></div>\n' +
-                        '</div>'
-                },
-                {title: 'Row with three columns', description: 'Row with three columns', content: '' +
-                        '<div class="clearfix"></div>\n' +
-                        '<div class="row">\n' +
-                        '    <div class="col-4"><h2>1</h2><p class="lead">text</p></div>\n' +
-                        '    <div class="col-4"><h2>2</h2><p class="lead">text</p></div>\n' +
-                        '    <div class="col-4"><h2>3</h2><p class="lead">text</p></div>\n' +
-                        '</div>'
-                },
-                {title: 'Line featurette-divider', description: 'Line featurette-divider', content: '' +
-                        '<hr class="featurette-divider" /></div>'
-                },
-            ]
+            templates: '/admin/post/templates'
         };
 
         tinymce.init(tinymceConfig);

@@ -16,6 +16,8 @@ class UploadController extends \Admin\Controller\AbstractController
      * @param Request $request
      * @param FileUploader $fileUploader
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function fromPost(Request $request, FileUploader $fileUploader)
     {

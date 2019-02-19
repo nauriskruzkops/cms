@@ -9,10 +9,12 @@ use Shared\Entity\Category;
 use Shared\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserForm extends AbstractType
@@ -68,17 +70,37 @@ class UserForm extends AbstractType
                     'placeholder' => 'Username',
                 ],
             ])
-            ->add('password', RepeatedType::class, [
+            ->add('roles', ChoiceType::class, [
+                'required' => false,
+                'choices' => array_flip(User::ROLES_ALL),
+                'label' => 'Roles',
+                'multiple' => true,
+                'expanded' => true,
+                'mapped' => true,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Username',
+                ],
+            ])
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field form-control']],
                 'required' => false,
+                'mapped' => false,
                 'first_options'  => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
+                'allow_extra_fields' => true,
+            ])
+            ->add('password', PasswordType::class, [
+                'required' => false,
+                'mapped' => false,
+                'allow_extra_fields' => true,
             ])
 
             ->add('active', CheckboxType::class, [
                 'required' => false,
+                'mapped' => true,
                 'attr' => [
                     'class' => 'form-check-input',
                 ],
@@ -95,6 +117,16 @@ class UserForm extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => User::class,
+            'allow_extra_fields' => true,
+            'update' => false,
+            'validation_groups' => function (FormInterface $form) {
+                /** @var User $date */
+                $data = $form->getData();
+                if ($data->getPassword() == '' && $form->getConfig()->getOption('update')) {
+                    return ['default'];
+                }
+                return ['default', 'update'];
+            },
         ));
     }
 

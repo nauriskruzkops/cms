@@ -44,7 +44,7 @@ $isNewPost = (!$post->getId());
                     <div class="white-box">
                         <iframe id="<?= $formView['text']->vars['full_name']?>" src="<?= $view['router']->path('adm_post_raw', [
                                 'relation' => 'post', 'id' => ($post && $post->getId()) ? $post->getId() : 0
-                        ]) ?>" data-post-name="<?= $formView['text']->vars['full_name']?>" style="height: 400px; border: 0; width: 100%" frameborder="0"></iframe>
+                        ]) ?>" data-post-name="<?= $formView['text']->vars['full_name']?>" style="height: 700px; border: 0; width: 100%" frameborder="0"></iframe>
                         <script type="text/javascript">
                             $(function () {
                                 var iframeContainer = document.getElementById('<?= $formView['text']->vars['full_name']?>');
@@ -84,46 +84,4 @@ $isNewPost = (!$post->getId());
             </div>
         <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-4">
-        <h2 style="text-align: center;">Title 1</h2>
-        <p style="text-align: center;">Custom text</p>
-        <p style="text-align: center;">
-            <a class="btn btn-secondary" role="button" href="#">View details &raquo;</a>
-        </p>
-    </div>
-    <div class="col-sm-4">
-        <h2 style="text-align: center;">Title 1</h2>
-        <p style="text-align: center;">Custom text</p>
-        <p style="text-align: center;">
-            <a class="btn btn-secondary" role="button" href="#">View details &raquo;</a>
-        </p>
-    </div>
-    <div class="col-sm-4">
-        <h2 style="text-align: center;">Title 1</h2>
-        <p style="text-align: center;">Custom text</p>
-        <p style="text-align: center;">
-            <a class="btn btn-secondary" role="button" href="#">View details &raquo;</a>
-        </p>
-    </div>
-</div>
-
-<div class="clearfix"></div>
-<div class="row">
-    <div class="col-sm-12">1</div>
-</div>
-
-<div class="clearfix"></div>
-<div class="row">
-    <div class="col-sm-6">1</div>
-    <div class="col-sm-6">2</div>
-</div>
-
-<div class="clearfix"></div>
-<div class="row">
-    <div class="col-sm-4">1</div>
-    <div class="col-sm-4">2</div>
-    <div class="col-sm-4">3</div>
 </div>

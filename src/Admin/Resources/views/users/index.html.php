@@ -30,12 +30,13 @@ $view->extend('AdminBundle::layout/layout.html.php');
             <table class="table">
                 <thead>
                 <tr>
-                    <th style="width: 5%">#</th>
-                    <th style="width: 60%"><?= $view['translator']->trans('Adm:FullName') ?></th>
-                    <th><?= $view['translator']->trans('Adm:Email') ?></th>
-                    <th><?= $view['translator']->trans('Adm:Username') ?></th>
-                    <th><?= $view['translator']->trans('Adm:Enabled') ?></th>
-                    <th style="width: 1%"> </th>
+                    <th scope="col">#</th>
+                    <th scope="col"><?= $view['translator']->trans('Adm:FullName') ?></th>
+                    <th scope="col"><?= $view['translator']->trans('Adm:Email') ?></th>
+                    <th scope="col"><?= $view['translator']->trans('Adm:Username') ?></th>
+                    <th scope="col"><?= $view['translator']->trans('Adm:UserRole') ?></th>
+                    <th scope="col"><?= $view['translator']->trans('Adm:Enabled') ?></th>
+                    <th scope="col"> </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,13 +46,16 @@ $view->extend('AdminBundle::layout/layout.html.php');
                             <td>
                                 <a href="<?= $view['router']->path('adm_user', ['id' => $user->getId()]) ?>"><?= $this->escape($user->getFullName())?></a>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <?= $this->escape($user->getEmail())?>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 <?= $this->escape($user->getUsername())?>
                             </td>
-                            <td class="text-center">
+                            <td>
+                                <?= implode(', ', $user->getRoles())?>
+                            </td>
+                            <td>
                                 <?= $user->isEnabled() ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No')?>
                             </td>
                             <td>

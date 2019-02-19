@@ -54,6 +54,10 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: page }
+    App\Helpers\PostHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+        - { name: templating.helper, alias: post }
     App\Helpers\LayoutHelper:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
@@ -81,16 +85,22 @@ services:
     Admin\Service\SettingService:
         arguments: ['@doctrine.orm.entity_manager']
     Admin\Service\PageManageService:
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
+    Admin\Service\PostManageService:
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
     Admin\Service\FileUploader:
         arguments:
-            $targetDirectory: '%upload_directory%'
+            ['%upload_directory%','@Admin\Service\StorageService']
 
     # ADMIN FORMS
     Admin\Form\:
         resource: '../src/Admin/Form/*'
         arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\SettingService']
         tags: ['controller.service_arguments']
+    Admin\Form\PageSettingsForm:
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
+    Admin\Form\PageBlockSettingsForm:
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
 
     # ADMIN HELPERS
     Admin\Helpers\:
@@ -99,6 +109,10 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: settings }
+    Admin\Helpers\CategoryHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@Admin\Service\CategoryService']
+        tags:
+            - { name: templating.helper, alias: category }
 
     # SHARED
     Shared\:
@@ -111,3 +125,12 @@ services:
         tags:
         - { name: 'doctrine.event_listener', event: preUpdate}
         - { name: 'doctrine.event_listener', event: prePersist}
+#    Shared\EventListener\StorageListener:
+#        arguments: []
+#        tags:
+#        - { name: 'doctrine.event_listener', event: postUpdate}
+#        - { name: 'doctrine.event_listener', event: postPersist}
+#    Shared\EventListener\ExceptionListener:
+#        arguments: ['@templating.engine.php']
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.exception }

@@ -17,12 +17,14 @@ $view->extend('AdminBundle::layout/layout.html.php');
 $formView = $form->createView();
 $formHelper = $view['form'];
 
-$request = $app->getRequest();
-
-$view['slots']->set('pageTitle', 'Add / Edit Page');
-$view['slots']->set('pageIcon', 'fa fa-user-o');
-
 $isNewUser = (!$user->getId());
+
+$view['slots']->set('pageTitle', sprintf('<span>%s user:</span> %s'
+    , (($isNewUser) ? $view['translator']->trans('Adm:Add') : $view['translator']->trans('Adm:Edit'))
+    , (($isNewUser) ? $view['translator']->trans('Adm:New') : (string) $user)
+    )
+);
+$view['slots']->set('pageIcon', 'fa fa-user-o');
 
 ?>
 <div class="page-title">
@@ -31,7 +33,7 @@ $isNewUser = (!$user->getId());
             <h1><?= $view['slots']->get('pageTitle')?></h1>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-light" href="<?= $view['router']->path('adm_users') ?>">List</a>
+            <a class="btn btn-light" href="<?= $view['router']->path('adm_users') ?>"><?= $view['translator']->trans('Adm:List')?></a>
         </div>
     </div>
 </div>
@@ -53,11 +55,6 @@ $isNewUser = (!$user->getId());
                     <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
                     <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
                     <a href="<?= $view['router']->path('adm_users') ?>" class="btn btn-link"><?= $view['translator']->trans('Adm:Cancel') ?></a>
-                    <?php if (!$isNewUser) :?>
-                        <button class="btn btn-light pull-right" type="submit" name="delete_user">
-                            <i class="fa fa-trash"></i>
-                        </button>
-                    <?php endif;?>
                 </div>
             </div>
         </div>

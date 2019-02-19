@@ -5,6 +5,8 @@ namespace Admin\Controller\Cms;
 use Admin\Form\PageForm;
 use Admin\Service\PageManageService;
 use Shared\Entity\Page;
+use Shared\Entity\PageBlocks;
+use Shared\Entity\Post;
 use Shared\Entity\User;
 use Shared\Repository\PageRepository;
 use Symfony\Component\Form\Form;
@@ -46,8 +48,16 @@ class PagesController extends \Admin\Controller\AbstractController
     {
         $page = new Page();
         $page->setTemplate($request->query->get('template', Page::TEMPL_TEXT));
+        $page->setLocale($request->query->get('locale', Page::TEMPL_TEXT));
 
-        return $this->processForm($request, $page, 'adm_page_add', $pageManageService);
+        $page = $pageManageService->initNewPage($page);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($page);
+        $em->flush();
+
+        $this->addFlash('info', 'Cool, new page created!');
+
+        return $this->redirectToRoute('adm_page_edit', ['id' => $page->getId()]);
     }
 
     /**
@@ -95,6 +105,7 @@ class PagesController extends \Admin\Controller\AbstractController
             $this->addFlash('info', sprintf('Page `%s` sucessefully deleted', $objectToString));
         } catch (\Exception $exception) {
             $this->addFlash('error', sprintf('Error when page deleting'));
+            $this->addFlash('error', sprintf($exception->getMessage()));
         }
         return $this->redirectToRoute('adm_page_list');
     }
@@ -161,7 +172,7 @@ class PagesController extends \Admin\Controller\AbstractController
     {
         /** @var Form $form */
         $form = $this->createForm(PageForm::class, $page, [
-            'action' => $this->generateUrl($route_name, ['id' => $page->getId()]),
+            'action' => $this->generateUrl($route_name, ['id' => $page->getId() ?? null]),
             'method' => 'POST',
         ]);
 
@@ -176,10 +187,9 @@ class PagesController extends \Admin\Controller\AbstractController
             if ($form->isValid()) {
                 try {
                     $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
-
                     $service->savePage($form, $request);
-
                     $this->addFlash('info', 'Cool, page saved!');
+
                     return $this->redirectToRoute(
                         $request->get('btn_save_exit', 1) === 1 ? 'adm_page_edit' :'adm_page_list',
                         ['id' => $page->getId()]);
@@ -190,7 +200,7 @@ class PagesController extends \Admin\Controller\AbstractController
             } else {
                 $formError = $form->getErrors();
                 var_dump('FORM','NOT', 'VALID');
-                var_dump($formError->current()->getMessage());
+                var_dump($formError->current());
             }
         }
 
