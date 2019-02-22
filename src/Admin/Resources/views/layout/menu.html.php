@@ -38,6 +38,24 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link nav-link-collapse" href="#" type="button" data-toggle="collapse" data-target="#collapseStorage" aria-expanded="false">
+                <i class="fa fa-fw fa-hdd"></i>
+                <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Storage') ?></span>
+                <i class="float-right fas fa-angle-down"></i>
+            </a>
+            <div class="navbar-collapse collapse" id="collapseStorage">
+                <ul class="navbar-collapse collapse">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $view['router']->path('adm_storage', ['group'=>'images']) ?>">
+                            <i class="fas fa-image"></i>
+                            <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Images') ?></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link nav-link-collapse" href="#" type="button" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false">
                 <i class="fa fa-fw fa-edit"></i>
                 <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Settings') ?></span>

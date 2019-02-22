@@ -73,6 +73,8 @@ class PageManageService
                 $page = $this->savePostBlock($page, $postBlock);
             } elseif ($postBlock['type'] == PageBlocks::TYPE_LIST) {
                 $page = $this->saveListBlock($page, $postBlock);
+            } else {
+                $page = $this->saveBlock($page, $postBlock);
             }
         }
 
@@ -148,6 +150,16 @@ class PageManageService
 //
 //        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
 
+        return $page;
+    }
+
+    /**
+     * @param Page $page
+     * @param array $data
+     * @return Page
+     */
+    private function saveBlock(Page $page, array $data)
+    {
         return $page;
     }
 }

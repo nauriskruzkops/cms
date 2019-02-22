@@ -17,13 +17,14 @@
     <link href="<?= $view['assets']->getUrl('css/bootstrap-overwrite.css', 'admin') ?>" rel="stylesheet">
 
     <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery-3.3.1.slim.min.js', 'admin') ?>"></script>
+
     <script src="<?= $view['assets']->getUrl('vendor/popper.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap-toggle.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/tinymce/jquery.tinymce.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/tinymce/tinymce.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('js/main.js', 'admin') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('js/storage.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
 </head>
 <body class="fixed-nav">

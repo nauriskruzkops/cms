@@ -23,6 +23,15 @@ class UploadController extends \Admin\Controller\AbstractController
     {
         /** @var \Symfony\Component\HttpFoundation\FileBag $files */
         $files = $request->files;
+        $fileUploader->setPath($request->get('directory', null));
+
+        $referenceObject = $request->get('referenceObject');
+        $referenceId = $request->get('referenceId');
+        if ($referenceObject) {
+            if(($reference = $this->getDoctrine()->getManager()->find($referenceObject, $referenceId))) {
+                $fileUploader->setReference($reference);
+            }
+        }
 
         foreach ($files as $file) {
             try {
@@ -34,13 +43,14 @@ class UploadController extends \Admin\Controller\AbstractController
                 $status = 'error';
                 $message = $e->getMessage();
                 $location = null;
+                continue;
             }
         }
 
         return new JsonResponse([
             'status' => $status,
             'message' => $message,
-            'location' => $location
+            'location' => $location,
         ]);
     }
 }

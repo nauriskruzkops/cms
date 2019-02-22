@@ -86,9 +86,14 @@ class PageBlockSettingsForm extends AbstractType
                 'required' => false,
                 'attr' => [],
             ])
-
+            ->add('images', ChoiceType::class, [
+                'required' => false,
+                //'choices' => [],
+                'multiple' => true,
+            ])
             ->addEventSubscriber(new PageBlockSettingsListener($this->em, $this->fileUploader))
         ;
+        $builder->get('images')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)

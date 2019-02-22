@@ -49,6 +49,12 @@
 'Adm:Nav:Site': Site
 'Adm:Nav:General': General
 'Adm:Nav:System': System
+'Adm:Nav:Storage': Storage
+'Adm:Storage': Storage
+'Adm:Nav:Images': Images
+'Adm:Images': Images
 'Adm:Transparent': Transparent
 'Adm:ShowAllPostsByCategory': 'Show all posts by category'
 'Adm:Style': Style
+'Adm:Select': Select
+'Adm:UnselectAll': 'Unselect All'

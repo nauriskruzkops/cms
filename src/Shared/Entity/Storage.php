@@ -20,6 +20,12 @@ class Storage {
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Gallery", inversedBy="settings", cascade={"persist"})
+     * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $gallery;
+
+    /**
      * @ORM\Column(type="string", length=254, nullable=true)
      */
     private $objectClass;
@@ -33,6 +39,16 @@ class Storage {
      * @ORM\Column(type="string", length=254, nullable=true)
      */
     private $file;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $mimeType;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $size;
 
     /**
      * @return mixed
