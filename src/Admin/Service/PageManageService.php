@@ -71,8 +71,8 @@ class PageManageService
         foreach (array_merge($postBlocks, $postNewBlocks) as $postBlock) {
             if ($postBlock['type'] == PageBlocks::TYPE_POST) {
                 $page = $this->savePostBlock($page, $postBlock);
-            } elseif ($postBlock['type'] == PageBlocks::TYPE_LIST) {
-                $page = $this->saveListBlock($page, $postBlock);
+            } elseif ($postBlock['type'] == PageBlocks::TYPE_IMAGES) {
+                $page = $this->saveImagesBlock($page, $postBlock);
             } else {
                 $page = $this->saveBlock($page, $postBlock);
             }
@@ -130,7 +130,7 @@ class PageManageService
      * @param array $data
      * @return Page
      */
-    private function saveListBlock(Page $page, array $data)
+    private function saveImagesBlock(Page $page, array $data)
     {
         /** @var PageBlocks[]|ArrayCollection $findBlock */
         $findBlock = $page->getBlocks()->filter(function (PageBlocks $block) use ($data) {
@@ -140,15 +140,12 @@ class PageManageService
         /** @var PageBlocks $block */
         $block = $findBlock->first();
 
-//        $config = $block->getConfig();
-//        if (isset($config['category'])) {
-//            unset($config['category']);
-//        }
-//        if (isset($config['text'])) {
-//            unset($config['text']);
-//        }
-//
-//        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
+        $postImages = $data['config'][0]['images'] ?? [];
+
+        $blockConfig = $block->getConfig() ?? [];
+        $blockConfig[0]['images'] = $postImages;
+
+        $block->setConfig($blockConfig);
 
         return $page;
     }

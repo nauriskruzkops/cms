@@ -62,11 +62,7 @@ class PageBlockSettingsForm extends AbstractType
             ])
             ->add('style', ChoiceType::class, [
                 'required' => false,
-                'choices' => [
-                    'Grid' => 'grid',
-                    'Slider' => 'slider',
-                    'Blog' => 'blog',
-                ],
+                'choices' => [], // <- Listener
                 'multiple' => false,
             ])
             ->add('bg_color', ColorType::class, [
@@ -86,20 +82,25 @@ class PageBlockSettingsForm extends AbstractType
                 'required' => false,
                 'attr' => [],
             ])
-            ->add('images', ChoiceType::class, [
-                'required' => false,
-                //'choices' => [],
-                'multiple' => true,
-            ])
+//            ->add('images', ChoiceType::class, [
+//                'required' => false,
+//                'multiple' => true,
+//            ])
+//            ->add(
+//                $builder->create('images', FormType::class, ['by_reference' => ''])
+//                    ->add('name', TextType::class)
+//                    ->add('email', EmailType::class)
+//            )
             ->addEventSubscriber(new PageBlockSettingsListener($this->em, $this->fileUploader))
         ;
-        $builder->get('images')->resetViewTransformers();
+        $builder->get('style')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'empty_data' => []
+            'empty_data' => [],
+            'allow_extra_fields' => true,
         ]);
     }
 

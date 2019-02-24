@@ -55,14 +55,38 @@ class PageBlockSettingsListener implements EventSubscriberInterface
             /** @var PageBlocks $pageBlock */
             $pageBlock = $pageForm->getParent()->getData();
 
-            $categories = $this->getCategories($pageBlock->getPage()->getLocale());
-            $form->remove('category');
-            $form->add('category', ChoiceType::class, [
-                'required' => false,
-                'choices' => $categories,
-                'multiple' => true,
-                'expanded' => true,
-            ]);
+            if ($pageBlock->getType() == PageBlocks::TYPE_LIST) {
+                $categories = $this->getCategories($pageBlock->getPage()->getLocale());
+                $form->remove('category');
+                $form->add('category', ChoiceType::class, [
+                    'required' => false,
+                    'choices' => $categories,
+                    'multiple' => true,
+                    'expanded' => true,
+                ]);
+
+                $form->remove('style');
+                $form->add('style', ChoiceType::class, [
+                    'required' => false,
+                    'choices' => [
+                        'Grid' => 'grid',
+                        'Slider' => 'slider',
+                        'Blog' => 'blog',
+                    ],
+                    'multiple' => false,
+                ]);
+            } elseif ($pageBlock->getType() == PageBlocks::TYPE_IMAGES) {
+                $form->remove('style');
+                $form->add('style', ChoiceType::class, [
+                    'required' => false,
+                    'choices' => [
+                        'Style masonry' => 'masonry',
+                        'Style mixitup' => 'mixitup',
+                        'Style carousel' => 'carousel',
+                    ],
+                    'multiple' => false,
+                ]);
+            }
         }
     }
 

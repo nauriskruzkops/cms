@@ -20,37 +20,54 @@ $formBlockView = $block->createView();
 $categoryHelper = $view['category']($blockData->getPage()->getLocale());
 $config = $blockData->getConfig();
 
-$formBlockConfigView = $block->get('config')[0]->createView();
+$formBlockConfigForm = $block->get('config')[0];
+$formBlockConfigView = $formBlockConfigForm->createView();
 $formBlockConfig = $blockData->getConfig() ?? [];
 
 $configInputName = $formBlockConfigView->vars['full_name'];
 $configValues = $blockData->getConfig()[0] ?? [];
 
 ?>
-<div class="row">
-    <div class="col-sm-8">
-        <div id="uploaded-list-group">
-
+<div class="row justify-content-between">
+    <div class="col-4">
+        <div class="form-group">
+            <label><?= $view['translator']->trans('Adm:Template') ?>:</label>
+            <?= $formHelper->widget($formBlockConfigView['style'], ['attr' => ['class' => 'form-control']])?>
         </div>
-        <?php var_dump($configValues['images'] ?? []) ?>
-        <?php foreach ($formBlockConfigView['images'] as $key => $image) :?>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="form-check">
-                        <?= $formHelper->widget($image)?> <?= $formHelper->label($image)?>
-                    </div>
-                </div>
-            </div>
-        <?php endforeach;?>
     </div>
-    <div class="col-sm-4">
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" id="page_block_image" name="block_images" multiple>
-            <label class="custom-file-label" for="page_block_image">Choose file</label>
+    <div class="col-4">
+        <div class="form-group">
+            <label> </label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="page_block_image" name="block_images" multiple>
+                <label class="custom-file-label" for="page_block_image">Choose images</label>
+            </div>
         </div>
         <ul class="list-group small upload-list-group" data-target="upload-list">
 
         </ul>
+    </div>
+</div>
+<div class="sp10"></div>
+<div class="row" style="max-height: 600px; overflow-y: auto">
+    <div class="col-sm-12">
+        <div class="row uploaded-list-group" data-target="uploaded">
+            <?php foreach ($configValues['images'] ?? [] as $key => $image) : ?>
+                <?php if ($image['file'] ?? false) :?>
+                    <div class="col-sm-6 row uploaded-list-item pr-0">
+                        <div class="col">
+                            <input type="checkbox" class="item-checkbox" checked name="<?= $configInputName?>[images][<?= $key?>][file]" value="<?= $image['file']?>">
+                            <img src="<?=$view['assets']->getUrl($image['file'])?>">
+                        </div>
+                        <div class="col pl-0">
+                            <input type="text" class="form-control input-sm mb-1" name="<?= $configInputName?>[images][<?= $key?>][title]" placeholder="Title" value="<?= $image['title'] ?? ''?>">
+                            <textarea rows="2" class="form-control input-sm mb-1" name="<?= $configInputName?>[images][<?= $key?>][desc]" placeholder="Description"><?= $image['desc'] ?? ''?></textarea>
+                            <input type="text" class="form-control input-sm" name="<?= $configInputName?>[images][<?= $key?>][link]" placeholder="Link" value="<?= $image['link'] ?? ''?>">
+                        </div>
+                    </div>
+                <?php endif;?>
+            <?php endforeach;?>
+        </div>
     </div>
 </div>
 <script type="text/javascript">
@@ -74,6 +91,8 @@ $configValues = $blockData->getConfig()[0] ?? [];
             }
             var TotalUploaded = 0;
             var TotalSuccessUploaded = 0;
+            var UploadImageKey = <?= ($key??0)+1?>;
+
             for (var i = 0; i < prepareToUpload.length; i++) {
                 var formData = new FormData();
                 formData.append('files', prepareToUpload.item(i));
@@ -91,16 +110,31 @@ $configValues = $blockData->getConfig()[0] ?? [];
                     },
                     success: function (data) {
                         $('[data-prepare='+i+']', listContainer).remove();
-                        $('<input type="checkbox" checked>')
-                            .attr('name', '<?= $formBlockConfigView['images']->vars['full_name']?>')
+                        var $item = $('<div class="col-sm-6 row uploaded-list-item pr-0">');
+                        var $col1 = $('<div class="col">');
+                        $('<input type="checkbox" class="item-checkbox" checked>')
+                            .attr('name', '<?= $configInputName?>[images]['+UploadImageKey+'][file]')
                             .attr('value', data.location)
-                            .appendTo('#uploaded-list-group');
+                            .appendTo($col1);
+                        $('<img>')
+                            .attr('src', data.location)
+                            .appendTo($col1);
+                        var $col2 = $('<div class="col pl-0">');
+                        $('<input type="text" class="form-control input-sm mb-2">').attr('name', '<?= $configInputName?>[images]['+UploadImageKey+'][title]').appendTo($col2);
+                        $('<textarea rows="2" class="form-control input-sm mb-2">').attr('name', '<?= $configInputName?>[images]['+UploadImageKey+'][desc]').appendTo($col2);
+                        $('<input type="text" class="form-control input-sm">').attr('link', '<?= $configInputName?>[images]['+UploadImageKey+'][file]').appendTo($col2);
+
+                        $($col1).appendTo($item);
+                        $($col2).appendTo($item);
+                        $($item).appendTo('[data-target=uploaded]');
                         TotalSuccessUploaded++;
+                        UploadImageKey++;
                     },
                     error: function (data) {
                         $('[data-prepare='+i+']', listContainer).addClass('bg-danger');
                         $('[data-prepare='+i+']', listContainer).find('span').html('uploading ... error');
                         TotalSuccessUploaded++;
+                        UploadImageKey++;
                     },
                     data: formData,
                     cache: false,
@@ -112,7 +146,7 @@ $configValues = $blockData->getConfig()[0] ?? [];
             }
 
             if (prepareToUpload.length === TotalUploaded) {
-                alert('Upload DONE');
+                // alert('Upload DONE');
             }
 
             return false;
