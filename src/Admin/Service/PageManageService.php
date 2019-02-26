@@ -3,6 +3,7 @@
 namespace Admin\Service;
 
 use Admin\Exception\Exception;
+use Admin\Model\PageDefaultTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Page;
@@ -22,7 +23,7 @@ class PageManageService
 
     /**
      * PageManageService constructor.
-     * @param EntityManager
+     * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
     {
@@ -42,8 +43,13 @@ class PageManageService
         $pageBlock = new PageBlocks();
         $pageBlock->setType(PageBlocks::TYPE_POST);
 
-        $blockPost = new Post();
-        $blockPost->setIsPartOf(true);
+        $pageDefaultTemplate = new PageDefaultTemplate();
+
+        if (in_array($page->getTemplate(), [Page::TEMPL_LANDING, Page::TEMPL_TEXT, Page::TEMPL_PRODUCTS])) {
+            $blockPost = new Post();
+            $blockPost->setIsPartOf(true);
+            $blockPost->setText($pageDefaultTemplate->getTemplate($page));
+        }
 
         $pageBlock->setPost($blockPost);
         $page->addBlocks($pageBlock);

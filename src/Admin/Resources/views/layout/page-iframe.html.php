@@ -3,6 +3,7 @@
     <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/tinymce/jquery.tinymce.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/tinymce/tinymce.min.js', 'admin') ?>"></script>
+    <script type="text/javascript"><?php $view['slots']->output('append_script') ?></script>
     <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
     <style type="text/css">
         body, html{margin-bottom: -50px}

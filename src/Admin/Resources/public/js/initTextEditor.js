@@ -16,20 +16,7 @@ $(function () {
                 'insertdatetime media table contextmenu paste code help wordcount template'
             ],
             toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat pagebreak | code visualblocks preview',
-            content_css: [
-                //'/assets/theme/default/vendor/bootstrap/css/bootstrap.min.css',
-                //'/assets/theme/default/css/bootstrap-overwrite.css',
-                //'/assets/theme/default/css/theme-base.css',
-                //'/assets/theme/default/css/tools.css',
-                "/assets/theme/theme/css/bootstrap.css?v1",
-                "/assets/theme/theme/plugins/revolution/css/settings.css?v1",
-                "/assets/theme/theme/plugins/revolution/css/layers.css?v1",
-                "/assets/theme/theme/plugins/revolution/css/navigation.css?v1",
-                "/assets/theme/theme/css/style.css?v1",
-                "/assets/theme/theme/css/style-overwrite.css?v1",
-                "/assets/theme/theme/css/responsive.css?v1",
-
-            ],
+            content_css: tiny_content_css,
             table_default_attributes: {
                 border: '0'
             },

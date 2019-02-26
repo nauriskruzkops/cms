@@ -60,7 +60,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
                                             <a class="dropdown-item" href="<?= $view['router']->path('adm_page_add', [
                                                     'template' => $template,
                                                     'locale' => $locale,
-                                            ]) ?>"><?= $template?></a>
+                                            ]) ?>"><?= ucfirst($template)?></a>
                                         <?php endforeach;?>
                                     </div>
                                 </div>

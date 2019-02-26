@@ -24,8 +24,9 @@ class Page {
     const TEMPL_LANDING = 'landing';
     const TEMPL_TEXT = 'text';
     const TEMPL_GALLERY = 'gallery';
-    const TEMPL_PRODUCTS = 'products';
+    const TEMPL_PRODUCTS = 'product';
     const TEMPL_CUSTOM = 'custom';
+
     const TEMPLATES = [
       self::TEMPL_ROOT,
       self::TEMPL_LANDING,

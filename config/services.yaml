@@ -22,7 +22,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Shared,Admin,Helpers,DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{Shared,Admin,Helpers,DependencyInjection,Entity,Migrations,Tests,Resources,Kernel.php}'
 
     # CONTROLLER
     App\Controller\IndexController:
@@ -83,7 +83,7 @@ services:
     Admin\Security\AccessDeniedHandler:
         arguments: ['@templating.engine.php']
     Admin\Service\SettingService:
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
     Admin\Service\PageManageService:
         arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
     Admin\Service\PostManageService:
