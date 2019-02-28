@@ -1,0 +1,33 @@
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #495057 !default;
+$gray-900: #495057 !default;
+$black:    #495057 !default;
+
+// Your variable overrides
+$blue:    #73cbe3 !default;
+$indigo:  #9087f2 !default;
+$purple:  #9486c1 !default;
+$pink:    #ff9fab !default;
+$red:     #ff8a98 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffdb86 !default;
+$green:   #a9e6af !default;
+$teal:    #7fc9ac !default;
+$cyan:    #6caeb8 !default;
+
+$font-size-base:             .95rem !default;
+$font-size-lg:                $font-size-base * 1.25 !default;
+$font-size-sm:                $font-size-base * .875 !default;
+
+$input-btn-padding-y:         .275rem !default;
+$input-btn-padding-x:         .55rem !default;
+
+$label-margin-bottom:         .1rem !default;
+$input-placeholder-color:     $gray-600 !default;
