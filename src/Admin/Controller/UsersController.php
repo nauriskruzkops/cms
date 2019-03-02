@@ -69,7 +69,9 @@ class UsersController extends AbstractController
 
         /** @var User $user */
         $user = $userRepo->find($request->get('id'));
-
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
         return $this->processForm($request, $user, 'adm_user', $userManageService);
     }
 

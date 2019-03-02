@@ -21,7 +21,9 @@ class UserManageService
 
     /**
      * PageManageService constructor.
-     * @param EntityManager
+     *
+     * @param EntityManager                $em
+     * @param UserPasswordEncoderInterface $encoder
      */
     public function __construct(EntityManager $em, UserPasswordEncoderInterface $encoder)
     {

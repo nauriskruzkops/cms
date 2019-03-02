@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-
 class AdminExtension extends Extension
 {
     /**
@@ -23,8 +22,12 @@ class AdminExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('admin.yaml');
         $loader->load('services.yaml');
+    }
+
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return new Configuration();
     }
 
     /**
@@ -34,11 +37,11 @@ class AdminExtension extends Extension
      */
     public function getXsdValidationBasePath()
     {
-        return __DIR__.'/../Resources/config/schema';
+        return null;
     }
 
     public function getNamespace()
     {
-        return 'admin';
+        return 'Admin';
     }
 }

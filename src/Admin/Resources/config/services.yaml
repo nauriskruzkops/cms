@@ -1,0 +1,59 @@
+services:
+    Admin\:
+        resource: '%kernel.project_dir%/src/Admin/*'
+        exclude: '%kernel.project_dir%/src/Admin/{Exception,Form,Service,Security}'
+
+    # ADMIN CONTROLLER
+    Admin\Controller\:
+        resource: '%kernel.project_dir%/src/Admin/Controller/*'
+        tags: ['controller.service_arguments']
+
+    # ADMIN SERVICES
+    Admin\Service\:
+        resource: '%kernel.project_dir%/src/Admin/Service/*'
+        arguments: ['@doctrine.orm.entity_manager']
+
+    Admin\Service\SettingService:
+        arguments: ['@doctrine.orm.entity_manager']
+
+    Admin\Security\AccessDeniedHandler:
+        arguments: ['@templating.engine.php']
+
+    Admin\Service\PageManageService:
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
+
+    Admin\Service\PostManageService:
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
+
+    Admin\Service\FileUploader:
+        arguments:
+            ['%upload_directory%','@Admin\Service\StorageService']
+
+    # ADMIN FORMS
+    Admin\Form\:
+        resource: '%kernel.project_dir%/src/Admin/Form/*'
+        arguments: ['@doctrine.orm.entity_manager']
+        tags: [name: controller.service_arguments]
+
+    Admin\Form\MenuForm:
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
+
+    Admin\Form\PageSettingsForm:
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
+
+    Admin\Form\PageBlockSettingsForm:
+        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
+
+    # ADMIN HELPERS
+    Admin\Helpers\:
+        resource: '%kernel.project_dir%/src/Admin/Helpers/*'
+
+    Admin\Helpers\SettingsHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+          - { name: templating.helper, alias: settings }
+
+    Admin\Helpers\CategoryHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@Admin\Service\CategoryService']
+        tags:
+          - { name: templating.helper, alias: category}

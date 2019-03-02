@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use Admin\Service\SettingService;
+use App\Services\SettingService;
 use App\Services\LocaleService;
 use Symfony\Component\Templating\Helper\Helper;
 
