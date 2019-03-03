@@ -2,14 +2,13 @@
 
 namespace App\Helpers;
 
-use App\Services\SettingService;
 use App\Services\LocaleService;
 use Symfony\Component\Templating\Helper\Helper;
 
 class LocaleHelper extends Helper
 {
     /**
-     * @var SettingService
+     * @var LocaleService
      */
     private $localeService;
 

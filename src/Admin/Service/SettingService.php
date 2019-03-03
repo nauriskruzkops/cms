@@ -2,6 +2,7 @@
 
 namespace Admin\Service;
 
+use Admin\Exception\Exception;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Settings;
 use Shared\Repository\SettingsRepository;
@@ -17,13 +18,19 @@ class SettingService
     /** @var array */
     protected static $cache;
 
+    /** @var string */
+    protected $projectDir;
+
+
     /**
      * SettingService constructor.
      * @param EntityManager|null $doctrine
+     * @param $projectDir
      */
-    public function __construct(EntityManager $doctrine = null)
+    public function __construct(EntityManager $doctrine, $projectDir)
     {
         $this->em = $doctrine;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -95,5 +102,24 @@ class SettingService
         return array_flip($languages);
     }
 
-
+    /**
+     * Theme config
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function theme()
+    {
+        $theme = $this->value('site_theme', 'default');
+        try {
+            return require sprintf('%s/src/Resources/views/%s/themeConfig.php', $this->projectDir, $theme);
+        } catch (\Exception $e) {
+            throw new Exception(
+                sprintf('Theme (%s) config was not found under %s',
+                    $theme,
+                    'src/Resources/views'
+                )
+            );
+        }
+    }
 }

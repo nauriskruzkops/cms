@@ -31,7 +31,7 @@ $isNewPage = (!$page->getId());
             <h1><?= $view['slots']->get('pageTitle')?></h1>
         </div>
         <div class="col-6 text-right">
-            <a class="btn btn-light" href="<?= $view['router']->path('adm_page_list') ?>">List</a>
+            <a class="btn btn-light" href="<?= $view['router']->path('adm_page_list') ?>"><?= $view['translator']->trans('Adm:List') ?></a>
         </div>
     </div>
 </div>

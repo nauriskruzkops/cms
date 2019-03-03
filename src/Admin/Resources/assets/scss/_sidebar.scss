@@ -1,0 +1,32 @@
+#side-wrapper {
+    background-color: #2F323E;
+    padding-top: 6px;
+    z-index: 1001;
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    transition: .05s ease-in;
+}
+
+#sidebarNav ul, #sidebarNav ul li {
+    margin: 0; padding: 0;
+    position: relative;
+    display: block;
+}
+
+#sidebarNav ul li a {
+    margin: 0; padding: 10px 10px;
+    color: #ededed;
+}
+
+#sidebarNav ul li a:hover {
+    background-color: rgba(255, 118, 118, 0.44);
+}
+
+#sidebarNav ul > li > ul > li a, #sidebarNav ul > li > div > ul > li a {
+    padding-left: 30px;
+}
+
+#sidebarNav > ul > li {
+
+}

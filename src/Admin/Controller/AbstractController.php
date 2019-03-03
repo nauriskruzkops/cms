@@ -3,7 +3,7 @@
 namespace Admin\Controller;
 
 use Admin\Exception\AccessDeniedException;
-use App\Services\SettingService;
+use Admin\Service\SettingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as AbstractSymfonyController;
 
 abstract class AbstractController extends AbstractSymfonyController
@@ -11,9 +11,11 @@ abstract class AbstractController extends AbstractSymfonyController
     /**
      * @return SettingService
      */
-    public function settings()
+    final public function settings()
     {
-        return new SettingService($this->getDoctrine()->getManager());
+        /** @var SettingService $settingService */
+        $settingService = $this->container->get('settings');
+        return $settingService;
     }
 
     /**

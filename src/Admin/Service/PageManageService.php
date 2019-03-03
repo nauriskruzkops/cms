@@ -3,6 +3,7 @@
 namespace Admin\Service;
 
 use Admin\Exception\Exception;
+use Admin\Model\PageDefaultTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Page;
@@ -22,7 +23,7 @@ class PageManageService
 
     /**
      * PageManageService constructor.
-     * @param EntityManager
+     * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
     {
@@ -42,8 +43,13 @@ class PageManageService
         $pageBlock = new PageBlocks();
         $pageBlock->setType(PageBlocks::TYPE_POST);
 
-        $blockPost = new Post();
-        $blockPost->setIsPartOf(true);
+        $pageDefaultTemplate = new PageDefaultTemplate();
+
+        if (in_array($page->getTemplate(), [Page::TEMPL_LANDING, Page::TEMPL_TEXT, Page::TEMPL_PRODUCTS])) {
+            $blockPost = new Post();
+            $blockPost->setIsPartOf(true);
+            $blockPost->setText($pageDefaultTemplate->getTemplate($page));
+        }
 
         $pageBlock->setPost($blockPost);
         $page->addBlocks($pageBlock);
@@ -71,8 +77,10 @@ class PageManageService
         foreach (array_merge($postBlocks, $postNewBlocks) as $postBlock) {
             if ($postBlock['type'] == PageBlocks::TYPE_POST) {
                 $page = $this->savePostBlock($page, $postBlock);
-            } elseif ($postBlock['type'] == PageBlocks::TYPE_LIST) {
-                $page = $this->saveListBlock($page, $postBlock);
+            } elseif ($postBlock['type'] == PageBlocks::TYPE_IMAGES) {
+                $page = $this->saveImagesBlock($page, $postBlock);
+            } else {
+                $page = $this->saveBlock($page, $postBlock);
             }
         }
 
@@ -128,7 +136,7 @@ class PageManageService
      * @param array $data
      * @return Page
      */
-    private function saveListBlock(Page $page, array $data)
+    private function saveImagesBlock(Page $page, array $data)
     {
         /** @var PageBlocks[]|ArrayCollection $findBlock */
         $findBlock = $page->getBlocks()->filter(function (PageBlocks $block) use ($data) {
@@ -138,16 +146,23 @@ class PageManageService
         /** @var PageBlocks $block */
         $block = $findBlock->first();
 
-//        $config = $block->getConfig();
-//        if (isset($config['category'])) {
-//            unset($config['category']);
-//        }
-//        if (isset($config['text'])) {
-//            unset($config['text']);
-//        }
-//
-//        $block->setConfig(array_merge((is_array($config) ? $config : []), $data['config'] ?? []));
+        $postImages = $data['config'][0]['images'] ?? [];
 
+        $blockConfig = $block->getConfig() ?? [];
+        $blockConfig[0]['images'] = $postImages;
+
+        $block->setConfig($blockConfig);
+
+        return $page;
+    }
+
+    /**
+     * @param Page $page
+     * @param array $data
+     * @return Page
+     */
+    private function saveBlock(Page $page, array $data)
+    {
         return $page;
     }
 }

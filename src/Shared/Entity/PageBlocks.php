@@ -17,10 +17,12 @@ class PageBlocks {
 
     const TYPE_POST = 'post';
     const TYPE_LIST = 'list';
+    const TYPE_IMAGES = 'images';
 
     const TYPES = [
       self::TYPE_POST,
       self::TYPE_LIST,
+      self::TYPE_IMAGES,
     ];
 
     /**

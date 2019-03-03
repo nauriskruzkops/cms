@@ -14,7 +14,7 @@ services:
         arguments: ['@doctrine.orm.entity_manager']
 
     Admin\Service\SettingService:
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
 
     Admin\Security\AccessDeniedHandler:
         arguments: ['@templating.engine.php']

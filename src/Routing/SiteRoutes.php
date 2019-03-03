@@ -1,7 +1,7 @@
 <?php
 namespace App\Routing;
 
-use App\Services\SettingService;
+use Admin\Service\SettingService;
 use App\Controller\ErrorController;
 use App\Controller\IndexController;
 use App\Controller\PageController;

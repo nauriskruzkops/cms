@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Admin\Service\SettingService;
+use App\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Asset\Package;
@@ -85,6 +86,15 @@ class ThemeHelper extends Helper
         $this->view->set(new AssetsHelper($packages));
 
         return $this->view['assets']->getUrl($resource, $packageCode);
+    }
+
+    /**
+     * @return array
+     * @throws \Admin\Exception\Exception
+     */
+    public function config()
+    {
+        return $this->settingService->theme();
     }
 
     /**

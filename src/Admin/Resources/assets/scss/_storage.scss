@@ -1,0 +1,34 @@
+/* POST: blocks-container */
+#blocks-container {}
+#blocks-container .block-header {
+    box-shadow: 0px 1px 1px #d0d0d0;
+    position: relative;
+}
+#blocks-container .blocks-container-item {
+    margin-bottom: 20px;
+    border-bottom: 0px solid #B0B0B0;
+}
+#blocks-container .blocks-container-item:last-child {
+    margin-bottom: 10px;
+    border-bottom: 0;
+}
+
+#blocks-container .uploaded-list-group .uploaded-list-item { overflow: hidden; margin-bottom: 5px}
+#blocks-container .uploaded-list-group .uploaded-list-item img {width: 100%}
+#blocks-container .uploaded-list-group .uploaded-list-item .item-checkbox {margin: 2px; padding: 5px; position: absolute; background-color: rgba(255, 255, 255, 0.45)}
+
+#blocks-container .upload-list-group .upload-list-item { padding: 1px 2px; }
+
+#storage .storage-images {}
+#storage .storage-images .storage-image-item {padding: 1px; margin: 5px; border: 3px solid #ffffff}
+#storage .storage-images .storage-image-item {overflow: hidden}
+#storage .storage-images .storage-image-item:hover {border: 3px solid #e8e8e8}
+#storage .storage-images .storage-image-item.image-md-item {width: 120px; height: 100px}
+#storage .storage-images .storage-image-item.selected,
+#storage .storage-images .storage-image-item:active{border: 3px solid #b8b8b8}
+#storage .storage-images .storage-image-item img{width: 100%}
+#storage .storage-image .image-preview {position: relative;margin-top: 1px}
+#storage .storage-image .image-preview img{width: 100%}
+.upload-list-group .upload-list-item {
+    padding: 1px 2px;
+}

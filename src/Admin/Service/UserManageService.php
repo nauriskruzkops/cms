@@ -33,8 +33,8 @@ class UserManageService
 
     /**
      * @param Form $form
-     * @param User $user
-     * @throws Exception
+     *
+     * @return Form
      */
     public function changePassword(Form $form)
     {

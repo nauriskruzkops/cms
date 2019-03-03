@@ -1,0 +1,60 @@
+
+/** BG **/
+.btn-default {
+  background-color: #f9f9f9;
+  color: #6b6b6b;
+}
+.bg-dark {
+  background-color: #2F323E;
+  color: #FFF;
+}
+.bg-secondary {
+  background-color: #6b6b6b;
+  color: #FFF;
+}
+.bg-primary, .btn-primary {
+  background-color: #73cbe3 !important;
+  border-color: #68b3ca;
+  color: #FFF;
+}
+.bg-success, .btn-success  {
+  background-color: #a9e6af !important;
+  border-color: #90c694;
+  color: #FFF;
+}
+.bg-danger, .btn-danger  {
+  background-color: #ff8a98 !important;
+  border-color: #e0717f;
+  color: #FFF;
+}
+.btn-link  {
+  background-color: transparent !important;
+  color: #6b6b6b;
+}
+
+.btn-xs {
+  padding: 1px 5px;
+  font-size: 60%;
+  line-height: 1.4;
+  border-radius: .2rem;
+  margin: -5px 0 0 0;
+}
+
+
+
+/** TABLE **/
+table thead tr th {
+  font-weight: 400;
+  color: #6b6b6b;
+}
+
+.breadcrumb {
+  background: transparent;
+}
+
+/** FORM **/
+.form-group label {
+  margin-bottom: 1px;
+  font-size: 85%;
+  opacity: .9;
+}

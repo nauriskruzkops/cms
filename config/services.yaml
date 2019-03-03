@@ -22,7 +22,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Shared,Admin,Helpers,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{Shared,Admin,Helpers,Entity,Migrations,Tests,Resources,Kernel.php}'
 
     # CONTROLLER
     App\Controller\IndexController:
@@ -31,17 +31,15 @@ services:
     # ROUTER
     App\Routing\SiteRoutes:
         public: true
-        arguments: ['@App\Services\SettingService', '@doctrine.orm.entity_manager']
+        arguments: ['@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
 
     # SERVICES
     App\Services\:
         resource: '../src/Services/*'
-    App\Services\SettingService:
-        arguments: ['@doctrine.orm.entity_manager']
     App\Services\Service:
-        arguments: ['@App\Services\SettingService', '@doctrine.orm.entity_manager']
+        arguments: ['@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
     App\Services\LocaleService:
-        arguments: ['@App\Services\SettingService', '@router']
+        arguments: ['@Admin\Service\SettingService', '@router']
     App\Services\RequestPageService:
         arguments: ['@doctrine.orm.entity_manager', '@router']
 
@@ -49,19 +47,19 @@ services:
     App\Helpers\:
         resource: '../src/Helpers/*'
     App\Helpers\MenuHelper:
-        arguments: ['@templating.engine.php', '@App\Services\SettingService', '@doctrine.orm.entity_manager']
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
         tags:
         - { name: templating.helper, alias: menu }
     App\Helpers\PageHelper:
-        arguments: ['@templating.engine.php', '@App\Services\SettingService']
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: page }
     App\Helpers\PostHelper:
-        arguments: ['@templating.engine.php', '@App\Services\SettingService']
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: post }
     App\Helpers\LayoutHelper:
-        arguments: ['@templating.engine.php', '@App\Services\SettingService']
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: layout }
     App\Helpers\LocaleHelper:
@@ -69,7 +67,7 @@ services:
         tags:
         - { name: templating.helper, alias: locale }
     App\Helpers\ThemeHelper:
-        arguments: ['@templating.engine.php', '@App\Services\SettingService']
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
         tags:
         - { name: templating.helper, alias: theme }
 
@@ -96,8 +94,34 @@ services:
 ###################################################################################################
 
     Admin\:
-      resource: '%kernel.project_dir%/src/Admin/*'
-      exclude: '%kernel.project_dir%/src/Admin/{Exception,Form,Service,Security}'
+        resource: '%kernel.project_dir%/src/Admin/*'
+        exclude: '%kernel.project_dir%/src/Admin/{Exception,Form,Service,Security}'
+
+    # ADMIN CONTROLLER
+    Admin\Controller\:
+        resource: '%kernel.project_dir%/src/Admin/Controller/*'
+        tags: ['controller.service_arguments']
+
+    # ADMIN SERVICES
+    Admin\Service\:
+        resource: '%kernel.project_dir%/src/Admin/Service/*'
+        arguments: ['@doctrine.orm.entity_manager']
+
+    Admin\Service\SettingService:
+        arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
+
+    Admin\Security\AccessDeniedHandler:
+        arguments: ['@templating.engine.php']
+
+    Admin\Service\PageManageService:
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
+
+    Admin\Service\PostManageService:
+        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
+
+    Admin\Service\FileUploader:
+        arguments:
+          ['%upload_directory%','@Admin\Service\StorageService']
 
     # ADMIN FORMS
     Admin\Form\:

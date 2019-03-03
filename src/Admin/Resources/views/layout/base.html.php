@@ -7,24 +7,30 @@
     <meta name="description" content="Content Managament System">
     <meta name="author" content="nauris.kruzkops@gmail.com">
     <title>Crocolab CMS (Content Managament System)</title>
-
+<?php /*
     <link href="<?= $view['assets']->getUrl('vendor/bootstrap/css/bootstrap.min.css', 'admin') ?>" rel="stylesheet">
     <link href="<?= $view['assets']->getUrl('vendor/bootstrap/css/bootstrap-toggle.min.css', 'admin') ?>" rel="stylesheet">
     <link href="<?= $view['assets']->getUrl('css/tools.css', 'admin') ?>" rel="stylesheet">
     <link href="<?= $view['assets']->getUrl('vendor/font-awesome/css/font-awesome.min.css', 'admin') ?>" rel="stylesheet" type="text/css">
-    <link href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" rel="stylesheet" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+
     <link href="<?= $view['assets']->getUrl('css/theme-base.css', 'admin') ?>" rel="stylesheet">
     <link href="<?= $view['assets']->getUrl('css/bootstrap-overwrite.css', 'admin') ?>" rel="stylesheet">
 
     <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery-3.3.1.slim.min.js', 'admin') ?>"></script>
+
     <script src="<?= $view['assets']->getUrl('vendor/popper.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap-toggle.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/tinymce/jquery.tinymce.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('vendor/tinymce/tinymce.min.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('js/main.js', 'admin') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('js/storage.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
+ */?>
+    <link href="<?= $view['assets']->getUrl('build/admin.css') ?>" rel="stylesheet">
+    <script src="<?= $view['assets']->getUrl('build/runtime.js') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('build/vendors~admin.js') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('build/admin.js') ?>"></script>
 </head>
 <body class="fixed-nav">
     <div id="wrapper">
