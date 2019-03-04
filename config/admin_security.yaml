@@ -1,0 +1,48 @@
+security:
+    providers:
+        shared_entity:
+            entity:
+                class: Shared\Entity\User
+                property: username
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    encoders:
+        Shared\Entity\User:
+            algorithm: bcrypt
+        App\Entity\User:
+            algorithm: bcrypt
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin:
+            pattern: ^/admin
+            security: true
+            anonymous: ~
+            provider: shared_entity
+            access_denied_handler: Admin\Security\AccessDeniedHandler
+            form_login:
+                login_path: ADM_login
+                check_path: ADM_login
+                use_referer: true
+                use_forward: true
+                username_parameter: _username
+                password_parameter: _password
+                post_only: true
+                remember_me: false
+                default_target_path: ADM_index
+                always_use_default_target_path: true
+            logout:
+                path:   ADM_logout
+                target: ADM_login
+    role_hierarchy:
+        ROLE_MANAGER: ROLE_USER
+        ROLE_ADMIN: [ROLE_MANAGER]
+    access_control:
+        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/admin/settings, roles: ROLE_MANAGER }
+        - { path: ^/admin/users, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY  }

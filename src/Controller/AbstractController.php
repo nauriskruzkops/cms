@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Admin\Service\SettingService;
+use App\Services\SettingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as AbstractSymfonyController;
 
 abstract class AbstractController extends AbstractSymfonyController

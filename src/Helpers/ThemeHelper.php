@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use Admin\Service\SettingService;
+use App\Services\SettingService;
 use App\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;

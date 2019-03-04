@@ -1,6 +1,6 @@
 <?php
 
-use App\SiteKernel;
+use App\AdminKernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? $_ENV['TRUSTED_HOSTS'] ?? false
     Request::setTrustedHosts(explode(',', $trustedHosts));
 }
 
-$kernel = new SiteKernel($env, $debug);
+$kernel = new AdminKernel($env, $debug);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

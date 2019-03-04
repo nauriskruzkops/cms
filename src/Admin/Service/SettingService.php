@@ -18,19 +18,14 @@ class SettingService
     /** @var array */
     protected static $cache;
 
-    /** @var string */
-    protected $projectDir;
-
-
     /**
      * SettingService constructor.
      * @param EntityManager|null $doctrine
      * @param $projectDir
      */
-    public function __construct(EntityManager $doctrine, $projectDir)
+    public function __construct(EntityManager $doctrine)
     {
         $this->em = $doctrine;
-        $this->projectDir = $projectDir;
     }
 
     /**
@@ -81,7 +76,6 @@ class SettingService
         }
 
         return $return;
-
     }
 
     /**
@@ -100,26 +94,5 @@ class SettingService
     {
         $languages = $this->values('manu_positions');
         return array_flip($languages);
-    }
-
-    /**
-     * Theme config
-     *
-     * @return array
-     * @throws Exception
-     */
-    public function theme()
-    {
-        $theme = $this->value('site_theme', 'default');
-        try {
-            return require sprintf('%s/src/Resources/views/%s/themeConfig.php', $this->projectDir, $theme);
-        } catch (\Exception $e) {
-            throw new Exception(
-                sprintf('Theme (%s) config was not found under %s',
-                    $theme,
-                    'src/Resources/views'
-                )
-            );
-        }
     }
 }
