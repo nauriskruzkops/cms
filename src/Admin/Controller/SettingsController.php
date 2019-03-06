@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SettingsController extends AbstractController
 {
     /**
-     * @Route("/admin/settings", name="adm_settings")
+     * @Route("/settings", name="adm_settings")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -46,7 +46,7 @@ class SettingsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/setting/{key}/change", name="adm_settings_change")
+     * @Route("/setting/{key}/change", name="adm_settings_change")
      */
     public function change(Request $request)
     {

@@ -20,7 +20,7 @@ class PagesController extends \Admin\Controller\AbstractController
     const CONTEXT_PAGE_BLOCK = 'pageBlock';
 
     /**
-     * @Route("/admin/pages", name="adm_page_list")
+     * @Route("/pages", name="adm_page_list")
      * @param Request $request
      * @return Response
      */
@@ -39,7 +39,7 @@ class PagesController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/add", name="adm_page_add")
+     * @Route("/page/add", name="adm_page_add")
      * @param Request $request
      * @param PageManageService $pageManageService
      * @return \Symfony\Component\HttpFoundation\Response
@@ -61,7 +61,7 @@ class PagesController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/{id}/edit", name="adm_page_edit")
+     * @Route("/page/{id}/edit", name="adm_page_edit")
      * @param Request $request
      * @param PageManageService $pageManageService
      * @return \Symfony\Component\HttpFoundation\Response
@@ -82,7 +82,7 @@ class PagesController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/{id}/delete", name="adm_page_delete")
+     * @Route("/page/{id}/delete", name="adm_page_delete")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -111,7 +111,7 @@ class PagesController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/{id}/move/{context}", name="adm_page_move", defaults={"context":"page"})
+     * @Route("/page/{id}/move/{context}", name="adm_page_move", defaults={"context":"page"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -143,7 +143,7 @@ class PagesController extends \Admin\Controller\AbstractController
 
 
     /**
-     * @Route("/admin/page/{id}/raw", name="adm_page_raw", requirements={"relation"="page|post"})
+     * @Route("/page/{id}/raw", name="adm_page_raw", requirements={"relation"="page|post"})
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

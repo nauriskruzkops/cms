@@ -21,8 +21,8 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
-        resource: '../src/*'
-        exclude: '../src/{Admin,Resources,Shared,AdminKernel.php,SiteKernel.php}'
+        resource: '../src/Site/*'
+        exclude: '../src/Site/{Admin,Resources,Shared,AdminKernel.php,SiteKernel.php}'
 
     # CONTROLLER
     App\Controller\IndexController:
@@ -35,7 +35,7 @@ services:
 
     # SERVICES
     App\Services\:
-        resource: '../src/Services/*'
+        resource: '../src/Site/Services/*'
     App\Services\SettingService:
         arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
     App\Services\LocaleService:
@@ -45,7 +45,7 @@ services:
 
     # HELPERS
     App\Helpers\:
-        resource: '../src/Helpers/*'
+        resource: '../src/Site/Helpers/*'
     App\Helpers\MenuHelper:
         arguments: ['@templating.engine.php', '@App\Services\SettingService', '@doctrine.orm.entity_manager']
         tags:

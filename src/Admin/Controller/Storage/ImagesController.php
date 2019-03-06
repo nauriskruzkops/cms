@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ImagesController extends \Admin\Controller\AbstractController
 {
     /**
-     * @Route("/admin/storage", name="adm_storage")
+     * @Route("/storage", name="adm_storage")
      */
     public function index(Request $request)
     {

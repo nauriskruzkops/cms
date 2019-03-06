@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoriesController extends \Admin\Controller\AbstractController
 {
     /**
-     * @Route("/admin/categories", name="adm_category_list")
+     * @Route("/categories", name="adm_category_list")
      */
     public function index(Request $request)
     {

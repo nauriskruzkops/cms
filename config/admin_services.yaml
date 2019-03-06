@@ -22,9 +22,9 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/*'
-        exclude: '../src/{Admin,Controller,Exception,Helpers,Resources,Routing,Services,Shared,AdminKernel.php,SiteKernel.php}'
+#    App\:
+#        resource: '../src/Site/*'
+#        exclude: '../src/Site/{Admin,Controller,Exception,Helpers,Resources,Routing,Services,Shared,AdminKernel.php,SiteKernel.php}'
 
     # SHARED
     Shared\:
@@ -40,7 +40,7 @@ services:
 
     Admin\:
         resource: '%kernel.project_dir%/src/Admin/*'
-        exclude: '%kernel.project_dir%/src/Admin/{Exception,Form,Service,Security}'
+        exclude: '%kernel.project_dir%/src/Admin/{Exception,Controller,Form,Service,Security}'
 
     # ADMIN CONTROLLER
     Admin\Controller\:

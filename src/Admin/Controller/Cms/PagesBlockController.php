@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PagesBlockController extends \Admin\Controller\AbstractController
 {
     /**
-     * @Route("/admin/page/{page_id}/block/add/{type}", name="adm_pageblock_add")
+     * @Route("/page/{page_id}/block/add/{type}", name="adm_pageblock_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -50,7 +50,7 @@ class PagesBlockController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/block/{id}/delete", name="adm_pageblock_delete")
+     * @Route("/page/block/{id}/delete", name="adm_pageblock_delete")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -77,7 +77,7 @@ class PagesBlockController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/page/block/{id}/move", name="adm_pageblock_move")
+     * @Route("/page/block/{id}/move", name="adm_pageblock_move")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

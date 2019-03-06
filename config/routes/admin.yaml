@@ -1,3 +1,13 @@
-controllers:
+index:
+    path: /
+    controller: Admin\Controller\IndexController::index
+
+admin_index:
+    path: /
+    prefix: /admin
+    controller: Admin\Controller\IndexController::index
+
+admin_routes:
+    prefix: /admin
     resource: '../../src/Admin/Controller/'
     type: annotation

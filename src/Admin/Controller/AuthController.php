@@ -10,7 +10,7 @@ class AuthController extends AbstractController
 {
 
     /**
-     * @Route("/admin/login", name="ADM_login")
+     * @Route("/login", name="ADM_login")
      */
     public function login(Request $request, AuthenticationUtils $authUtils)
     {
@@ -27,7 +27,7 @@ class AuthController extends AbstractController
     }
 
     /**
-     * @Route("/admin/logout", name="ADM_logout")
+     * @Route("/logout", name="ADM_logout")
      * @param Request $request
      * @param AuthenticationUtils $authUtils
      */

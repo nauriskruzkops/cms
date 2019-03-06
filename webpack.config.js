@@ -1,5 +1,6 @@
 var Encore = require('@symfony/webpack-encore');
 
+// Public site
 Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
@@ -13,11 +14,11 @@ Encore
     .autoProvidejQuery()
     .addEntry('site', './public/assets/theme/default/js/main.js')
 ;
-
 const siteConfig = Encore.getWebpackConfig();
 siteConfig.name = 'site';
 Encore.reset();
 
+// Admin side
 Encore
     .setOutputPath('public/admin/build/')
     .setPublicPath('/build')
@@ -37,4 +38,10 @@ const adminConfig = Encore.getWebpackConfig();
 adminConfig.name = 'admin';
 Encore.reset();
 
+module.loaders = [{test: require.resolve('tinymce/tinymce'), loaders: ['imports?this=>window', 'exports?window.tinymce']}, {
+    test: /tinymce\/(themes|plugins)\//,
+    loaders: ['imports?this=>window']
+}];
+
 module.exports = [adminConfig, siteConfig];
+

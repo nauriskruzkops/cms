@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostsController extends \Admin\Controller\AbstractController
 {
     /**
-     * @Route("/admin/posts", name="adm_post_list")
+     * @Route("/posts", name="adm_post_list")
      */
     public function index(Request $request)
     {
@@ -46,7 +46,7 @@ class PostsController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/post/add", name="adm_post_add")
+     * @Route("/post/add", name="adm_post_add")
      * @param Request $request
      * @param PostManageService $postManageService
      * @return \Symfony\Component\HttpFoundation\Response
@@ -59,7 +59,7 @@ class PostsController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/post/{id}/edit", name="adm_post_edit")
+     * @Route("/post/{id}/edit", name="adm_post_edit")
      * @param Request $request
      * @param PostManageService $postManageService
      * @return \Symfony\Component\HttpFoundation\Response
@@ -78,7 +78,7 @@ class PostsController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/post/{id}/delete", name="adm_post_delete")
+     * @Route("/post/{id}/delete", name="adm_post_delete")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -145,7 +145,7 @@ class PostsController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/post/{id}/raw", name="adm_post_raw")
+     * @Route("/post/{id}/raw", name="adm_post_raw")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -164,7 +164,7 @@ class PostsController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/post/templates", name="adm_post_templates")
+     * @Route("/post/templates", name="adm_post_templates")
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Admin\Exception\Exception
      */

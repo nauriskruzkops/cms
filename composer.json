@@ -43,7 +43,8 @@
         "psr-4": {
             "Shared\\": "src/Shared/",
             "Admin\\": "src/Admin/",
-            "App\\": "src/"
+            "App\\": "src/Site/",
+            "Site\\": "src/Site/"
         }
     },
     "autoload-dev": {
