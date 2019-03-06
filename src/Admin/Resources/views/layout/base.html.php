@@ -28,9 +28,10 @@
     <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
  */?>
     <link href="<?= $view['assets']->getUrl('admin/build/admin.css') ?>" rel="stylesheet">
-    <script src="<?= $view['assets']->getUrl('admin/build/runtime.js') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('admin/build/vendors~admin.js') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('admin/build/admin.js') ?>"></script>
+
+    <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery.min.js', 'admin') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap.min.js', 'admin') ?>"></script>
+
 </head>
 <body class="fixed-nav">
     <div id="wrapper">
@@ -53,9 +54,6 @@
             </div>
         <?php endforeach ?>
     </div>
-
-    <script src="<?= $view['assets']->getUrl('vendor/moment.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/bootstrap-datepicker/bootstrap-datetimepicker.min.js', 'admin') ?>"></script>
 </body>
 </html>
 

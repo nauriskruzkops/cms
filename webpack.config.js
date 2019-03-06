@@ -21,7 +21,7 @@ Encore.reset();
 // Admin side
 Encore
     .setOutputPath('public/admin/build/')
-    .setPublicPath('/build')
+    .setPublicPath('/admin/build')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
@@ -41,6 +41,11 @@ Encore.reset();
 module.loaders = [{test: require.resolve('tinymce/tinymce'), loaders: ['imports?this=>window', 'exports?window.tinymce']}, {
     test: /tinymce\/(themes|plugins)\//,
     loaders: ['imports?this=>window']
+}];
+
+module.rules = [{
+    test: /\.css$/,
+    use: ['style-loader', 'css-loader']
 }];
 
 module.exports = [adminConfig, siteConfig];
