@@ -5,6 +5,7 @@ namespace Admin\Form\EventListener;
 use Admin\Exception\FileUploadException;
 use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -24,7 +25,7 @@ class PageSettingsListener implements EventSubscriberInterface
      * MenuItemRelationListener constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em, FileUploader $fileUploader)
+    public function __construct(EntityManagerInterface $em, FileUploader $fileUploader)
     {
         $this->em = $em;
         $this->fileUploader = $fileUploader;

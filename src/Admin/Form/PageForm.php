@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\PageListener;
 use Admin\Service\SettingService;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Shared\Entity\Page;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -31,7 +32,7 @@ class PageForm extends AbstractType
      * @param EntityManager $em
      * @param SettingService $settings
      */
-    public function __construct(EntityManager $em, SettingService $settings)
+    public function __construct(EntityManagerInterface $em, SettingService $settings)
     {
         $this->em = $em;
         $this->settings = $settings;

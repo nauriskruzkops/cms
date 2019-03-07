@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\PageBlockSettingsListener;
 use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -30,7 +31,7 @@ class PageBlockSettingsForm extends AbstractType
      * @param EntityManager $em
      * @param FileUploader $fileUploader
      */
-    public function __construct(EntityManager $em, FileUploader $fileUploader)
+    public function __construct(EntityManagerInterface $em, FileUploader $fileUploader)
     {
         $this->em = $em;
         $this->fileUploader = $fileUploader;

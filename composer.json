@@ -43,8 +43,7 @@
         "psr-4": {
             "Shared\\": "src/Shared/",
             "Admin\\": "src/Admin/",
-            "App\\": "src/Site/",
-            "Site\\": "src/Site/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
@@ -62,8 +61,7 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
-            "assets:install assets:install %PUBLIC_DIR% --symlink": "symfony-cmd"
+            "cache:clear": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -78,7 +76,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.1.*"
+            "require": "4.2.*"
         }
     }
 }

@@ -12,7 +12,7 @@ Encore
     .enableVersioning(Encore.isProduction())
     .enableSassLoader()
     .autoProvidejQuery()
-    .addEntry('site', './public/assets/theme/default/js/main.js')
+    .addEntry('site', './src/Resources/views/default/public/js/main.js')
 ;
 const siteConfig = Encore.getWebpackConfig();
 siteConfig.name = 'site';
@@ -20,8 +20,8 @@ Encore.reset();
 
 // Admin side
 Encore
-    .setOutputPath('public/admin/build/')
-    .setPublicPath('/admin/build')
+    .setOutputPath('public/build/')
+    .setPublicPath('/build')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()

@@ -3,6 +3,7 @@
 namespace Admin\Service;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -18,7 +19,7 @@ class StorageService
      * SettingService constructor.
      * @param EntityManager|null $doctrine
      */
-    public function __construct(EntityManager $doctrine = null)
+    public function __construct(EntityManagerInterface $doctrine = null)
     {
         $this->em = $doctrine;
     }

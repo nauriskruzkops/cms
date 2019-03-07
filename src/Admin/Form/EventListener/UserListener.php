@@ -3,6 +3,7 @@
 namespace Admin\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -16,7 +17,7 @@ class UserListener implements EventSubscriberInterface
      * MenuItemRelationListener constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

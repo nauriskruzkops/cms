@@ -4,6 +4,7 @@ namespace Admin\Form;
 
 use Admin\Form\EventListener\MenuItemFormListener;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\MenuItems;
 use Shared\Repository\MenuItemsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,7 +21,7 @@ class MenuItemsForm extends AbstractType
     /** @var EntityManager */
     protected $em;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

@@ -7,6 +7,7 @@ use Admin\Exception\FileUploadException;
 use Admin\Exception\PageException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Shared\Entity\Page;
@@ -32,7 +33,7 @@ class PostManageService
      * @param EntityManager $em
      * @param FileUploader $fileUploader
      */
-    public function __construct(EntityManager $em, FileUploader $fileUploader)
+    public function __construct(EntityManagerInterface $em, FileUploader $fileUploader)
     {
         $this->em = $em;
         $this->fileUploader = $fileUploader;

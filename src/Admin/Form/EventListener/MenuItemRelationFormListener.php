@@ -3,6 +3,7 @@
 namespace Admin\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\MenuItemRelation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
@@ -17,7 +18,7 @@ class MenuItemRelationFormListener implements EventSubscriberInterface
      * MenuItemRelationListener constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

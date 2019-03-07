@@ -3,6 +3,7 @@
 namespace Admin\Form;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Shared\Entity\Page;
 use Shared\Entity\PageBlocks;
@@ -29,7 +30,7 @@ class PageBlockForm extends AbstractType
      * PageForm constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

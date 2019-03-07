@@ -1,3 +1,8 @@
-admin_bundle:
-  resource: '@AdminBundle/Controller/'
+admin_index:
+  path: /admin
+  controller: Admin\Controller\IndexController::index
+
+admin_routes:
+  prefix: /admin
+  resource: '../../src/Admin/Controller/'
   type: annotation

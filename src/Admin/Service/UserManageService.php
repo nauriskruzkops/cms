@@ -4,6 +4,7 @@ namespace Admin\Service;
 
 use Admin\Exception\Exception;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -25,7 +26,7 @@ class UserManageService
      * @param EntityManager                $em
      * @param UserPasswordEncoderInterface $encoder
      */
-    public function __construct(EntityManager $em, UserPasswordEncoderInterface $encoder)
+    public function __construct(EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
         $this->em = $em;
         $this->encoder = $encoder;

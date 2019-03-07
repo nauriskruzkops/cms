@@ -27,10 +27,8 @@
     <script src="<?= $view['assets']->getUrl('js/storage.js', 'admin') ?>"></script>
     <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
  */?>
-    <link href="<?= $view['assets']->getUrl('admin/build/admin.css') ?>" rel="stylesheet">
-
-    <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap.min.js', 'admin') ?>"></script>
+    <link href="<?= $view['assets']->getUrl('build/admin.css') ?>" rel="stylesheet">
+    <script src="<?= $view['assets']->getUrl('build/admin.js') ?>"></script>
 
 </head>
 <body class="fixed-nav">
