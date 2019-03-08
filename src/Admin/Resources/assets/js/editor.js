@@ -1,8 +1,11 @@
-//require('tinymce/themes/silver/theme');
+
+const $ = require('jquery');
+global.$ = global.jQuery = $;
+require('bootstrap');
 
 // Import TinyMCE
 var tinymce = require('tinymce/tinymce');
-
+//require('tinymce/themes/silver/theme');
 require('tinymce/plugins/paste');
 require('tinymce/plugins/link');
 require('tinymce/plugins/advlist');
@@ -61,11 +64,11 @@ var tinymceConfig = {
     image_title: true,
     automatic_uploads: true,
     file_picker_types: 'image',
-    file_picker_callback: function(cb, value, meta) {
+    file_picker_callback: function (cb, value, meta) {
         var input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
-        input.onchange = function() {
+        input.onchange = function () {
             var file = this.files[0];
             var reader = new FileReader();
             reader.onload = function () {
@@ -86,7 +89,7 @@ var tinymceConfig = {
         xhr = new XMLHttpRequest();
         xhr.withCredentials = false;
         xhr.open('POST', '/admin/upload/from/post');
-        xhr.onload = function() {
+        xhr.onload = function () {
             var json;
             if (xhr.status !== 200) {
                 failure('HTTP Error: ' + xhr.status);
@@ -101,7 +104,7 @@ var tinymceConfig = {
         };
         formData = new FormData();
 
-        if( typeof(blobInfo.blob().name) !== undefined ) {
+        if (typeof(blobInfo.blob().name) !== undefined) {
             fileName = blobInfo.blob().name;
         } else {
             fileName = blobInfo.filename();
@@ -111,9 +114,9 @@ var tinymceConfig = {
     },
     powerpaste_word_import: 'clean',
     powerpaste_html_import: 'clean',
-    link_list: function(success) {
+    link_list: function (success) {
         var linkItems = [];
-        $.getJSON('/admin/menu/sitemap/json', function( data ){
+        $.getJSON('/admin/menu/sitemap/json', function (data) {
             success(data);
         });
     },
@@ -162,7 +165,7 @@ var tinymceConfig = {
 };
 
 tinymce.init(tinymceConfig);
-$(document).on('focusin', function(e) {
+$(document).on('focusin', function (e) {
     if ($(e.target).closest(".mce-window, .moxman-window").length) {
         e.stopImmediatePropagation();
     }

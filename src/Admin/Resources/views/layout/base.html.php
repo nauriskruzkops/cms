@@ -28,6 +28,7 @@
     <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
  */?>
     <link href="<?= $view['assets']->getUrl('build/admin.css') ?>" rel="stylesheet">
+    <script src="<?= $view['assets']->getUrl('build/vendors~admin.js') ?>"></script>
     <script src="<?= $view['assets']->getUrl('build/admin.js') ?>"></script>
 
 </head>

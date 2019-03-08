@@ -2,10 +2,12 @@
 require('../scss/app.scss');
 
 const $ = require('jquery');
+global.$ = global.jQuery = $;
+
 require('popper.js');
 require('bootstrap');
 require('bootstrap-datepicker');
-require('moment');
+//require('moment');
 
 $(document).ready(function () {
     if ($("#SysNotifyMessages").length) {

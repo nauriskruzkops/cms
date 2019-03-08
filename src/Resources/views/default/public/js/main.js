@@ -1,8 +1,5 @@
-
 require('../scss/main.scss');
-
-const $ = require('jquery');
+const $ = jQuery = require('jquery');
+global.$ = global.jQuery = $;
 require('popper.js');
 require('bootstrap');
-
-//console.log($('body'));
