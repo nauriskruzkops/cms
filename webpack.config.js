@@ -69,15 +69,13 @@ Encore
         'window.jQuery': 'jquery',
     })
     .addEntry('editor', './src/Admin/Resources/assets/js/editor.js')
+    // .addLoader(
+    //     {test: require.resolve('tinymce/tinymce'), loaders: ['imports?this=>window', 'exports?window.tinymce']},
+    //     {test: /tinymce\/(themes|plugins)\//, loaders: ['imports?this=>window']})
 ;
 
 const editorConfig = Encore.getWebpackConfig();
 editorConfig.name = 'editor';
-
-module.loaders = [{test: require.resolve('tinymce/tinymce'), loaders: ['imports?this=>window', 'exports?window.tinymce']}, {
-    test: /tinymce\/(themes|plugins)\//,
-    loaders: ['imports?this=>window']
-}];
 
 Encore.reset();
 
