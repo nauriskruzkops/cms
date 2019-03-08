@@ -18,7 +18,7 @@ $view->extend('AdminBundle::layout/base.html.php');
     ])
 ) ?>
 
-<div class="container" style="margin-top: 25%">
+<div class="container text-center" style="margin-top: 15%">
     <hr class="featurette-divider">
     <h1>Access Denied</h1>
     <p>You don`t hava a permission for this action</p>

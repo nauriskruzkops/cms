@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UploadController extends \Admin\Controller\AbstractController
 {
     /**
-     * @Route("/admin/upload/from/post", name="adm_upload_from_post")
+     * @Route("/upload/from/post", name="adm_upload_from_post")
      * @param Request $request
      * @param FileUploader $fileUploader
      * @return Response

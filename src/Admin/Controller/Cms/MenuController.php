@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MenuController extends \Admin\Controller\AbstractController
 {
     /**
-     * @Route("/admin/menu", name="adm_menu_list")
+     * @Route("/menu", name="adm_menu_list")
      * @param Request $request
      * @return Response
      */
@@ -43,7 +43,7 @@ class MenuController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/menu/add", name="adm_menu_add")
+     * @Route("/menu/add", name="adm_menu_add")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\ORMException
@@ -57,7 +57,7 @@ class MenuController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/menu/{id}/edit", name="adm_menu_edit")
+     * @Route("/menu/{id}/edit", name="adm_menu_edit")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\ORMException
@@ -77,7 +77,7 @@ class MenuController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/menu/{id}/delete", name="adm_menu_delete")
+     * @Route("/menu/{id}/delete", name="adm_menu_delete")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\ORM\ORMException
@@ -161,7 +161,7 @@ class MenuController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/menu/sitemap/json", name="adm_menu_sitemap_json")
+     * @Route("/menu/sitemap/json", name="adm_menu_sitemap_json")
      * @param Request $request
      * @return Response
      */
@@ -183,7 +183,7 @@ class MenuController extends \Admin\Controller\AbstractController
     }
 
     /**
-     * @Route("/admin/menu/item/{item}/move", name="adm_menu_item_move")
+     * @Route("/menu/item/{item}/move", name="adm_menu_item_move")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

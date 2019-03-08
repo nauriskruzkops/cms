@@ -1,8 +1,6 @@
 /.idea
 /.env
 /vendor/
-/public/uploads/
-/src/Shared/Uploads/
 
 
 ###> symfony/webpack-encore-bundle ###

@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\MenuFormListener;
 use Admin\Service\SettingService;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Menu;
 use Shared\Entity\MenuItems;
 use Symfony\Component\Form\AbstractType;
@@ -26,7 +27,7 @@ class MenuForm extends AbstractType
      * MenuForm constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em, SettingService $settings)
+    public function __construct(EntityManagerInterface $em, SettingService $settings)
     {
         $this->em = $em;
         $this->settings = $settings;

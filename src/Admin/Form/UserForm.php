@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\UserListener;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Category;
 use Shared\Entity\User;
 use Symfony\Component\Form\AbstractType;
@@ -26,7 +27,7 @@ class UserForm extends AbstractType
      * PostForm constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

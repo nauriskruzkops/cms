@@ -413,9 +413,6 @@
     "webmozart/assert": {
         "version": "1.3.0"
     },
-    "youknowriad/standalone-gutenberg": {
-        "version": "1.0"
-    },
     "zendframework/zend-code": {
         "version": "3.3.1"
     },

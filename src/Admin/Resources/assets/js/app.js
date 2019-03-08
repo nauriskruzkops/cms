@@ -1,13 +1,17 @@
 
 require('../scss/app.scss');
 
-const $ =   require('jquery');
+const $ = require('jquery');
+global.$ = global.jQuery = $;
+
+require('popper.js');
 require('bootstrap');
 require('bootstrap-datepicker');
+//require('moment');
 
-$(document).ready(function(){
+$(document).ready(function () {
     if ($("#SysNotifyMessages").length) {
-        setTimeout(function(){
+        setTimeout(function () {
             $(".alert", $("#SysNotifyMessages")).removeClass('show').addClass('hide');
         }, 6000 );
     }
@@ -15,17 +19,15 @@ $(document).ready(function(){
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-});
 
-$(function () {
     var globalAjaxModal = $('#globalAjaxModal');
-    globalAjaxModal.on('show.bs.modal', function(e) {
+    globalAjaxModal.on('show.bs.modal', function (e) {
         var globalAjaxModalUrl = $(e.relatedTarget).attr('href');
         $(this)
             .addClass('modal-scrollfix')
             .find('.modal-content')
             .html('loading...')
-            .load(globalAjaxModalUrl, function() {
+            .load(globalAjaxModalUrl, function () {
                 globalAjaxModal.removeClass('modal-scrollfix').modal('handleUpdate');
                 var globalAjaxModalForm = $("form", globalAjaxModal);
                 if (globalAjaxModalForm.length) {

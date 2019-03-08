@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class UsersController extends AbstractController
 {
     /**
-     * @Route("/admin/users", name="adm_users")
+     * @Route("/users", name="adm_users")
      * @param Request $request
      * @return Response
      */
@@ -42,7 +42,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/admin/user/add", name="adm_user_add")
+     * @Route("/user/add", name="adm_user_add")
      * @param Request $request
      * @param UserManageService $userManageService
      * @return \Symfony\Component\HttpFoundation\Response
@@ -55,7 +55,7 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/admin/user/{id}/edit", name="adm_user")
+     * @Route("/user/{id}/edit", name="adm_user")
      * @param Request $request
      * @param UserManageService $userManageService
      * @return \Symfony\Component\HttpFoundation\Response
@@ -69,12 +69,14 @@ class UsersController extends AbstractController
 
         /** @var User $user */
         $user = $userRepo->find($request->get('id'));
-
+        if (!$user) {
+            throw $this->createNotFoundException();
+        }
         return $this->processForm($request, $user, 'adm_user', $userManageService);
     }
 
     /**
-     * @Route("/admin/user/profile", name="adm_user_profile")
+     * @Route("/user/profile", name="adm_user_profile")
      * @param Request $request
      * @param UserManageService $userManageService
      * @return \Symfony\Component\HttpFoundation\Response

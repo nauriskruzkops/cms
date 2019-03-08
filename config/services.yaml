@@ -22,7 +22,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Shared,Admin,Helpers,DependencyInjection,Entity,Migrations,Tests,Resources,Kernel.php}'
+        exclude: '../src/{Admin,Resources,Shared,AdminKernel.php,SiteKernel.php}'
 
     # CONTROLLER
     App\Controller\IndexController:
@@ -31,15 +31,15 @@ services:
     # ROUTER
     App\Routing\SiteRoutes:
         public: true
-        arguments: ['@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
+        arguments: ['@App\Services\SettingService', '@doctrine.orm.entity_manager']
 
     # SERVICES
     App\Services\:
         resource: '../src/Services/*'
-    App\Services\Service:
-        arguments: ['@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
+    App\Services\SettingService:
+        arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
     App\Services\LocaleService:
-        arguments: ['@Admin\Service\SettingService', '@router']
+        arguments: ['@App\Services\SettingService', '@router']
     App\Services\RequestPageService:
         arguments: ['@doctrine.orm.entity_manager', '@router']
 
@@ -47,90 +47,44 @@ services:
     App\Helpers\:
         resource: '../src/Helpers/*'
     App\Helpers\MenuHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@doctrine.orm.entity_manager']
+        arguments: ['@templating.engine.php', '@App\Services\SettingService', '@doctrine.orm.entity_manager']
         tags:
         - { name: templating.helper, alias: menu }
     App\Helpers\PageHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
         - { name: templating.helper, alias: page }
     App\Helpers\PostHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
         - { name: templating.helper, alias: post }
     App\Helpers\LayoutHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
         - { name: templating.helper, alias: layout }
     App\Helpers\LocaleHelper:
         arguments: ['@App\Services\LocaleService']
         tags:
         - { name: templating.helper, alias: locale }
+
     App\Helpers\ThemeHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
         - { name: templating.helper, alias: theme }
 
-    # ADMIN CONTROLLER
-    Admin\Controller\:
-        resource: '../src/Admin/Controller/*'
-        tags: ['controller.service_arguments']
-
-    # ADMIN SERVICES
-    Admin\Service\:
-        resource: '../src/Admin/Service/*'
-        arguments: ['@doctrine.orm.entity_manager']
-    Admin\Security\AccessDeniedHandler:
-        arguments: ['@templating.engine.php']
-    Admin\Service\SettingService:
-        arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
-    Admin\Service\PageManageService:
-        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
-    Admin\Service\PostManageService:
-        arguments: ['@doctrine.orm.entity_manager','@Admin\Service\FileUploader']
-    Admin\Service\FileUploader:
-        arguments:
-            ['%upload_directory%','@Admin\Service\StorageService']
-
-    # ADMIN FORMS
-    Admin\Form\:
-        resource: '../src/Admin/Form/*'
-        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\SettingService']
-        tags: ['controller.service_arguments']
-    Admin\Form\PageSettingsForm:
-        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
-    Admin\Form\PageBlockSettingsForm:
-        arguments: ['@doctrine.orm.entity_manager', '@Admin\Service\FileUploader']
-
-    # ADMIN HELPERS
-    Admin\Helpers\:
-        resource: '../src/Admin/Helpers/*'
-    Admin\Helpers\SettingsHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+    App\Helpers\SettingsHelper:
+        arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
-        - { name: templating.helper, alias: settings }
-    Admin\Helpers\CategoryHelper:
-        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@Admin\Service\CategoryService']
-        tags:
-            - { name: templating.helper, alias: category }
+            - { name: templating.helper, alias: settings }
 
     # SHARED
     Shared\:
         resource: '../src/Shared/*'
         exclude: '../src/{Entity,Migrations,Tests}'
 
-    # SHARED/LISTENERS
-    Shared\EventListener\TraceabilityListener:
-        arguments: ['@security.token_storage']
+    gedmo.listener.tree:
+        class: Gedmo\Tree\TreeListener
         tags:
-        - { name: 'doctrine.event_listener', event: preUpdate}
-        - { name: 'doctrine.event_listener', event: prePersist}
-#    Shared\EventListener\StorageListener:
-#        arguments: []
-#        tags:
-#        - { name: 'doctrine.event_listener', event: postUpdate}
-#        - { name: 'doctrine.event_listener', event: postPersist}
-#    Shared\EventListener\ExceptionListener:
-#        arguments: ['@templating.engine.php']
-#        tags:
-#            - { name: kernel.event_listener, event: kernel.exception }
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]

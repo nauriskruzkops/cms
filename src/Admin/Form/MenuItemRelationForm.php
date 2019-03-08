@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\MenuItemRelationFormListener;
 use App\Routing\SiteRoutes;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Shared\Entity\Category;
 use Shared\Entity\MenuItemRelation;
@@ -25,7 +26,7 @@ class MenuItemRelationForm extends AbstractType
      * MenuItemRelationForm constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

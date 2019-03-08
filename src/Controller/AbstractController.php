@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Admin\Service\SettingService;
+use App\Services\SettingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as AbstractSymfonyController;
 
 abstract class AbstractController extends AbstractSymfonyController
@@ -10,7 +10,7 @@ abstract class AbstractController extends AbstractSymfonyController
     /**
      * @return SettingService
      */
-    final public  function settings()
+    public function settings()
     {
         /** @var SettingService $settingService */
         $settingService = $this->container->get('settings');
@@ -23,7 +23,8 @@ abstract class AbstractController extends AbstractSymfonyController
     public static function getSubscribedServices()
     {
         $prent = parent::getSubscribedServices();
-        $prent['settings'] = '?Admin\Service\SettingService';
+        $prent['settings'] = '?'.SettingService::class;
+
         return $prent;
     }
 }

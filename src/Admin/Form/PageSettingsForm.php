@@ -5,6 +5,7 @@ namespace Admin\Form;
 use Admin\Form\EventListener\PageSettingsListener;
 use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Page;
 use Shared\Entity\PageSettings;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +28,7 @@ class PageSettingsForm extends AbstractType
      * @param EntityManager $em
      * @param FileUploader $fileUploader
      */
-    public function __construct(EntityManager $em, FileUploader $fileUploader)
+    public function __construct(EntityManagerInterface $em, FileUploader $fileUploader)
     {
         $this->em = $em;
         $this->fileUploader = $fileUploader;

@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use Admin\Service\SettingService;
+use App\Services\SettingService;
 use Doctrine\ORM\EntityManager;
 use Shared\Entity\Menu;
 use Shared\Entity\MenuItems;

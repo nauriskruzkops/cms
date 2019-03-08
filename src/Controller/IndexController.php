@@ -17,6 +17,8 @@ class IndexController extends \App\Controller\AbstractController
 
     public function index(Request $request, RequestPageService $requestPageService)
     {
+        $this->settings();
+
         try {
             $foundByRequest = $requestPageService->get();
             $menuItem = $foundByRequest['menuItem'];

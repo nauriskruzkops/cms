@@ -1,0 +1,53 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # SHARED
+    Shared\:
+        resource: '%kernel.project_dir%/src/Shared/*'
+        exclude: '%kernel.project_dir%/src/{Entity,Migrations,Tests}'
+
+    # SHARED/LISTENERS
+    Shared\EventListener\TraceabilityListener:
+        arguments: ['@security.token_storage']
+        tags:
+            - { name: 'doctrine.event_listener', event: preUpdate}
+            - { name: 'doctrine.event_listener', event: prePersist}
+
+    # ADMIN
+    Admin\:
+        resource: '%kernel.project_dir%/src/Admin/*'
+        exclude: '%kernel.project_dir%/src/Admin/{Exception,Controller,Form,Service,Security}'
+
+    # ADMIN CONTROLLER
+    Admin\Controller\:
+        resource: '%kernel.project_dir%/src/Admin/Controller/*'
+        tags: ['controller.service_arguments']
+
+    # ADMIN SERVICES
+    Admin\Service\:
+        resource: '%kernel.project_dir%/src/Admin/Service/*'
+
+    Admin\Service\FileUploader:
+        arguments: ['%kernel.project_dir%', '@Admin\Service\StorageService']
+
+    # ADMIN FORMS
+    Admin\Form\:
+        resource: '%kernel.project_dir%/src/Admin/Form/*'
+        tags: [name: controller.service_arguments]
+
+    # ADMIN HELPERS
+    Admin\Helpers\:
+        resource: '%kernel.project_dir%/src/Admin/Helpers/*'
+
+    Admin\Helpers\SettingsHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService']
+        tags:
+            - { name: templating.helper, alias: settings }
+
+    Admin\Helpers\CategoryHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@Admin\Service\CategoryService']
+        tags:
+            - { name: templating.helper, alias: category }

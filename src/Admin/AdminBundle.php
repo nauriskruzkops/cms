@@ -2,12 +2,21 @@
 
 namespace Admin;
 
+use Admin\DependencyInjection\AdminExtension;
 use Doctrine\ORM\EntityManager;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AdminBundle extends Bundle
 {
+    /**
+     * @return AdminExtension|\Symfony\Component\DependencyInjection\Extension\ExtensionInterface|null
+     */
+    public function getContainerExtension()
+    {
+        return new AdminExtension();
+    }
+
     public function boot()
     {
         /** @var EntityManager $em */

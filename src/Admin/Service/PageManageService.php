@@ -6,6 +6,7 @@ use Admin\Exception\Exception;
 use Admin\Model\PageDefaultTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Shared\Entity\Page;
 use Shared\Entity\PageBlocks;
 use Shared\Entity\Post;
@@ -25,7 +26,7 @@ class PageManageService
      * PageManageService constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }

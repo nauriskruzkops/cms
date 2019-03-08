@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use Admin\Service\SettingService;
+use App\Services\SettingService;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 class LocaleService

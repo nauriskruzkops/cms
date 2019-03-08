@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Admin\Exception\AccessDeniedException;
 use Admin\Service\SettingService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as AbstractSymfonyController;
 
@@ -10,7 +11,7 @@ abstract class AbstractController extends AbstractSymfonyController
     /**
      * @return SettingService
      */
-    final public  function settings()
+    final public function settings()
     {
         /** @var SettingService $settingService */
         $settingService = $this->container->get('settings');
@@ -23,11 +24,14 @@ abstract class AbstractController extends AbstractSymfonyController
     public static function getSubscribedServices()
     {
         $prent = parent::getSubscribedServices();
-        $prent['settings'] = '?Admin\Service\SettingService';
+        $prent['settings'] = '?'.SettingService::class;
+
         return $prent;
     }
 
     /**
+     * @param AccessDeniedException|\Exception $e
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function denyAccess(\Exception $e)

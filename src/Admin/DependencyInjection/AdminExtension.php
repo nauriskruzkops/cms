@@ -7,38 +7,42 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-
 class AdminExtension extends Extension
 {
     /**
-     * Loads the web profiler configuration.
-     *
-     * @param array $configs An array of configuration settings
-     * @param ContainerBuilder $container A ContainerBuilder instance
+     * @param array $configs
+     * @param ContainerBuilder $container
      * @throws \Exception
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = $this->getConfiguration($configs, $container);
-        $config = $this->processConfiguration($configuration, $configs);
-
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('admin.yaml');
-        $loader->load('services.yaml');
+        $loader->load('services.yaml', 'glob');
     }
 
     /**
-     * Returns the base path for the XSD files.
-     *
+     * @param array $config
+     * @param ContainerBuilder $container
+     * @return Configuration|object|\Symfony\Component\Config\Definition\ConfigurationInterface|null
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container)
+    {
+        return new Configuration();
+    }
+
+    /**
      * @return string The XSD base path
      */
     public function getXsdValidationBasePath()
     {
-        return __DIR__.'/../Resources/config/schema';
+        return null;
     }
 
+    /**
+     * @return string
+     */
     public function getNamespace()
     {
-        return 'admin';
+        return 'Admin';
     }
 }
