@@ -3,8 +3,8 @@
 namespace Admin\Controller;
 
 use Admin\Form\SettingsForm;
-use Shared\Entity\Settings;
-use Shared\Repository\SettingsRepository;
+use Admin\Entity\Settings;
+use Admin\Repository\SettingsRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

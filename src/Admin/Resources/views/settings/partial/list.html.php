@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * @var GlobalVariables $app
  * @var PhpEngine $view
- * @var \Shared\Entity\Settings[] $settings
+ * @var \Admin\Entity\Settings[] $settings
  * @var integer $page
  */
 ?>

@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var PhpEngine $view
  * @var \Symfony\Component\Form\Form $form
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
- * @var \Shared\Entity\Post $post
+ * @var \Admin\Entity\Post $post
  */
 
 $view->extend('AdminBundle::layout/layout.html.php');

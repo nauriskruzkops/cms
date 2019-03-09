@@ -45,7 +45,7 @@ class CategoryHelper extends Helper
     }
 
     /**
-     * @return array|\Shared\Entity\Category[]
+     * @return array|\Admin\Entity\Category[]
      */
     public function getList()
     {

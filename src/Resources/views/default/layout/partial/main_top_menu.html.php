@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Shared\Entity\MenuItems[] $mainMenuItems
+ * @var \Admin\Entity\MenuItems[] $mainMenuItems
  */
 
 $mainMenu = $view['menu']->getMainTopMenu();

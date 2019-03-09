@@ -2,11 +2,11 @@
 
 namespace Admin\Controller\Cms;
 
-use Shared\Entity\Page;
-use Shared\Entity\PageBlocks;
-use Shared\Entity\Post;
-use Shared\Entity\User;
-use Shared\Repository\PageBlocksRepository;
+use Admin\Entity\Page;
+use Admin\Entity\PageBlocks;
+use Admin\Entity\Post;
+use Admin\Entity\User;
+use Admin\Repository\PageBlocksRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 

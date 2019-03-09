@@ -1,6 +1,6 @@
 <?php
 
-use Shared\Entity\Page;
+use Admin\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
@@ -11,7 +11,7 @@ use Symfony\Component\Form\Form;
  * @var PhpEngine $view
  * @var FormHelper $formHelper
  * @var Form $block
- * @var \Shared\Entity\PageBlocks $blockData
+ * @var \Admin\Entity\PageBlocks $blockData
  * @var integer $blockKey
  */
 

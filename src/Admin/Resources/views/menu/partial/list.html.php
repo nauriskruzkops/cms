@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * @var GlobalVariables $app
  * @var PhpEngine $view
- * @var \Shared\Entity\Post[] $posts
+ * @var \Admin\Entity\Post[] $posts
  * @var integer $page
  */
 

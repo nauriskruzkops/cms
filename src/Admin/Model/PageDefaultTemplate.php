@@ -2,7 +2,7 @@
 
 namespace Admin\Model;
 
-use Shared\Entity\Page;
+use Admin\Entity\Page;
 
 class PageDefaultTemplate
 {

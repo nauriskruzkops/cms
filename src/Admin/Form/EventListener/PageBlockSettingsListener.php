@@ -8,9 +8,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Shared\Entity\Category;
-use Shared\Entity\PageBlocks;
-use Shared\Repository\CategoryRepository;
+use Admin\Entity\Category;
+use Admin\Entity\PageBlocks;
+use Admin\Repository\CategoryRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
@@ -126,7 +126,7 @@ class PageBlockSettingsListener implements EventSubscriberInterface
     }
 
     /**
-     * @return \Shared\Entity\Category[]|null
+     * @return \Admin\Entity\Category[]|null
      */
     private function getCategories($locale)
     {

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Exception\ContentNotFoundException;
 use App\Services\RequestPageService;
-use Shared\Entity\Post;
+use Admin\Entity\Post;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 

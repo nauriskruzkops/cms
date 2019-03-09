@@ -8,7 +8,7 @@ use Symfony\Component\Form\Form;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  * @var Form $form
- * @var \Shared\Entity\Page $page
+ * @var \Admin\Entity\Page $page
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
  */
 

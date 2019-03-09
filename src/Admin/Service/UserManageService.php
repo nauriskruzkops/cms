@@ -5,7 +5,7 @@ namespace Admin\Service;
 use Admin\Exception\Exception;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Shared\Entity\User;
+use Admin\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 

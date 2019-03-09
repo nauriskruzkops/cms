@@ -9,7 +9,7 @@ use Symfony\Component\Form\Form;
  * @var PhpEngine $view
  * @var Form $form
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
- * @var \Shared\Entity\Post $post
+ * @var \Admin\Entity\Post $post
  */
 
 $formView = $form->createView();

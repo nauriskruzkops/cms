@@ -5,8 +5,8 @@ namespace Admin\Service;
 use Admin\Exception\Exception;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Shared\Entity\Settings;
-use Shared\Repository\SettingsRepository;
+use Admin\Entity\Settings;
+use Admin\Repository\SettingsRepository;
 
 class SettingService
 {

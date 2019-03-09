@@ -1,6 +1,6 @@
 <?php
 
-use Shared\Entity\Category;
+use Admin\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 /**
  * @var GlobalVariables $app
  * @var PhpEngine $view
- * @var \Shared\Entity\Post[] $posts
+ * @var \Admin\Entity\Post[] $posts
  * @var integer $page
  */
 

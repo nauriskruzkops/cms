@@ -1,7 +1,7 @@
 <?php
 
-use Shared\Entity\Menu;
-use Shared\Entity\MenuItems;
+use Admin\Entity\Menu;
+use Admin\Entity\MenuItems;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;

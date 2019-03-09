@@ -4,10 +4,10 @@ namespace App\Helpers;
 
 use App\Services\SettingService;
 use Doctrine\ORM\EntityManager;
-use Shared\Entity\Menu;
-use Shared\Entity\MenuItems;
-use Shared\Repository\MenuItemsRepository;
-use Shared\Repository\MenuRepository;
+use Admin\Entity\Menu;
+use Admin\Entity\MenuItems;
+use Admin\Repository\MenuItemsRepository;
+use Admin\Repository\MenuRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine as TimedPhpEngine;

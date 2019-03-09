@@ -3,9 +3,9 @@ namespace App\Services;
 
 use App\Exception\ContentNotFoundException;
 use Doctrine\ORM\EntityManager;
-use Shared\Entity\MenuItems;
-use Shared\Entity\Page;
-use Shared\Repository\PageRepository;
+use Admin\Entity\MenuItems;
+use Admin\Entity\Page;
+use Admin\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 
