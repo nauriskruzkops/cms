@@ -6,7 +6,7 @@
 /**
  * @var \Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables $app
  * @var \Symfony\Component\Templating\PhpEngine $view
- * @var \Shared\Entity\Post[] $services
+ * @var \Admin\Entity\Post[] $services
  */
 
 /** @var \App\Helpers\PostHelper $postHelper */

@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use App\Services\SettingService;
 use Doctrine\ORM\EntityManager;
-use Shared\Entity\Page;
+use Admin\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
 

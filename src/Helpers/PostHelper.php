@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use App\Services\SettingService;
-use Shared\Entity\Post;
+use Admin\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
 

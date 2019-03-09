@@ -4,8 +4,8 @@ namespace Admin\Controller\Cms;
 
 use Admin\Form\PostForm;
 use Admin\Service\PostManageService;
-use Shared\Entity\Post;
-use Shared\Repository\PostRepository;
+use Admin\Entity\Post;
+use Admin\Repository\PostRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -124,6 +124,7 @@ class PostsController extends \Admin\Controller\AbstractController
                 try {
                     $post = $postManageService->savePost($form, $request);
                     $this->addFlash('info', 'Cool, post saved!');
+
                     return $this->redirectToRoute(
                         $request->get('btn_save_exit', 1) === 1 ? 'adm_post_edit' :'adm_post_list',
                         ['id' => $post->getId()]);

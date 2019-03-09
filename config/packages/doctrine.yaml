@@ -20,9 +20,9 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
-            Shared:
+            Admin:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Shared/Entity'
-                prefix: 'Shared\Entity'
-                alias: Shared
+                dir: '%kernel.project_dir%/src/Admin/Entity'
+                prefix: 'Admin\Entity'
+                alias: Admin

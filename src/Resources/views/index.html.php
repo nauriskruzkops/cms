@@ -1,6 +1,6 @@
 <?php
 
-use Shared\Entity\Page;
+use Admin\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;

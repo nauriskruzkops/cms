@@ -1,7 +1,7 @@
 <?php
 
-use Shared\Entity\Page;
-use Shared\Entity\PageBlocks;
+use Admin\Entity\Page;
+use Admin\Entity\PageBlocks;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;

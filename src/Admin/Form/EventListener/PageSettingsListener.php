@@ -23,7 +23,8 @@ class PageSettingsListener implements EventSubscriberInterface
 
     /**
      * MenuItemRelationListener constructor.
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
+     * @param FileUploader $fileUploader
      */
     public function __construct(EntityManagerInterface $em, FileUploader $fileUploader)
     {

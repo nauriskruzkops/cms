@@ -7,10 +7,10 @@ use Admin\Model\PageDefaultTemplate;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Shared\Entity\Page;
-use Shared\Entity\PageBlocks;
-use Shared\Entity\Post;
-use Shared\Repository\PageRepository;
+use Admin\Entity\Page;
+use Admin\Entity\PageBlocks;
+use Admin\Entity\Post;
+use Admin\Repository\PageRepository;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 

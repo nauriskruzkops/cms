@@ -1,6 +1,6 @@
 <?php
 
-use Shared\Entity\User;
+use Admin\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 

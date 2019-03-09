@@ -10,7 +10,7 @@ use Symfony\Component\Form\Form;
  * @var PhpEngine $view
  * @var FormHelper $formHelper
  * @var Form $block
- * @var \Shared\Entity\PageBlocks $blockData
+ * @var \Admin\Entity\PageBlocks $blockData
  * @var \Admin\Helpers\CategoryHelper $categoryHelper
  */
 
@@ -97,7 +97,7 @@ $configValues = $blockData->getConfig()[0] ?? [];
                 var formData = new FormData();
                 formData.append('files', prepareToUpload.item(i));
                 formData.append('directory', 'page');
-                formData.append('referenceObject', '\\Shared\\Entity\\PageBlocks');
+                formData.append('referenceObject', '\\Admin\\Entity\\PageBlocks');
                 formData.append('referenceId', <?= $blockData->getId()?>);
 
                 $.ajax({

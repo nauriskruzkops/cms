@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 /**
  * @var GlobalVariables $app
  * @var PhpEngine $view
- * @var \Shared\Entity\Storage[] $images
+ * @var \Admin\Entity\Storage[] $images
  */
 $view->extend('AdminBundle::layout/layout.html.php');
 ?>

@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use Shared\Entity\PageBlocks;
-use Shared\Entity\Post;
+use Admin\Entity\PageBlocks;
+use Admin\Entity\Post;
 use Symfony\Component\HttpFoundation\Request;
 
 class ServicesController extends AbstractController

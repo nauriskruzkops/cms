@@ -1,25 +1,19 @@
+parameters:
+    locale: 'en'
+    admin_dir: '%kernel.project_dir%/Admin'
+    upload_directory: '%kernel.project_dir%/storage'
+    upload_public_path: '/uploads/'
+
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
 
-    # SHARED
-    Shared\:
-        resource: '%kernel.project_dir%/src/Shared/*'
-        exclude: '%kernel.project_dir%/src/{Entity,Migrations,Tests}'
-
-    # SHARED/LISTENERS
-    Shared\EventListener\TraceabilityListener:
-        arguments: ['@security.token_storage']
-        tags:
-            - { name: 'doctrine.event_listener', event: preUpdate}
-            - { name: 'doctrine.event_listener', event: prePersist}
-
     # ADMIN
     Admin\:
         resource: '%kernel.project_dir%/src/Admin/*'
-        exclude: '%kernel.project_dir%/src/Admin/{Exception,Controller,Form,Service,Security}'
+        exclude: '%kernel.project_dir%/src/Admin/{Exception,Controller,Form,Service,Entity,Repository,Security}'
 
     # ADMIN CONTROLLER
     Admin\Controller\:
@@ -31,12 +25,22 @@ services:
         resource: '%kernel.project_dir%/src/Admin/Service/*'
 
     Admin\Service\FileUploader:
-        arguments: ['%kernel.project_dir%', '@Admin\Service\StorageService']
+        arguments: ['%upload_directory%', '@Admin\Service\StorageService']
 
     # ADMIN FORMS
     Admin\Form\:
         resource: '%kernel.project_dir%/src/Admin/Form/*'
         tags: [name: controller.service_arguments]
+
+    # LISTENERS
+    Admin\EventListener\:
+        resource: '%kernel.project_dir%/src/Admin/EventListener/*'
+
+    Admin\EventListener\TraceabilityListener:
+        arguments: ['@security.token_storage']
+        tags:
+            - { name: 'doctrine.event_listener', event: preUpdate}
+            - { name: 'doctrine.event_listener', event: prePersist}
 
     # ADMIN HELPERS
     Admin\Helpers\:

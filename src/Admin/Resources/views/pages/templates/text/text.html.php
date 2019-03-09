@@ -1,6 +1,6 @@
 <?php
 
-use Shared\Entity\Post;
+use Admin\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;

@@ -9,8 +9,8 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var PhpEngine $view
  * @var \Symfony\Component\Form\Form $form
  * @var \Symfony\Bundle\FrameworkBundle\Templating\Helper\FormHelper $formHelper
- * @var \Shared\Entity\Menu $menu
- * @var \Shared\Entity\MenuItems[] $menuItems
+ * @var \Admin\Entity\Menu $menu
+ * @var \Admin\Entity\MenuItems[] $menuItems
  * @var \Symfony\Component\Form\FormErrorIterator $formError
  */
 

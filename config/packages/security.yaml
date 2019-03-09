@@ -1,17 +1,15 @@
 security:
   providers:
-    shared_entity:
+    admin_entity:
       entity:
-        class: Shared\Entity\User
+        class: Admin\Entity\User
         property: username
     app_user_provider:
       entity:
         class: App\Entity\User
         property: email
   encoders:
-    Shared\Entity\User:
-      algorithm: bcrypt
-    App\Entity\User:
+    Admin\Entity\User:
       algorithm: bcrypt
 
   firewalls:
@@ -22,7 +20,7 @@ security:
       pattern: ^/admin
       security: true
       anonymous: ~
-      provider: shared_entity
+      provider: admin_entity
       #access_denied_handler: Admin\Security\AccessDeniedHandler
       form_login:
         login_path: ADM_login

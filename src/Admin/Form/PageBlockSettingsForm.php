@@ -6,7 +6,7 @@ use Admin\Form\EventListener\PageBlockSettingsListener;
 use Admin\Service\FileUploader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Shared\Repository\CategoryRepository;
+use Admin\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -106,7 +106,7 @@ class PageBlockSettingsForm extends AbstractType
     }
 
     /**
-     * @return \Shared\Entity\Category[]|null
+     * @return \Admin\Entity\Category[]|null
      */
     private function getCategories()
     {

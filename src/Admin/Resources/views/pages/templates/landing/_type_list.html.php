@@ -10,7 +10,7 @@ use Symfony\Component\Form\Form;
  * @var PhpEngine $view
  * @var FormHelper $formHelper
  * @var Form $block
- * @var \Shared\Entity\PageBlocks $blockData
+ * @var \Admin\Entity\PageBlocks $blockData
  * @var \Admin\Helpers\CategoryHelper $categoryHelper
  */
 

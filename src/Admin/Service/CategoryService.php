@@ -4,8 +4,8 @@ namespace Admin\Service;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Shared\Entity\Category;
-use Shared\Repository\CategoryRepository;
+use Admin\Entity\Category;
+use Admin\Repository\CategoryRepository;
 
 class CategoryService
 {

@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Storage;
 
-use Shared\Entity\Storage;
-use Shared\Repository\StorageRepository;
+use Admin\Entity\Storage;
+use Admin\Repository\StorageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 

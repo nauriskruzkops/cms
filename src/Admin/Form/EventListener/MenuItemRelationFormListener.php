@@ -4,7 +4,7 @@ namespace Admin\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Shared\Entity\MenuItemRelation;
+use Admin\Entity\MenuItemRelation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;

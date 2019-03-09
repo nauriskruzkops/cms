@@ -7,10 +7,10 @@ use App\Controller\IndexController;
 use App\Controller\PageController;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Shared\Entity\MenuItemRelation;
-use Shared\Entity\MenuItems;
-use Shared\Entity\Page;
-use Shared\Repository\MenuItemsRepository;
+use Admin\Entity\MenuItemRelation;
+use Admin\Entity\MenuItems;
+use Admin\Entity\Page;
+use Admin\Repository\MenuItemsRepository;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 

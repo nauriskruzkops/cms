@@ -10,8 +10,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Shared\Entity\Page;
-use Shared\Entity\Post;
+use Admin\Entity\Page;
+use Admin\Entity\Post;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -58,7 +58,7 @@ class PostManageService
                 try {
                     $filename = $this->fileUploader->upload($uploadedFile);
                 } catch (FileUploadException|OptimisticLockException|ORMException $e) {
-                    throw new FileUploadException('Sorry, something wrong, post not saved', $e->getCode(), $e);
+                    throw new FileUploadException($e->getMessage(), $e->getCode(), $e);
                 }
                 $post->setImage($filename);
             }

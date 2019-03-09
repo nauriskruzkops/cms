@@ -1,9 +1,9 @@
 <?php
 /**
- * @var \Shared\Entity\MenuItems[] $mainMenuItems
+ * @var \Admin\Entity\MenuItems[] $mainMenuItems
  * @var \App\Helpers\MenuHelper $menuHelper
- * @var \Shared\Entity\Menu $footerMenu1
- * @var \Shared\Entity\Menu $footerMenu2
+ * @var \Admin\Entity\Menu $footerMenu1
+ * @var \Admin\Entity\Menu $footerMenu2
  */
 
 $menuHelper = $view['menu'];
