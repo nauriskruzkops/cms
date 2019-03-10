@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # EventListener
+    App\EventListener\ExceptionListener:
+        arguments: ['@templating.engine.php']
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

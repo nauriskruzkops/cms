@@ -12,7 +12,7 @@ $black:    #495057 !default;
 
 // Your variable overrides
 $blue:    #73cbe3 !default;
-$indigo:  #9087f2 !default;
+$indigo: #239ee3 !default;
 $purple:  #9486c1 !default;
 $pink:    #ff9fab !default;
 $red:     #ff8a98 !default;
@@ -26,8 +26,22 @@ $font-size-base:             .95rem !default;
 $font-size-lg:                $font-size-base * 1.25 !default;
 $font-size-sm:                $font-size-base * .875 !default;
 
+$line-height-lg:              1.5 !default;
+$line-height-sm:              1.5 !default;
+
 $input-btn-padding-y:         .275rem !default;
 $input-btn-padding-x:         .55rem !default;
 
 $label-margin-bottom:         .1rem !default;
 $input-placeholder-color:     $gray-600 !default;
+
+$input-btn-padding-y-sm:      .05rem !default;
+$input-btn-padding-x-sm:      .25rem !default;
+
+$input-btn-font-size-sm:      $font-size-sm !default;
+$input-btn-line-height-sm:    $line-height-sm !default;
+
+$btn-padding-y-sm:            $input-btn-padding-y-sm !default;
+$btn-padding-x-sm:            $input-btn-padding-x-sm !default;
+$btn-font-size-sm:            $input-btn-font-size-sm !default;
+$btn-line-height-sm:          $input-btn-line-height-sm !default;

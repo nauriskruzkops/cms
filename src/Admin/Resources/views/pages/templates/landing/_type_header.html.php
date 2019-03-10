@@ -50,11 +50,11 @@ $formBlockConfig = $blockData->getConfig()[0] ?? [];
                 <p class="form-control-plaintext">
                     <a target="_blank" class="text-muted" href="<?=$view['assets']->getUrl($bgImage, 'upload')?>" >... <?= mb_substr($bgImage, strlen($bgImage)-10)?></a>
 
-                    <a href="" data-toggle="tooltip" title="Remove image?" class="small btn btn-xs btn-danger" onclick="deleteBlockImage(this); return false;">
+                    <a href="" data-toggle="tooltip" title="Remove image?" class="small btn btn-sm btn-danger" onclick="deleteBlockImage(this); return false;">
                         <i class="fa fa-close"></i>
                     </a>
 
-                    <a href="" data-toggle="tooltip" title="Change image?" class="small btn btn-xs btn-primary" onclick="$('.custom-file-input', $(this).parents('.col-auto')).click(); return false;">
+                    <a href="" data-toggle="tooltip" title="Change image?" class="small btn btn-sm btn-primary" onclick="$('.custom-file-input', $(this).parents('.col-auto')).click(); return false;">
                         <i class="fa fa-close"></i>
                     </a>
                 </p>

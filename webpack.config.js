@@ -26,8 +26,8 @@ Encore.reset();
 
 // Admin side
 Encore
-    .setOutputPath('public/build/')
-    .setPublicPath('/build')
+    .setOutputPath('public/build-admin/')
+    .setPublicPath('/build-admin')
     .splitEntryChunks()
     //.enableSingleRuntimeChunk()
     .disableSingleRuntimeChunk()
@@ -43,7 +43,6 @@ Encore
         'window.jQuery': 'jquery',
     })
     .addEntry('admin', './src/Admin/Resources/assets/js/app.js')
-    //.addEntry('editor', './src/Admin/Resources/assets/js/editor.js')
 ;
 
 const adminConfig = Encore.getWebpackConfig();
@@ -52,8 +51,8 @@ Encore.reset();
 
 // Editor side
 Encore
-    .setOutputPath('public/build/')
-    .setPublicPath('/build')
+    .setOutputPath('public/build-editor/')
+    .setPublicPath('/build-editor')
     .splitEntryChunks()
     //.enableSingleRuntimeChunk()
     .disableSingleRuntimeChunk()

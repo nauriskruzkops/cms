@@ -101,11 +101,11 @@ $isNewPage = (!$page->getId());
                     </div>
                     <hr>
                     <div class="form-group">
-                        <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
-                        <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
-                        <a href="<?= $view['router']->path('adm_page_list') ?>" class="btn btn-link"><?= $view['translator']->trans('Adm:Cancel') ?></a>
+                        <input class="btn btn-success" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
+                        <button class="btn btn-success" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
+                        <a href="<?= $view['router']->path('adm_page_list') ?>" class="btn btn-outline-success"><?= $view['translator']->trans('Adm:Cancel') ?></a>
                         <?php if (!$isNewPage) :?>
-                            <button class="btn btn-light pull-right" type="submit" name="delete_page">
+                            <button class="btn btn-outline-danger pull-right" type="submit" name="delete_page">
                                 <i class="fa fa-trash"></i>
                             </button>
                         <?php endif;?>
