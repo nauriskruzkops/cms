@@ -70,11 +70,11 @@ $isNewPost = (!$post->getId());
                     ])?>
                     <hr>
                     <div class="form-group">
-                        <input class="btn btn-primary" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
-                        <button class="btn btn-primary" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
-                        <a href="<?= $view['router']->path('adm_post_list') ?>" class="btn btn-link">Cancel</a>
+                        <input class="btn btn-success" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
+                        <button class="btn btn-success" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
+                        <a href="<?= $view['router']->path('adm_post_list') ?>" class="btn btn-outline-success">Cancel</a>
                         <?php if (!$isNewPost) :?>
-                            <button class="btn btn-light pull-right" type="submit" name="delete_post">
+                            <button class="btn btn-outline-danger pull-right" type="submit" name="delete_post">
                                 <i class="fa fa-trash"></i>
                             </button>
                         <?php endif;?>

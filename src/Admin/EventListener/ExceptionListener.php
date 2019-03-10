@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 class ExceptionListener
 {
     /** @var PhpEngine  */
-    private $view;
+    protected $view;
 
     /**
      * ExceptionListener constructor.

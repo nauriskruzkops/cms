@@ -76,6 +76,6 @@ section.page-block .blog-single .inner-box .lower-content .lower-box{
 }
 
 /* TOOLS */
-textarea.mce-textbox {
+textarea.mce-textbox, textarea.tox-textarea {
 	overflow: auto;
 }

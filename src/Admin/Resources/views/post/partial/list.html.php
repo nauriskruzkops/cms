@@ -16,11 +16,16 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 <table class="table">
     <thead>
         <tr>
-            <th style="width: 5%">#</th>
-            <th style="width: 40%"><?= $view['translator']->trans('Adm:Title') ?></th>
-            <th><?= $view['translator']->trans('Adm:Categories') ?></th>
-            <th><?= $view['translator']->trans('Adm:Image') ?></th>
-            <th> </th>
+            <th class="col-auto">#</th>
+            <th class="col"><?= $view['translator']->trans('Adm:Title') ?></th>
+            <th class="col"><?= $view['translator']->trans('Adm:Categories') ?></th>
+            <th class="col"><?= $view['translator']->trans('Adm:Image') ?></th>
+            <th class="col text-right" style="white-space: nowrap">
+                <a class="btn btn-primary" href="<?= $view['router']->path('adm_post_add') ?>">
+                    <i class="fa fa-plus"></i>
+                    <?= $view['translator']->trans('Adm:AddNew') ?>
+                </a>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -39,9 +44,11 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
                     echo implode(', ',$categories);
                     ?>
                 </td>
-                <td><?= $post->getImage() ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No') ?></td>
                 <td>
-                    <a class="btn btn-sm btn-default" href="<?= $view['router']->path('adm_post_edit', ['id' => $post->getId()]) ?>"><?= $view['translator']->trans('Adm:edit') ?></a>
+                    <?= $post->getImage() ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No') ?>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-sm btn-outline-success" href="<?= $view['router']->path('adm_post_edit', ['id' => $post->getId()]) ?>"><?= $view['translator']->trans('Adm:edit') ?></a>
                 </td>
             </tr>
         <?php endforeach;?>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="<?= $view['locale']?>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,31 +7,10 @@
     <meta name="description" content="Content Managament System">
     <meta name="author" content="nauris.kruzkops@gmail.com">
     <title>Crocolab CMS (Content Managament System)</title>
-<?php /*
-    <link href="<?= $view['assets']->getUrl('vendor/bootstrap/css/bootstrap.min.css', 'admin') ?>" rel="stylesheet">
-    <link href="<?= $view['assets']->getUrl('vendor/bootstrap/css/bootstrap-toggle.min.css', 'admin') ?>" rel="stylesheet">
-    <link href="<?= $view['assets']->getUrl('css/tools.css', 'admin') ?>" rel="stylesheet">
-    <link href="<?= $view['assets']->getUrl('vendor/font-awesome/css/font-awesome.min.css', 'admin') ?>" rel="stylesheet" type="text/css">
-
-    <link href="<?= $view['assets']->getUrl('css/theme-base.css', 'admin') ?>" rel="stylesheet">
-    <link href="<?= $view['assets']->getUrl('css/bootstrap-overwrite.css', 'admin') ?>" rel="stylesheet">
-
-    <script src="<?= $view['assets']->getUrl('vendor/jquery/jquery.min.js', 'admin') ?>"></script>
-
-    <script src="<?= $view['assets']->getUrl('vendor/popper.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/bootstrap/bootstrap-toggle.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/tinymce/jquery.tinymce.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('vendor/tinymce/tinymce.min.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('js/main.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('js/storage.js', 'admin') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('js/initTextEditor.js', 'admin') ?>"></script>
- */?>
-    <link href="<?= $view['assets']->getUrl('build/admin.css') ?>" rel="stylesheet">
-    <script src="<?= $view['assets']->getUrl('build/0.b41fcd5d.js') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('build/vendors~admin.js') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('build/admin.js') ?>"></script>
-
+    <link href="<?= $view['assets']->getUrl('build-admin/admin.css') ?>" rel="stylesheet">
+    <script src="<?= $view['assets']->getUrl('build-admin/0.b41fcd5d.js') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('build-admin/vendors~admin.js') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('build-admin/admin.js') ?>"></script>
 </head>
 <body class="fixed-nav">
     <div id="wrapper">

@@ -7,10 +7,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/index", name="ADM_index")
+     * @Route("/", name="ADM_index")
      */
     public function index()
     {
-        return $this->render('AdminBundle::index.html.php', []);
+        return $this->redirectToRoute('adm_page_list');
     }
 }
