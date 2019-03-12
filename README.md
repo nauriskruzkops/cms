@@ -1,8 +1,8 @@
 # WEB+CMS
 Simple Symfony 4 website with CMS
 
-Install development env.
--------------------------
+Install environment
+--------------------
     composer install
     doctrine:database:create
     doctrine:migrations:up
@@ -10,8 +10,8 @@ Install development env.
     yarn install
     yarn encore {prod|dev}
     
-Develpoment
-------------
+Develpoment process
+--------------------
 
     php bin/console cache:clear
     php bin/console doctrine:schema:update --force
