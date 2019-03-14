@@ -49,7 +49,6 @@ class MenuItemFormListener implements EventSubscriberInterface
         $form = $event->getForm();
         $data = $event->getData();
 
-
         if ($form->getParent() instanceof Form) {
             if ($data instanceof MenuItems) {
                 $form->add('parent', EntityType::class, [
