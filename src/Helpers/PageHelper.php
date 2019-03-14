@@ -110,9 +110,10 @@ class PageHelper extends Helper
 
     /**
      * @param PageBlocks $block
+     * @param bool $justFile
      * @return string
      */
-    public function blockBackground(PageBlocks $block)
+    public function blockBackground(PageBlocks $block, $justFile = false)
     {
         $blockConfig = is_array($block->getConfig()) ? ($block->getConfig()[0] ?? []) : [];
         if ($blockConfig['bg_transparent'] ?? true) {
@@ -121,6 +122,9 @@ class PageHelper extends Helper
         $style = [];
         $backgroundImg = $blockConfig['bg_image'] ?? null;
         if ($backgroundImg) {
+            if ($justFile) {
+                return $this->view['assets']->getUrl($backgroundImg, 'upload');
+            }
             $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
             $style[] = 'background-position: center center';
             $style[] = 'background-attachment:fixed';

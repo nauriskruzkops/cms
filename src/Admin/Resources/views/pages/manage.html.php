@@ -105,7 +105,7 @@ $isNewPage = (!$page->getId());
                         <button class="btn btn-success" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
                         <a href="<?= $view['router']->path('adm_page_list') ?>" class="btn btn-outline-success"><?= $view['translator']->trans('Adm:Cancel') ?></a>
                         <?php if (!$isNewPage) :?>
-                            <button class="btn btn-outline-danger pull-right" type="submit" name="delete_page">
+                            <button class="btn btn-outline-danger pull-right" type="submit" name="delete_page" onclick="if(!confirm('<?= $view['translator']->trans('Adm:Are you sure you want to delete this?') ?>', false)){return false;}">
                                 <i class="fa fa-trash"></i>
                             </button>
                         <?php endif;?>

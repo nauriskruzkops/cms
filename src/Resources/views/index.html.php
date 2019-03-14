@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 $view['theme']->extend('layout/extend/layout.html.php');
 ?>
 
-<?= $view['theme']->render('layout/partial/slider.html.php',['page' => $page])?>
+<?php $view['theme']->render('layout/partial/slider.html.php',['page' => $page])?>
 
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
     <?php if (!$page->getBlocks()->isEmpty()) :?>

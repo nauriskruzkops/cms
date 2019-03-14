@@ -46,13 +46,12 @@ class PageManageService
 
         $pageDefaultTemplate = new PageDefaultTemplate();
 
-        if (in_array($page->getTemplate(), [Page::TEMPL_LANDING, Page::TEMPL_TEXT, Page::TEMPL_PRODUCTS])) {
+        if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING, Page::TEMPL_TEXT, Page::TEMPL_PRODUCTS])) {
             $blockPost = new Post();
             $blockPost->setIsPartOf(true);
             $blockPost->setText($pageDefaultTemplate->getTemplate($page));
+            $pageBlock->setPost($blockPost);
         }
-
-        $pageBlock->setPost($blockPost);
         $page->addBlocks($pageBlock);
 
         return $page;
@@ -77,6 +76,8 @@ class PageManageService
 
         foreach (array_merge($postBlocks, $postNewBlocks) as $postBlock) {
             if ($postBlock['type'] == PageBlocks::TYPE_POST) {
+                $page = $this->savePostBlock($page, $postBlock);
+            } elseif ($postBlock['type'] == PageBlocks::TYPE_SLIDER) {
                 $page = $this->savePostBlock($page, $postBlock);
             } elseif ($postBlock['type'] == PageBlocks::TYPE_IMAGES) {
                 $page = $this->saveImagesBlock($page, $postBlock);

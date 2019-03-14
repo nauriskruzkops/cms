@@ -35,15 +35,7 @@ $menu = $form->getData();
                                 <?= $this->escape($menuItem->getTitle())?>
                             </span>
                             <span class="pull-right" style="margin-top: -5px">
-                                <?= $formHelper->widget($formItems->createView()['enabled'], [
-                                    'attr' => [
-                                        'data-toggle' => 'toggle',
-                                        'data-on' => $view['translator']->trans('Adm:On'),
-                                        'data-off' => $view['translator']->trans('Adm:Off'),
-                                        'data-size' => 'small',
-                                        'data-onstyle' => 'success',
-                                    ]
-                                ]) ?>
+                                <?= $formHelper->widget($formItems->createView()['enabled']) ?>
                             </span>
                         </div>
                     <?php endforeach;?>
@@ -82,7 +74,7 @@ $menu = $form->getData();
 <script>
 $(function () {
     $('[data-action=show-menu-item]').click(function (e) {
-        e.preventDefault();
+        //e.preventDefault();
         $('[data-action=show-menu-item]').removeClass('list-group-item-info');
         $('[data-action=show-menu-item-settings]').hide();
 
@@ -100,9 +92,9 @@ $(function () {
     });
     $('[data-action=show-menu-item]').first().click();
 
-    $('#toggle-two').bootstrapToggle({
-        on: 'Enabled',
-        off: 'Disabled'
-    });
+    // $('#toggle-two').bootstrapToggle({
+    //     on: 'Enabled',
+    //     off: 'Disabled'
+    // });
 })
 </script>

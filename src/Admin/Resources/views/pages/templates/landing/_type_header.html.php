@@ -76,16 +76,16 @@ $formBlockConfig = $blockData->getConfig()[0] ?? [];
                         <i class="fa fa-gears"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item disabled" href="<?= $view['router']->path('adm_pageblock_move', [
+                        <a class="dropdown-item" href="<?= $view['router']->path('adm_pageblock_move', [
                             'id' => $blockData->getId(),
                             'direction' => 'up',
                         ]) ?>"><?= $view['translator']->trans('Adm:MoveUp') ?></a>
-                        <a class="dropdown-item disabled" href="<?= $view['router']->path('adm_pageblock_move', [
+                        <a class="dropdown-item" href="<?= $view['router']->path('adm_pageblock_move', [
                             'id' => $blockData->getId(),
                             'direction' => 'down',
                         ]) ?>"><?= $view['translator']->trans('Adm:MoveDown') ?></a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="<?= $view['router']->path('adm_pageblock_delete', [
+                        <a class="dropdown-item" href="<?= $view['router']->path('adm_pageblock_delete', [
                             'id' => $blockData->getId()
                         ])?>" onclick="if(!confirm('<?= $view['translator']->trans('Adm:Are you sure you want to delete this?') ?>', false)){return false;}">
                             <?= $view['translator']->trans('Adm:Delete') ?></a>

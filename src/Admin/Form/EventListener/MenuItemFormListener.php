@@ -48,31 +48,34 @@ class MenuItemFormListener implements EventSubscriberInterface
     {
         $form = $event->getForm();
         $data = $event->getData();
-        // var_dump(1,1,1,1);
-        // var_dump(get_class($form));
+
 
         if ($form->getParent() instanceof Form) {
-            $form->add('parent', EntityType::class, [
-                'class' => MenuItems::class,
-                'required' => false,
-                'query_builder' => function (EntityRepository $er) use ($data) {
-                    $qb = $er->createQueryBuilder('u');
-                    $qb->where($qb->expr()->eq('u.root', ':root'))
-                        ->setParameter('root', $data->getRoot()->getId());
-                    $qb->orderBy('u.left', 'ASC');
-
-                    return $qb;
-                },
-                'choice_label' => function (MenuItems $er) {
-                    return str_repeat('-', $er->getLevel()) . ' ' . $er->getTitle();
-                },
-                'label' => 'Parent menu',
-                'empty_data' => '',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Parent',
-                ],
-            ]);
+            if ($data instanceof MenuItems) {
+                $form->add('parent', EntityType::class, [
+                    'class' => MenuItems::class,
+                    'required' => false,
+                    'query_builder' => function (EntityRepository $er) use ($data) {
+                        $qb = $er->createQueryBuilder('u');
+                        $qb->join('u.menu', 'm');
+                        $qb->where($qb->expr()->eq('u.root', ':root'))
+                            ->setParameter('root', $data->getRoot()->getId());
+                        $qb->andWhere($qb->expr()->eq('m.locale', ':locale'))
+                            ->setParameter('locale', $data->getMenu()->getLocale());
+                        $qb->orderBy('u.left', 'ASC');
+                        return $qb;
+                    },
+                    'choice_label' => function (MenuItems $er) {
+                        return str_repeat('-', $er->getLevel()) . ' ' . $er->getTitle();
+                    },
+                    'label' => 'Parent menu',
+                    'empty_data' => '',
+                    'attr' => [
+                        'class' => 'form-control',
+                        'placeholder' => 'Parent',
+                    ],
+                ]);
+            }
         }
 
         if ($data && $data->getType()) {
