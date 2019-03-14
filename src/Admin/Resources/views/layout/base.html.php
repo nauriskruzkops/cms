@@ -8,7 +8,6 @@
     <meta name="author" content="nauris.kruzkops@gmail.com">
     <title>Crocolab CMS (Content Managament System)</title>
     <link href="<?= $view['assets']->getUrl('build-admin/admin.css') ?>" rel="stylesheet">
-    <script src="<?= $view['assets']->getUrl('build-admin/0.b41fcd5d.js') ?>"></script>
     <script src="<?= $view['assets']->getUrl('build-admin/vendors~admin.js') ?>"></script>
     <script src="<?= $view['assets']->getUrl('build-admin/admin.js') ?>"></script>
 </head>
