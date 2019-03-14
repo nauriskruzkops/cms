@@ -17,13 +17,11 @@ $languages = $view['settings']->values('languages');
                         <div class="language-icon">
                             <ul class="clearfix">
                                 <?php foreach ($languages as $languageKey => $languageTitle) :?>
-                                <li>
-                                    <?php if ($languageKey == $view['locale']) :?>
-                                        <a class="nav-item"><?= $this->escape(strtoupper($languageKey))?></a>
-                                    <?php else :?>
-                                        <a class="nav-item" href="<?= $view['router']->path('index', ['_locale' => $languageKey]) ?>" title="<?= $this->escape($languageTitle)?>"><?= $this->escape(strtoupper($languageKey))?></a>
-                                    <?php endif;?>
-                                </li>
+                                    <li>
+                                        <a class="nav-item" href="<?=
+                                            $view['router']->path('index', ['_locale' => $languageKey])
+                                        ?>" title="<?= $this->escape($languageTitle)?>"><?= $this->escape(strtoupper($languageKey))?></a>
+                                    </li>
                                 <?php endforeach;?>
                             </ul>
                         </div>
@@ -39,7 +37,9 @@ $languages = $view['settings']->values('languages');
             <div class="outer-container clearfix">
                 <div class="logo-box">
                     <div class="logo">
-                        <a href="/"><img src="<?= $view['assets']->getUrl('logo-white.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>"></a>
+                        <a href="<?= $view['router']->path('index', ['_locale' => $view['locale']])?>">
+                            <img src="<?= $view['assets']->getUrl('logo-white.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>">
+                        </a>
                     </div>
                 </div>
                 <div class="nav-outer clearfix">
@@ -59,18 +59,16 @@ $languages = $view['settings']->values('languages');
                                 {
                                     foreach($items as $key => $node)
                                     {
+                                        $url = rtrim(sprintf('/%s/%s', $view['locale'], $node['slug']), '/');
                                         if ($node['__children'] ?? false) {
                                             $html .= '<li class="dropdown">';
-                                                $html .= sprintf('<a href="%s" aria-haspopup="true" aria-expanded="false">%s</a>',
-                                                    $node['slug'], $view->escape($node['title'])
-                                                );
+                                                $html .= sprintf('<a href="%s" aria-haspopup="true" aria-expanded="false">%s</a>', $url, $view->escape($node['title']));
                                                 $html .= '<ul>';
                                                     nestedTreeRow($node['__children'], $html, $view);
                                                 $html .= '</ul>';
                                             $html .= '</li>';
                                         } else {
-                                            $html .= sprintf('<li><a href="%s">%s</a></li>',
-                                                $node['slug'], $view->escape($node['title'])
+                                            $html .= sprintf('<li><a href="%s">%s</a></li>', $url, $view->escape($node['title'])
                                             );
                                         }
                                     }

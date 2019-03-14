@@ -40,7 +40,6 @@ class SiteRoutes
 
     /**
      * @return RouteCollection
-     * @throws \Doctrine\ORM\ORMException
      */
     public function loadRoutes()
     {
@@ -62,13 +61,15 @@ class SiteRoutes
 
         $routes->add('index', $route);
 
-        $menuItems = $this->getSiteMap();
-        foreach ($menuItems as $item) {
-            if ($item['slug'] ?? false) {
-                list($routeKey, $route) = $this->createRoute($item);
-                if (!$routes->get($routeKey)) {
-                    if (!empty(trim($routeKey, '/'))) {
-                        $routes->add($routeKey, $route);
+        foreach ($languages as $language) {
+            $menuItems = $this->getSiteMap($language);
+            foreach ($menuItems as $item) {
+                if ($item['slug'] ?? false) {
+                    list($routeKey, $route) = $this->createRoute($item);
+                    if (!$routes->get($routeKey)) {
+                        if (!empty(trim($routeKey, '/'))) {
+                            $routes->add($routeKey, $route);
+                        }
                     }
                 }
             }
@@ -80,7 +81,6 @@ class SiteRoutes
     /**
      * @param array $item
      * @return array
-     * @throws \Doctrine\ORM\ORMException
      */
     private function createRoute($item)
     {
@@ -100,7 +100,7 @@ class SiteRoutes
             $defaults['_controller'] = PageController::class;
         }
 
-        if ($defaultLocale === $defaults['_locale']) {
+        if ($defaultLocale === $defaults['_locale'] && $defaults['type'] == 'root') {
             $urlPattern = sprintf('/%s', $defaults['slug']);
         } else {
             $urlPattern = sprintf('/{_locale}/%s', $defaults['slug']);
@@ -114,11 +114,12 @@ class SiteRoutes
     }
 
     /**
+     * @param $language
      * @return ArrayCollection|MenuItems[]
      */
-    private function getSiteMap()
+    private function getSiteMap($language)
     {
-        $pages = $this->em->getRepository(Page::class)->getNested('lv');
+        $pages = $this->em->getRepository(Page::class)->getNested($language);
         return new ArrayCollection($pages);
     }
 }
