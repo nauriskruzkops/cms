@@ -46,7 +46,7 @@ var tinymceConfig = {
         'searchreplace visualblocks code fullscreen pagebreak',
         'insertdatetime media table paste code help wordcount template'
     ],
-    toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat pagebreak | code visualblocks preview',
+    toolbar: 'insert | undo redo | styleselect template | bold italic forecolor backcolor  | alignleft aligncenter alignright alignjustify | link image table | bullist numlist outdent indent | removeformat pagebreak | code visualblocks preview',
     content_css: tiny_content_css,
     table_default_attributes: {
         border: '0'

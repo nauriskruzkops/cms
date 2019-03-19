@@ -80,10 +80,11 @@ body {
 	color:#777777;
 	line-height:1.8em;
 	font-weight:400;
-	background:#ffffff;
 	-webkit-font-smoothing: antialiased;
 	-moz-font-smoothing: antialiased;
 	font-family: 'Open Sans', sans-serif;
+	background: transparent;
+	background-color: transparent;
 }
 
 a{
@@ -147,9 +148,12 @@ p,.text{
 }
 
 ul,li{
+	padding:0;
+	margin:0;
+}
+
+ul{
 	list-style:none;
-	padding:0px;
-	margin:0px;	
 }
 
 .theme-btn{

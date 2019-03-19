@@ -7,6 +7,7 @@
 $mainMenu = $view['menu']->getMainTopMenu();
 $mainMenuItems = $mainMenu['items'] ?? [];
 $languages = $view['settings']->values('languages');
+
 ?>
 <header class="main-header header-style-one">
     <?php if ($languages) :?>
@@ -38,7 +39,7 @@ $languages = $view['settings']->values('languages');
                 <div class="logo-box">
                     <div class="logo">
                         <a href="<?= $view['router']->path('index', ['_locale' => $view['locale']])?>">
-                            <img src="<?= $view['assets']->getUrl('logo-white.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>">
+                            <img src="<?= $view['assets']->getUrl('logo-white.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>" title="<?= $this->escape($view['settings']->value('site_title')) ?>">
                         </a>
                     </div>
                 </div>
@@ -55,7 +56,7 @@ $languages = $view['settings']->values('languages');
                             <ul class="navigation clearfix">
                                 <?php
                                 $html = '';
-                                function nestedTreeRow($items, &$html='', $view) // added pass by reference
+                                function nestedMainTreeRow($items, &$html, $view) // added pass by reference
                                 {
                                     foreach($items as $key => $node)
                                     {
@@ -64,7 +65,7 @@ $languages = $view['settings']->values('languages');
                                             $html .= '<li class="dropdown">';
                                                 $html .= sprintf('<a href="%s" aria-haspopup="true" aria-expanded="false">%s</a>', $url, $view->escape($node['title']));
                                                 $html .= '<ul>';
-                                                    nestedTreeRow($node['__children'], $html, $view);
+                                            nestedMainTreeRow($node['__children'], $html, $view);
                                                 $html .= '</ul>';
                                             $html .= '</li>';
                                         } else {
@@ -75,7 +76,7 @@ $languages = $view['settings']->values('languages');
                                     return $html;
                                 }
                                 ?>
-                                <?= nestedTreeRow($mainMenuItems, $html, $view)?>
+                                <?= nestedMainTreeRow($mainMenuItems, $html, $view)?>
                             </ul>
                         </div>
                     </nav>
@@ -88,7 +89,9 @@ $languages = $view['settings']->values('languages');
         <div class="auto-container">
             <div class="sticky-inner-container clearfix">
                 <div class="logo pull-left">
-                    <a href="/" class="img-responsive"><img src="assets/images/logo-small.png" alt="" title=""></a>
+                    <a href="/" class="img-responsive">
+                        <img src="<?= $view['assets']->getUrl('logo-small.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>" title="<?= $this->escape($view['settings']->value('site_title')) ?>">
+                    </a>
                 </div>
                 <div class="right-col pull-right">
                     <nav class="main-menu">

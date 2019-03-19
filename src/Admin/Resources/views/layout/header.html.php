@@ -20,7 +20,7 @@
     <div class="collapse navbar-collapse text-right" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link text-dark">Hi, <?= $this->escape((string)$app->getUser())?></a class="nav-link text-dark">
+                <a class="nav-link text-dark">Hi, <?= $this->escape((string)$app->getUser())?></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle mr-lg-2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

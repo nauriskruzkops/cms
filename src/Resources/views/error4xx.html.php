@@ -10,8 +10,8 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  */
 $view['theme']->extend('layout/extend/layout.html.php');
 ?>
-
-<section class="error-section" style="font-size: 80% important!">
+<div class="clearfix"></div>
+<section class="error-section" style="font-size: 80% important!; margin-top: 9%">
     <div class="auto-container">
         <div class="content">
             <h1>404</h1>
