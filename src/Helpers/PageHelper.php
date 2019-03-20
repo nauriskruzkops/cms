@@ -139,6 +139,29 @@ class PageHelper extends Helper
     }
 
     /**
+     * @param PageBlocks $block
+     * @param bool $justFile
+     * @return string
+     */
+    public function blockBackgroundColor(PageBlocks $block, $justColor = false)
+    {
+        $blockConfig = is_array($block->getConfig()) ? ($block->getConfig()[0] ?? []) : [];
+        if ($blockConfig['bg_transparent'] ?? true) {
+            return '';
+        }
+
+        $backgroundColor = $blockConfig['bg_color'] ?? null;
+        if ($backgroundColor) {
+            if ($justColor) {
+                return $backgroundColor;
+            }
+            return sprintf('background-color:%s', $backgroundColor);
+        }
+    }
+
+
+
+    /**
      * Returns the canonical name of this helper.
      *
      * @return string The canonical name
