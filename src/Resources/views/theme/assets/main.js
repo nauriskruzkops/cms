@@ -29,7 +29,7 @@ require('./js/bootstrap.min.js');
 // require('./plugins/revolution/js/extensions/revolution.extension.slideanims.min.js');
 // require('./plugins/revolution/js/extensions/revolution.extension.video.min.js');
 //
-require('./js/main-slider-script.js');
+//require('./js/main-slider-script.js');
 require('./js/isotope.js');
 require('./js/owl.js');
 require('./js/mixitup.js');
