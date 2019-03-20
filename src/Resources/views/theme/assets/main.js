@@ -2,9 +2,9 @@ require('./css/bootstrap.css');
 require('./plugins/revolution/css/settings.css');
 require('./plugins/revolution/css/layers.css');
 require('./plugins/revolution/css/navigation.css');
+require('./css/responsive.css');
 require('./css/style.css');
 require('./css/style-overwrite.css');
-require('./css/responsive.css');
 
 const $ = jQuery = require('jquery');
 global.$ = global.jQuery = $;
