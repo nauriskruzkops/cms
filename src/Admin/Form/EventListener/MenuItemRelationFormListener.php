@@ -53,7 +53,7 @@ class MenuItemRelationFormListener implements EventSubscriberInterface
         /** @var MenuItemRelation $data */
         $data = $event->getData();
 
-        if ($form->getParent() instanceof Form) {
+        //if ($form->getParent() instanceof Form) {
             if ($data instanceof MenuItemRelation) {
                 $type = $data->getMenuItem()->getType();
                 $form->remove('object');
@@ -78,7 +78,7 @@ class MenuItemRelationFormListener implements EventSubscriberInterface
                     'multiple'  => false,
                 ]);
             }
-        }
+        //}
     }
 
     /**

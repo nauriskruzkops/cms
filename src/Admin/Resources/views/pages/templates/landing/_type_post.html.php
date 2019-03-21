@@ -19,7 +19,7 @@ use Symfony\Component\Form\Form;
 $formHelper = $view['form'];
 $blockData = $block->getData();
 $formBlockView = $block->createView();
-$totallBlocks = count($form->get('blocks'));
+$totalBlocks = count($form->get('blocks'));
 $pageHelper = $view['page']($blockData->getPage());
 
 ?>
