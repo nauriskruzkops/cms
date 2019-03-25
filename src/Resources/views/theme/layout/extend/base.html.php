@@ -10,7 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<?= $this->escape($view['settings']->value('site_description')) ?>">
     <link rel="icon" href="data:image/ico;base64,0">
+    <link href="/assets/theme/theme/css/style.css?v13156512" rel="stylesheet">
+    <link href="/assets/theme/theme/css/style-overwrite.css?v13156512" rel="stylesheet">
     <link href="<?= $view['assets']->getUrl('build/site.css') ?>" rel="stylesheet">
+
     <script src="<?= $view['assets']->getUrl('build/vendors~site.js') ?>"></script>
     <script src="<?= $view['assets']->getUrl('build/site.js') ?>"></script>
 

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  */
 $view['theme']->extend('layout/extend/layout.html.php');
 ?>
-<section class="error-section" style="font-size: 80% important!; margin-top: 9%">
+<section class="error-section" style="font-size: 80% important!;">
     <div class="auto-container">
         <div class="content">
             <hr class="featurette-divider">
