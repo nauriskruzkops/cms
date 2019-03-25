@@ -1,0 +1,13 @@
+{
+  "entrypoints": {
+    "site": {
+      "js": [
+        "/build/vendors~site.js",
+        "/build/site.js"
+      ],
+      "css": [
+        "/build/site.css"
+      ]
+    }
+  }
+}
