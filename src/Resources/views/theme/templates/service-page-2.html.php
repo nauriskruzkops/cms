@@ -1,9 +1,8 @@
 <section class="project-single-section page-block">
-    <div class="auto-container">
+    <div class="container">
         <div class="sec-title">
             <h2>Building Construction</h2>
         </div>
-
         <div class="row clearfix">
             <div class="column col-md-6 col-sm-12 col-xs-12">
                 <h3>Project Description</h3>

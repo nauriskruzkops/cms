@@ -1,7 +1,7 @@
-<section class="mechanical-section page-block">
-    <div class="auto-container">
-        <div class="container inner-container">
-            ... content text ...
+<section class="page-block">
+    <div class="container">
+        <div class="col-sm-12">
+            Section content text
         </div>
     </div>
 </section>

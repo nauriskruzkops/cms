@@ -121,3 +121,4 @@ $images = $blockConfig['images'] ?? [];
             </div>
         </div>
     <?php endif;?>
+</section>

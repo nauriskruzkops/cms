@@ -13,8 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  */
 $view['theme']->extend('layout/extend/layout.html.php');
 $pageHelper = $view['page']($page);
+$pageHelper->headerStyle($page);
 
-echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $page])
+$clearFix = true;
+
+/** @var \Admin\Entity\PageBlocks $firstBlock */
+$firstBlock = $page->getBlocks()->first();
+if ($firstBlock && $firstBlock->getType() === \Admin\Entity\PageBlocks::TYPE_SLIDER) {
+    $clearFix = false;
+}
+echo $view['theme']->render('layout/partial/page-header.html.php', [
+        'page' => $page,
+        'clearFix' => $clearFix
+])
 
 ?>
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>

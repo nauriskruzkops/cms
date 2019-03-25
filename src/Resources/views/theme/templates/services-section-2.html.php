@@ -1,5 +1,5 @@
 <section class="services-section-three page-block">
-    <div class="auto-container">
+    <div class="container">
         <!--Title Box-->
         <div class="title-box">
             <h2>What we do</h2>

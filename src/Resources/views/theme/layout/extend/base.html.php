@@ -10,20 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<?= $this->escape($view['settings']->value('site_description')) ?>">
     <link rel="icon" href="data:image/ico;base64,0">
-
-
-
     <link href="<?= $view['assets']->getUrl('build/site.css') ?>" rel="stylesheet">
-    <link href="/assets/theme/theme/css/style.css?v13156512" rel="stylesheet">
-    <link href="/assets/theme/theme/css/style-overwrite.css?v13156512" rel="stylesheet">
-
     <script src="<?= $view['assets']->getUrl('build/vendors~site.js') ?>"></script>
     <script src="<?= $view['assets']->getUrl('build/site.js') ?>"></script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
-    <!--[if lt IE 9]><script src="<?= $view['theme']->assetsGetUrl('respond.js', 'js') ?>"></script><![endif]-->
 </head>
 <body>
 

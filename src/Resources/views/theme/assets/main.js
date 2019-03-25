@@ -2,9 +2,9 @@ require('./css/bootstrap.css');
 require('./plugins/revolution/css/settings.css');
 require('./plugins/revolution/css/layers.css');
 require('./plugins/revolution/css/navigation.css');
-require('./css/responsive.css');
 require('./css/style.css');
 require('./css/style-overwrite.css');
+require('./css/responsive.css');
 
 const $ = jQuery = require('jquery');
 global.$ = global.jQuery = $;
@@ -30,10 +30,11 @@ require('./js/bootstrap.min.js');
 // require('./plugins/revolution/js/extensions/revolution.extension.video.min.js');
 //
 //require('./js/main-slider-script.js');
+require('./js/script.js');
 require('./js/isotope.js');
 require('./js/owl.js');
 require('./js/mixitup.js');
 require('./js/wow.js');
 require('./js/appear.js');
-require('./js/script.js');
+
 

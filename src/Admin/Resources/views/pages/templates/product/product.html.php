@@ -23,9 +23,14 @@ $formHelper = $view['form'];
         <?php $pageBlocks = $block->getData(); ?>
         <?php if ($pageBlocks) :?>
             <div class="blocks-container-item">
+                <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_header.html.php', 'post'),[
+                    'form' => $form,
+                    'block' => $block,
+                    'blockKey' => $blockKey,
+                ])?>
                 <div class="white-box">
                     <?php if ($pageBlocks->getType()) :?>
-                        <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()), [
+                        <?= $view->render(sprintf('@AdminBundle/Resources/views/pages/templates/landing/_type_%s.html.php', $pageBlocks->getType()),[
                             'form' => $form,
                             'block' => $block,
                             'blockKey' => $blockKey,

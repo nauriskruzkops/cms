@@ -36,7 +36,7 @@ class PageHelper extends Helper
     }
 
     /**
-     * @param null $locale
+     * @param Page|null $page
      * @return $this
      */
     public function __invoke(Page $page = null)
@@ -72,6 +72,27 @@ class PageHelper extends Helper
             $page = $this->page;
         }
         return ($page->getSetting('SHOW_TITLE', false));
+    }
+
+    /**
+     * @param null $page
+     * @return string
+     * @throws \Admin\Exception\PageSettingsException
+     */
+    public function headerStyle($page = null)
+    {
+        if ($page !== null) {
+            $page = $this->page;
+        }
+
+        $style = 'header-style-one';
+        $pageStyle = $page->getSetting('PAGE_STYLE');
+        if ($pageStyle == 'light') {
+            $style = 'header-style-two';
+        }
+        $this->view['slots']->set('headerStyle', $style);
+
+        return $style;
     }
 
     /**

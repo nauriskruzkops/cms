@@ -1,5 +1,5 @@
 <section class="project-single-section page-block">
-    <div class="auto-container">
+    <div class="container">
         <div class="services-single">
             <div class="inner-service">
                 <div class="single-image">
@@ -111,7 +111,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

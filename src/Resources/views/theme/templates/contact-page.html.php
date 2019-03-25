@@ -1,5 +1,5 @@
 <section id="contact-form" class="message-section page-block">
-    <div class="auto-container">
+    <div class="container">
         <div class="row clearfix">
             <div class="form-column col-md-8 col-sm-12 col-xs-12">
                 <div class="inner-column">

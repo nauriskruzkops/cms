@@ -152,7 +152,7 @@ var tinymceConfig = {
                 {
                     title: 'Image left',
                     selector: 'img', icon: 'alignleft',
-                    styles: {'float': 'left', 'margin': '0 10px 0 10px'}
+                    styles: {'float': 'left', 'margin': '0px 10px 0 0'}
                 },
                 {
                     title: 'Image right',

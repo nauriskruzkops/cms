@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var PageHelper $pageHelper
  */
 $pageHelper = $view['page']($page);
+$clearFix = $clearFix ?? true;
+
 ?>
 <?php if ($pageHelper->hasHeader()) :?>
     <section class="page-title" style="<?= $pageHelper->headerBackground($page)?>">
@@ -23,7 +25,7 @@ $pageHelper = $view['page']($page);
             </ul>
         </div>
     </section>
-<?php else:?>
+<?php elseif ($clearFix) :?>
     <div class="clearfix"></div>
     <div class="clearfix" style="margin-bottom: 135px"></div>
 <?php endif;?>

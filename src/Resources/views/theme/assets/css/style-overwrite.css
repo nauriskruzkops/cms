@@ -29,6 +29,15 @@
 	content: "";
 }
 
+.header-style-two .header-top {
+	background-color: rgba(255, 255, 255, 0.75);
+}
+.header-style-two .header-top ul a,
+.header-style-two .header-top ul a:link,
+.header-style-two .header-top ul a:visited{
+	color: #0b0b0b;
+}
+
 /* MAIN MENU */
 
 .main-menu {

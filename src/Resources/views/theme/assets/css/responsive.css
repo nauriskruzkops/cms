@@ -549,7 +549,12 @@
 	}
 	
 	.sec-title h2{
-		font-size:24px;	
+		font-size:24px;
+		margin: 0 10px;
+	}
+
+	.page-block .container {
+		margin: 0 10px;
 	}
 	
 	.news-block-three .inner-box .lower-content .lower-box h3{

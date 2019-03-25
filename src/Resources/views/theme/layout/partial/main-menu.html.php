@@ -7,9 +7,10 @@
 $mainMenu = $view['menu']->getMainTopMenu();
 $mainMenuItems = $mainMenu['items'] ?? [];
 $languages = $view['settings']->values('languages');
+$headerStyle = $view['slots']->get('headerStyle', 'header-style-one');
 
 ?>
-<header class="main-header header-style-one">
+<header class="main-header <?= $headerStyle?>">
     <?php if ($languages) :?>
         <div class="header-top">
             <div class="auto-container">

@@ -35,11 +35,18 @@ return [
             "type" => "landing",
         ],
         [
-            "title" => "Company Overview",
+            "title" => "Simple page",
+            "description" => "Simple section",
+            "content" => 'theme/templates/simple-page.html.php',
+            "type" => "landing",
+        ],
+        [
+            "title" => "Page overview",
             "description" => "Company Overview",
             "content" => 'theme/templates/company-overview.html.php',
             "type" => "landing",
         ],
+        // -------------------------------------
         [
             "title" => "Approach section",
             "description" => "Approach section",

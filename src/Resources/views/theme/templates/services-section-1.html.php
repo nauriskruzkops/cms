@@ -1,5 +1,5 @@
 <section class="services-section page-block">
-    <div class="auto-container">
+    <div class="container">
         <div class="row clearfix">
 
             <!--Title Column-->

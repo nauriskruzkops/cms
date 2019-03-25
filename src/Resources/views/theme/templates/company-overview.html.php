@@ -1,5 +1,5 @@
 <section class="company-page-section page-block">
-    <div class="auto-container">
+    <div class="container">
         <div class="title-box">
             <div class="sec-title">
                 <h2>Company Overview</h2>
