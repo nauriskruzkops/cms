@@ -57,6 +57,7 @@ class SettingsController extends AbstractController
 
         /** @var Settings[] */
         $settings = $postRepo->findBy(['key' =>$request->get('key')]);
+        /** @var Settings $setting */
         $setting = reset($settings);
 
         /** @var Form $form */
@@ -71,12 +72,16 @@ class SettingsController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $em = $this->getDoctrine()->getManager();
                     $em->persist($form->getData());
                     $em->flush();
-
                     $this->addFlash('info', 'Cool, setting changed!');
-                    return $this->redirectToRoute('adm_settings');
+
+                    if ($request->get('btn_save_exit', 1) === 1) {
+                        return $this->redirect($request->headers->get('referer'));
+                    } else {
+                        return $this->redirectToRoute('adm_settings', ['group' => $setting->getGroup()]);
+                    }
+
                 } catch (\Exception $e) {
                     $this->addFlash('error', $e->getMessage());
                     return $this->redirectToRoute('adm_settings_change', ['key' => $setting->getKey()]);

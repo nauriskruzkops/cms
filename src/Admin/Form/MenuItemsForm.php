@@ -98,13 +98,6 @@ class MenuItemsForm extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => MenuItems::class,
-//            'empty_data' => function (FormInterface $form) {
-//                $menuItem = new MenuItems();
-//                if ($form->getParent() && $form->getParent()->getParent()->getData()) {
-//                    $menuItem->setMenu($form->getParent()->getParent()->getData());
-//                }
-//                return $menuItem;
-//            },
         ]);
     }
 }

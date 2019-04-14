@@ -3,6 +3,7 @@
 namespace Admin\Form;
 
 use Admin\Entity\Settings;
+use Admin\Entity\SettingsValue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,6 +51,7 @@ class SettingsForm extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
             ->add('translatable', CheckboxType::class, [
                 'required' => false,

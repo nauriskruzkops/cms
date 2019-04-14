@@ -190,13 +190,16 @@ class Settings {
      */
     public function setValues($values)
     {
-        $this->values = $values;
+       $this->values = new ArrayCollection();
+       foreach ($values as $value) {
+           $this->addValues($value);
+       }
 
         return $this;
     }
 
     /**
-     * @param SettingsValue $values
+     * @param SettingsValue $value
      * @return Settings
      */
     public function addValues(SettingsValue $value)

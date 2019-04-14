@@ -24,7 +24,7 @@ class MenuItemRelationForm extends AbstractType
 
     /**
      * MenuItemRelationForm constructor.
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
     public function __construct(EntityManagerInterface $em)
     {

@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 $formView = $form->createView();
 $formHelper = $view['form'];
 $request = $app->getRequest();
+$group = $form->getData()->getGroup();
 
 $view->extend('AdminBundle::layout/layout.html.php');
 ?>
@@ -59,7 +60,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
             </div>
 
             <div class="form-group row">
-                <div class="col-sm-2">Translatable</div>
+                <div class="col-sm-2"><?= $view['translator']->trans('Adm:Translatable') ?></div>
                 <div class="col-8">
                     <div class="form-check">
                         <?= $formHelper->errors($formView['translatable']) ?>
@@ -105,8 +106,9 @@ $view->extend('AdminBundle::layout/layout.html.php');
 
             <hr>
             <div class="form-group text-right">
-                <input class="btn btn-primary" type="submit" value="Submit">
-                <a href="<?= $view['router']->path('adm_settings') ?>" class="btn btn-link">Cancel</a>
+                <input class="btn btn-success" name="btn_save" type="submit" value="Save">
+                <input class="btn btn-success" name="btn_save_exit" type="submit" value="Save and exit">
+                <a href="<?= $view['router']->path('adm_settings', ['group' => $group]) ?>" class="btn btn-outline-success"><?= $view['translator']->trans('Adm:Cancel') ?></a>
             </div>
 
             <?= $formHelper->end($form->createView(), ['render_rest' => false]);?>
@@ -118,7 +120,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
 
         var $collectionHolder;
 
-        var $addTagLink = $('<a href="#" class="btn btn-link add_setting_value">Add a value</a>');
+        var $addTagLink = $('<a href="#" class="btn btn-link add_setting_value"><?= $view['translator']->trans('Adm:AddValue') ?></a>');
         var $newLinkLi = $('<li class="list-group-item"></li>').append($addTagLink);
 
         jQuery(document).ready(function() {
