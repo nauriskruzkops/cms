@@ -58,3 +58,7 @@
 'Adm:Style': Style
 'Adm:Select': Select
 'Adm:UnselectAll': 'Unselect All'
+'Adm:Product': Product
+'Adm:Products': Products
+'Adm:Nav:Products': Products
+'Adm:Nav:ProductsList': Products
