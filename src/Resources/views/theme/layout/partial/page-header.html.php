@@ -28,4 +28,6 @@ $clearFix = $clearFix ?? true;
 <?php elseif ($clearFix) :?>
     <div class="clearfix"></div>
     <div class="clearfix" style="margin-bottom: 135px"></div>
+<?php else:?>
+    <div class="clearfix" style="margin-bottom: 135px"></div>
 <?php endif;?>

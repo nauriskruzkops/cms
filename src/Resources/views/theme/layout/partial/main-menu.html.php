@@ -1,13 +1,29 @@
 <?php
+
+use Admin\Entity\MenuItems;
+use Admin\Entity\Page;
+use App\Helpers\LayoutHelper;
+use App\Helpers\PageHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+
 /**
- * @var \Admin\Entity\MenuItems[] $mainMenuItems
+ * @var MenuItems[] $mainMenuItems
  * @var array $languages
+ * @var GlobalVariables $app
+ * @var PhpEngine $view
+ * @var Page $page
+ * @var PageHelper $pageHelper
+ * @var LayoutHelper $layoutHelper
  *
  */
 $mainMenu = $view['menu']->getMainTopMenu();
 $mainMenuItems = $mainMenu['items'] ?? [];
 $languages = $view['settings']->values('languages');
 $headerStyle = $view['slots']->get('headerStyle', 'header-style-one');
+
+//$object = $view['slots']->output('page', null);
+$layoutHelper = $view['layout'];
 
 ?>
 <header class="main-header <?= $headerStyle?>">
@@ -40,7 +56,7 @@ $headerStyle = $view['slots']->get('headerStyle', 'header-style-one');
                 <div class="logo-box">
                     <div class="logo">
                         <a href="<?= $view['router']->path('index', ['_locale' => $view['locale']])?>">
-                            <img src="<?= $view['assets']->getUrl('logo-white.png', 'images') ?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>" title="<?= $this->escape($view['settings']->value('site_title')) ?>">
+                            <img src="<?= $layoutHelper->logo()?>" alt="<?= $this->escape($view['settings']->value('site_title')) ?>" title="<?= $this->escape($view['settings']->value('site_title')) ?>">
                         </a>
                     </div>
                 </div>

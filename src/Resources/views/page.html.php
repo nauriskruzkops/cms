@@ -11,9 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var Page $page
  * @var PageHelper $pageHelper
  */
-$view['theme']->extend('layout/extend/layout.html.php');
+$view['slots']->set('page', $page);
+
 $pageHelper = $view['page']($page);
 $pageHelper->headerStyle($page);
+
+$layoutHelper = $view['layout']($page);
+
+$view['theme']->extend('layout/extend/layout.html.php');
 
 $clearFix = true;
 
