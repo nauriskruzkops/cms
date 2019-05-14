@@ -88,6 +88,13 @@ class PageManageService
 
         $parentPage = $form->get('parent')->getData();
 
+        $pageSlug = $page->getSlug();
+        $pageSlug = strtolower($pageSlug);
+        $pageSlug = trim($pageSlug);
+        $pageSlug = str_replace([' '], '-', $pageSlug);
+        $pageSlug = preg_replace('/_.*!@#$%^&*()_+<>:"|"\{\}\[\]~`/s', '', $pageSlug);
+        $page->setSlug($pageSlug);
+
         try {
             if ($page->getId()) {
                 $this->em->merge($page);
@@ -95,7 +102,6 @@ class PageManageService
             } else {
                 $this->em->persist($page);
                 $repository->persistAsFirstChildOf($page, $parentPage);
-
             }
             $this->em->flush();
         } catch (\Exception $e) {

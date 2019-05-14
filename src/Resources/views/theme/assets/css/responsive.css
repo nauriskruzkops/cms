@@ -75,7 +75,7 @@
 	}
 	
 	.company-section{
-		background-color:#f7bd00;
+		background-color:#f5802d;
 	}
 	
 	.header-style-two,
@@ -86,7 +86,7 @@
 	
 	.header-style-seven .main-menu .navigation > li:hover > a,
 	.header-style-seven .main-menu .navigation > li.current > a{
-		color:#f7bd00;
+		color:#f5802d;
 	}
 	
 	.header-style-seven .header-top{
@@ -613,11 +613,11 @@
 	.main-menu .navbar-header .navbar-toggle{
 		display:inline-block;
 		z-index:12;
-		border:1px solid #f7bd00;
+		border:1px solid #f5802d;
 		float:none;
 		margin:-2px 0px 0px 0px;
 		border-radius:3px;
-		background:#f7bd00;
+		background:#f5802d;
 	}
 	
 	.main-menu .navbar-header .navbar-toggle .icon-bar{
@@ -744,7 +744,7 @@
 	.main-menu .navbar-collapse > .navigation > li > a:hover,
 	.main-menu .navbar-collapse > .navigation > li > a:active,
 	.main-menu .navbar-collapse > .navigation > li > a:focus{
-		background:#f7bd00;
+		background:#f5802d;
 	}
 	
 	.main-menu .navbar-collapse > .navigation > li:hover > a,

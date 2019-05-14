@@ -5,9 +5,6 @@ namespace Admin\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Admin\Repository\PostRepository")
@@ -30,7 +27,6 @@ class Post {
     private $title;
 
     /**
-     * @Gedmo\Slug(fields={"title"}, style="lower")
      * @ORM\Column(type="string", length=254, nullable=true)
      */
     private $slag;

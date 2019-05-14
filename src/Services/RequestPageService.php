@@ -43,6 +43,7 @@ class RequestPageService
         $request = $this->requestStack->getMasterRequest();
         $route = $request->get('_route');
         $locale = $request->get('_locale');
+
         /** @var MenuItems $menuItem */
         $menuItem = unserialize($request->get('_menuItem'));
 
@@ -89,6 +90,46 @@ class RequestPageService
             ];
         }
 
+        if ($menuItem) {
+            return [
+                'content' => $content ?? null,
+                'menuItem' => $menuItem,
+            ];
+        }
+
+        $content = $this->getSimplePageBySlug($locale, $route);
+        if (!$content && !empty($request->get('slug'))) {
+            $content = $this->getSimplePageBySlug($locale, $request->get('slug'));
+        }
+
+        if ($content) {
+            return [
+                'content' => $content ?? null,
+                'menuItem' => null,
+            ];
+        }
+
         throw new ContentNotFoundException();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSimplePageBySlug($locale, $slug)
+    {
+        $repository = $this->em->getRepository(Page::class);
+        $qb = $repository->createQueryBuilder('p');
+        $qb = $qb->select('p')
+            ->where($qb->expr()->eq('p.slug', ':slug'))
+            ->setParameter('slug', $slug)
+            ->andWhere($qb->expr()->eq('p.locale', ':locale'))
+            ->setParameter('locale', $locale)
+        ;
+        $query = $qb->getQuery();
+        $result = $query->getResult();
+
+        if ($result) {
+            return reset($result);
+        }
     }
 }

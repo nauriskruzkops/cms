@@ -75,6 +75,18 @@ class SiteRoutes
             }
         }
 
+        $defaults = array(
+            'slug' => '*',
+            'type' => SiteRoutes::TYPE_PAGE,
+            '_controller' => PageController::class,
+            '_locale' => $default_locale,
+        );
+        $route = new Route('/{_locale}/{slug}', $defaults, [
+            '_locale' => implode('|', $languages),
+            'slug' => ".+"
+        ]);
+        $routes->add('any_page', $route);
+
         return $routes;
     }
 
@@ -106,7 +118,7 @@ class SiteRoutes
             $urlPattern = sprintf('/{_locale}/%s', $defaults['slug']);
         }
 
-        $route = new Route($urlPattern, $defaults);
+        $route = new Route($urlPattern, $defaults, ['slug' => ".+"]);
         return [
             $defaults['slug'],
             $route
