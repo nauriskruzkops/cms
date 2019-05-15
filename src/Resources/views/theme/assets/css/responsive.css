@@ -1037,6 +1037,10 @@
 	.main-box .language-icon-mobile {
 		display: block;
 	}
+
+	.logo-box .logo img {
+		margin-left: -30px;
+	}
 }
 
 @media only screen and (max-width: 599px){
@@ -1261,7 +1265,7 @@
 	}
 
 	.main-header .main-box .logo-box{
-		margin-bottom:20px;
+		margin-bottom:10px;
 		z-index: 100;
 	}
 
