@@ -60,6 +60,15 @@ $layoutHelper = $view['layout'];
                         </a>
                     </div>
                 </div>
+                <?php if ($languages) :?>
+                    <dic class="language-icon-mobile">
+                        <?php foreach ($languages as $languageKey => $languageTitle) :?>
+                            <a class="nav-item" href="<?=
+                            $view['router']->path('index', ['_locale' => $languageKey])
+                            ?>" title="<?= $this->escape($languageTitle)?>"><?= $this->escape(strtoupper($languageKey))?></a>
+                        <?php endforeach;?>
+                    </dic>
+                <?php endif;?>
                 <div class="nav-outer clearfix">
                     <nav class="main-menu">
                         <div class="navbar-header">

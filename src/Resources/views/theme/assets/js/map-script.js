@@ -163,7 +163,7 @@ function GmapInit() {
         "elementType": "all",
         "stylers": [
             {
-                "color": "#f7bd00"
+                "color": "#f5802d"
             },
             {
                 "visibility": "on"
