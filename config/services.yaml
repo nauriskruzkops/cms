@@ -11,10 +11,6 @@ services:
         resource: '../src/*'
         exclude: '../src/{Admin,Resources,Shared,AdminKernel.php,SiteKernel.php}'
 
-    # CONTROLLER
-    App\Controller\IndexController:
-        tags: ['controller.service_arguments']
-
     # ROUTER
     App\Routing\SiteRoutes:
         public: true

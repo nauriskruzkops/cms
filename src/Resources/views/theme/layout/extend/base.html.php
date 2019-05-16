@@ -1,4 +1,14 @@
-<!doctype html>
+<?php
+
+use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+
+/**
+ * @var GlobalVariables $app
+ * @var PhpEngine $view
+ */
+
+?><!doctype html>
 <html lang="<?= $view['locale']?>">
 <head>
     <title><?= $this->escape($view['settings']->value('site_title')) ?></title>

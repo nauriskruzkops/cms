@@ -56,6 +56,9 @@ class PageHelper extends Helper
     {
         if (!$page instanceof Page) {
             $page = $this->page;
+            if (!$page) {
+                return false;
+            }
         }
 
         return ($page->getSetting('SHOW_PAGE_HEADER', true));
@@ -103,28 +106,36 @@ class PageHelper extends Helper
      */
     public function headerBackground($page = null, $withStyle = true)
     {
+        $backgroundColor = $this->settingService->value('page_header_bg_color');
+
         if ($page !== null) {
             $page = $this->page;
         }
 
         $style = [];
-        $backgroundImg = $page->getSetting('HEADER_BACKGROUND_IMG');
-        if ($backgroundImg) {
-            if (!$withStyle) {
-                return $this->view['assets']->getUrl($backgroundImg, 'upload');
+
+        if ($page) {
+            $backgroundImg = $page->getSetting('HEADER_BACKGROUND_IMG');
+            if ($backgroundImg) {
+                if (!$withStyle) {
+                    return $this->view['assets']->getUrl($backgroundImg, 'upload');
+                }
+                $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
+            } else {
+                if (!$withStyle) {
+                    return '';
+                }
             }
-            $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
+
+            $style[] = 'background-position: center center';
+            //$style[] = 'background-attachment:fixed';
+
+            $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
+            $style[] = sprintf('background-color:%s', $backgroundColor);
         } else {
-            if (!$withStyle) {
-                return '';
-            }
+            $style[] = sprintf('background-color:%s', $backgroundColor);
         }
 
-        $style[] = 'background-position: center center';
-        //$style[] = 'background-attachment:fixed';
-
-        $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
-        $style[] = sprintf('background-color:%s', $backgroundColor);
 
         return implode(';', $style);
     }

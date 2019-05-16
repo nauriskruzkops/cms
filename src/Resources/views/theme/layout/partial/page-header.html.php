@@ -17,11 +17,11 @@ $clearFix = $clearFix ?? true;
     <section class="page-title" style="<?= $pageHelper->headerBackground($page)?>">
         <div class="container auto-container">
             <?php if ($pageHelper->hasHeader()) :?>
-                <h1><?= $this->escape($page->getTitle())?></h1>
+                <h1><?= $page ? $this->escape($page->getTitle()) : $view['slots']->output('page_title')?></h1>
             <?php endif;?>
             <ul class="page-breadcrumb">
                 <li><a href="/">Sākums</a></li>
-                <li><?= $this->escape($page->getTitle())?></li>
+                <li><?= $page ? $this->escape($page->getTitle()) : $view['slots']->output('page_title')?></li>
             </ul>
         </div>
     </section>
