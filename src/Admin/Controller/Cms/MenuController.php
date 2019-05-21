@@ -175,7 +175,7 @@ class MenuController extends \Admin\Controller\AbstractController
         foreach ($pages as $page) {
             $pageSiteMap[] = [
                 'title' => $page->getTitle(),
-                'value' => '/'.(($page->getSlug() !== 'index') ? $page->getSlug() : ''),
+                'value' => '/'.$page->getFullSlug(),
             ];
         }
 

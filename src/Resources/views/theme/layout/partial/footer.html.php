@@ -45,7 +45,11 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                     <div class="widget-content">
                                         <ul class="list">
                                             <?php foreach ($footerMenu1->getItems()->filter(function ($item) { return $item->isEnabled(); }) as $fMenuItem) :?>
-                                                <li><a href="<?= $this->escape($fMenuItem->getSlug())?>"><?= $this->escape($fMenuItem->getTitle())?></a></li>
+                                                <li>
+                                                    <a href="<?= $this->escape($view['router']->path($view['locale'].'_'.$fMenuItem->getSlug(), ['_locale' => $view['locale']]))?>">
+                                                        <?= $this->escape($fMenuItem->getTitle())?>
+                                                    </a>
+                                                </li>
                                             <?php endforeach;?>
                                         </ul>
                                     </div>
@@ -65,7 +69,11 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                     <div class="widget-content">
                                         <ul class="list">
                                             <?php foreach ($footerMenu2->getItems()->filter(function ($item) { return $item->getEnabled(); }) as $fMenuItem) :?>
-                                                <li><a href="<?= $this->escape($fMenuItem->getSlug())?>"><?= $this->escape($fMenuItem->getTitle())?></a></li>
+                                                <li>
+                                                    <a href="<?= $this->escape($view['router']->path($view['locale'].'_'.$fMenuItem->getSlug(), ['_locale' => $view['locale']]))?>">
+                                                        <?= $this->escape($fMenuItem->getTitle())?>
+                                                    </a>
+                                                </li>
                                             <?php endforeach;?>
                                         </ul>
                                     </div>
