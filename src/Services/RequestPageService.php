@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Exception\ContentNotFoundException;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Admin\Entity\MenuItems;
 use Admin\Entity\Page;
@@ -41,70 +42,37 @@ class RequestPageService
     public function get()
     {
         $request = $this->requestStack->getMasterRequest();
+
         $route = $request->get('_route');
         $locale = $request->get('_locale');
 
-        /** @var MenuItems $menuItem */
-        $menuItem = unserialize($request->get('_menuItem'));
-
-        if (empty($route)) {
-            $route = 'index'; // Default route
+        $slugTree = explode('/', $request->get('slug', 'index'));
+        if ($slugTree[0] == 'root') {
+            $slugTree[0] = 'index';
         }
 
-        if ($menuItem && $menuItem->getRelations()) {
-            foreach ($menuItem->getRelations() as $relation) {
-                /** @var PageRepository $repository */
-                $repository = $this->em->getRepository($relation->getObjectClass());
-                $content = $repository->find($relation->getObjectId());
-                break;
+        $pageRepository = $this->em->getRepository(Page::class);
+        $pages = $pageRepository->findBy([
+            'slug' => end($slugTree),
+            'locale' => $locale,
+        ]);
+
+        /** @var Page[]|ArrayCollection $pages */
+        $pages = new ArrayCollection($pages);
+        /** @var Page $page */
+        $page = $pages->filter(function (Page $page) use ($slugTree) {
+            if (!$page->getParent()) {
+                return $page;
             }
-        } else {
-            $repository = $this->em->getRepository(MenuItems::class);
-            $qb = $repository->createQueryBuilder('mi');
-            $qb->select(['mi', 'p'])
-                ->join('mi.menu', 'm')
-                ->join('mi.relations', 'r')
-                ->join(
-                    Page::class,
-                    'p',
-                    \Doctrine\ORM\Query\Expr\Join::WITH,
-                    'p.id = r.objectId'
-                )
-                ->where($qb->expr()->eq('mi.slug', ':slug'))
-                    ->setParameter('slug', $route)
-                ->andWhere($qb->expr()->eq('m.locale', ':locale'))
-                    ->setParameter('locale', $locale)
-                ;
-            $query = $qb->getQuery();
-            $result = $query->getResult();
-            if ($result) {
-                $content = $result[1];
-                $menuItem = $result[0];
+            $prev = $slugTree[count($slugTree)-2] ?? null;
+            if ($prev && $page->getParent()->getSlug() == $prev) {
+                return $page;
             }
-        }
+        })->first();
 
-        if ($menuItem) {
+        if ($page) {
             return [
-                'content' => $content ?? null,
-                'menuItem' => $menuItem,
-            ];
-        }
-
-        if ($menuItem) {
-            return [
-                'content' => $content ?? null,
-                'menuItem' => $menuItem,
-            ];
-        }
-
-        $content = $this->getSimplePageBySlug($locale, $route);
-        if (!$content && !empty($request->get('slug'))) {
-            $content = $this->getSimplePageBySlug($locale, $request->get('slug'));
-        }
-
-        if ($content) {
-            return [
-                'content' => $content ?? null,
+                'page' => $page,
                 'menuItem' => null,
             ];
         }

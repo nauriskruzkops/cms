@@ -86,11 +86,11 @@ class MenuHelper extends Helper
             $menuItems = $menuItems['0']['__children'];
         }
 
-        array_walk($menuItems, function ($v, $k) use (&$menuItems) {
-            if ($v['slug'] === 'index') {
-                $menuItems[$k]['slug'] = '/';
-            }
-        });
+//        array_walk($menuItems, function ($v, $k) use (&$menuItems) {
+//            if ($v['slug'] === 'index') {
+//                $menuItems[$k]['slug'] = '/';
+//            }
+//        });
 
         return [
             'menu' => $menu,

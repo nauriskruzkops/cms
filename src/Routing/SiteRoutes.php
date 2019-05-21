@@ -96,12 +96,12 @@ class SiteRoutes
      */
     private function createRoute($item)
     {
+
         $defaultLocale = $this->settingService->value('language');
 
         $defaults = [];
         $defaults['type'] = $item['template'];
-        $defaults['slug'] = $item['slug'];
-        $defaults['title'] = $item['title'];
+        $defaults['slug'] = $item['full_slug'];
 
         $defaults['_locale'] = $item['locale'];
         $defaults['_page_id'] = $item['id'] ?? null;
@@ -120,7 +120,7 @@ class SiteRoutes
 
         $route = new Route($urlPattern, $defaults, ['slug' => ".+"]);
         return [
-            $defaults['slug'],
+            $item['slug'],
             $route
         ];
     }
@@ -131,7 +131,19 @@ class SiteRoutes
      */
     private function getSiteMap($language)
     {
-        $pages = $this->em->getRepository(Page::class)->getNested($language);
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('p.id, p.template, p.locale, p.slug, pa.slug as parent_slug');
+        $qb->from(Page::class, 'p');
+        $qb->leftJoin('p.parent', 'pa');
+        $qb->where('p.locale = :locale')->setParameter('locale', $language);
+
+        $pages = $qb->getQuery()->getArrayResult();
+
+        foreach ($pages as $pageKey => $page) {
+            $pages[$pageKey]['full_slug'] = (!$page['parent_slug'] or $page['parent_slug'] == 'index') ? '' : $page['parent_slug'].'/';
+            $pages[$pageKey]['full_slug'] .= $page['slug'];
+        }
+
         return new ArrayCollection($pages);
     }
 }
