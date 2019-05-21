@@ -30,7 +30,7 @@ function nestedMainTreeRow($items, &$html, $view) // added pass by reference
 {
     foreach($items as $key => $node)
     {
-        $url = $view['router']->path($node['slug'], ['_locale' => $view['locale']]);
+        $url = $view['router']->path($view['locale'].'_'.$node['slug'], ['_locale' => $view['locale']]);
         if ($node['__children'] ?? false) {
             $html .= '<li class="dropdown">';
                 $html .= sprintf('<a href="%s" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">%s</a>', "#", $view->escape($node['title']));

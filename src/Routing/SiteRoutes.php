@@ -120,7 +120,7 @@ class SiteRoutes
 
         $route = new Route($urlPattern, $defaults, ['slug' => ".+"]);
         return [
-            $item['slug'],
+            $item['locale'].'_'.$item['slug'],
             $route
         ];
     }
@@ -136,6 +136,8 @@ class SiteRoutes
         $qb->from(Page::class, 'p');
         $qb->leftJoin('p.parent', 'pa');
         $qb->where('p.locale = :locale')->setParameter('locale', $language);
+        //$qb->andWhere('p.public = :public')->setParameter('public', true);
+        $qb->andWhere('p.deletedAt is null');
 
         $pages = $qb->getQuery()->getArrayResult();
 

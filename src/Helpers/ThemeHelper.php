@@ -71,7 +71,7 @@ class ThemeHelper extends Helper
             $path = $this->theme . '/' . ltrim($path, '/');
             return $this->view->render($path, $parameters);
         } catch (\InvalidArgumentException $e) {
-            return sprintf('ERROR on render content from %s', $path);
+            return sprintf('ERROR on render content from %s : %s ', $path, $e->getMessage());
         }
     }
 
