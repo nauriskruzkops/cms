@@ -143,7 +143,7 @@ class SiteRoutes
 
         foreach ($pages as $pageKey => $page) {
             $pages[$pageKey]['full_slug'] = (!$page['parent_slug'] or $page['parent_slug'] == 'index') ? '' : $page['parent_slug'].'/';
-            $pages[$pageKey]['full_slug'] .= $page['slug'];
+            $pages[$pageKey]['full_slug'] .= $page['slug'] !== 'index' ? $page['slug'] : '';
         }
 
         return new ArrayCollection($pages);

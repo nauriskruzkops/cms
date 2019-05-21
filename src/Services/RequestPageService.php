@@ -65,7 +65,7 @@ class RequestPageService
                 return $page;
             }
             $prev = $slugTree[count($slugTree)-2] ?? null;
-            if ($prev && $page->getParent()->getSlug() == $prev) {
+            if ($prev && ($page->getParent()->getSlug() == $prev) || $page->getParent()->getSlug() === 'index') {
                 return $page;
             }
         })->first();
