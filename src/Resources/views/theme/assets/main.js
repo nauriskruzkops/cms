@@ -30,11 +30,10 @@ require('./js/bootstrap.min.js');
 // require('./plugins/revolution/js/extensions/revolution.extension.video.min.js');
 //
 //require('./js/main-slider-script.js');
-require('./js/script.js');
 require('./js/isotope.js');
 require('./js/owl.js');
 require('./js/mixitup.js');
 require('./js/wow.js');
 require('./js/appear.js');
-
+require('./js/script.js');
 

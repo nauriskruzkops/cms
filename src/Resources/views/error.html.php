@@ -14,8 +14,9 @@ $view['theme']->extend('layout/extend/layout.html.php');
     <div class="auto-container">
         <div class="content">
             <hr class="featurette-divider">
-            <h1>Here is something wrong!</h1>
-            <p>Sorry, come back later.</p>
+            <h1>Ups!</h1>
+            <h2>Here is something wrong!</h2>
+            <h2>Sorry, come back later.</h2>
             <hr class="featurette-divider">
         </div>
     </div>
