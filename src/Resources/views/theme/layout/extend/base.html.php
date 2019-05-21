@@ -55,7 +55,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 <script src="<?= $view['theme']->assetsGetUrl('wow.js', 'js') ?>"></script>
 */ ?>
 
-<script src="<?= $view['theme']->assetsGetUrl('script.js', 'js') ?>"></script>
+<!--<script src="--><?//= $view['theme']->assetsGetUrl('script.js', 'js') ?><!--"></script>-->
 
 </body>
 </html>

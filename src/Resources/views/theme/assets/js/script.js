@@ -1,8 +1,5 @@
 (function($) {
-
 	"use strict";
-
-	alert(2);
 
 	//Hide Loading Box (Preloader)
 	function handlePreloader() {
@@ -28,27 +25,23 @@
 			}
 		}
 	}
-	console.log(1);
+
 	headerStyle();
-	console.log(2);
 	
 	//Submenu Dropdown Toggle
-	if($('.main-header li.dropdown ul').length){
-		$('.main-header li.dropdown').append('<div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>');
-		
-		//Dropdown Button
-		$('.main-header li.dropdown .dropdown-btn').on('click', function() {
-			$(this).prev('ul').slideToggle(500);
-		});
-		
-		//Disable dropdown parent link
+	//if($('.main-header li.dropdown ul').length){
+		// $('.main-header li.dropdown').append('<div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>');
+		//
+		// //Dropdown Button
+		// $('.main-header li.dropdown .dropdown-btn').on('click', function() {
+		// 	$(this).prev('ul').slideToggle(500);
+		// });
+		//
+		// //Disable dropdown parent link
 		// $('.main-header .navigation li.dropdown > a,.hidden-bar .side-menu li.dropdown > a').on('click', function(e) {
-		// 	if ($(this).attr('href') === '') {
-		// 		return true;
-		// 	}
 		// 	e.preventDefault();
 		// });
-	}
+	//}
 	
 	
 	
@@ -61,7 +54,7 @@
 		});
 	 });
 	}
-	console.log(3);
+
 	
 	//Fact Counter + Text Count
 	if($('.count-box').length){
@@ -92,7 +85,6 @@
 		},{accY: 0});
 	}
 
-	console.log(4);
 	
 	//Product Tabs
 	if($('.project-tab').length){
@@ -110,7 +102,7 @@
 			}
 		});
 	}
-	console.log(5);
+
 	
 	//Jquery Spinner / Quantity Spinner
 	if($('.quantity-spinner').length){
@@ -118,7 +110,7 @@
 		  verticalbuttons: true
 		});
 	}
-	console.log(6);
+
 	
 	//Product Carousel
 	if ($('.project-carousel').length) {
@@ -179,7 +171,6 @@
 		});    		
 	}
 
-	console.log(7);
 	//Text Rotator
 	 if($('.slider-banner-section .content h2 span').length){
 		  // $(".slider-banner-section .content h2 span").textrotator({
@@ -231,7 +222,6 @@
 			}
 		});	
 	}
-	console.log(8);
 	
 	//Two Item Carousel
 	if ($('.two-item-carousel').length) {
@@ -261,12 +251,10 @@
 			}
 		});    		
 	}
-	alert(2);
 
-	console.log($('.four-item-carousel').length);
+
 	//Four Item Carousel
 	if ($('.four-item-carousel').length) {
-		alert(2);
 		$('.four-item-carousel').owlCarousel({
 			loop:true,
 			margin:30,
@@ -293,8 +281,6 @@
 			}
 		});    		
 	}
-	console.log(9);
-	
 	
 	//Sortable Masonary with Filters
 	function sortableMasonry() {
@@ -484,4 +470,4 @@
 		sortableMasonry();
 	});	
 
-});
+})(window.jQuery);

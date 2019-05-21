@@ -41,12 +41,9 @@
 		});
 		
 		//Disable dropdown parent link
-		// $('.main-header .navigation li.dropdown > a,.hidden-bar .side-menu li.dropdown > a').on('click', function(e) {
-		// 	if ($(this).attr('href') === '') {
-		// 		return true;
-		// 	}
-		// 	e.preventDefault();
-		// });
+		$('.main-header .navigation li.dropdown > a,.hidden-bar .side-menu li.dropdown > a').on('click', function(e) {
+			e.preventDefault();
+		});
 	}
 	
 	
@@ -180,10 +177,10 @@
 	
 	//Text Rotator
 	 if($('.slider-banner-section .content h2 span').length){
-		  // $(".slider-banner-section .content h2 span").textrotator({
-			// animation: "flip",
-			// speed: 3000
-		  // });
+		  $(".slider-banner-section .content h2 span").textrotator({
+			animation: "flip",
+			speed: 3000
+		  });
 	 }
 	
 	

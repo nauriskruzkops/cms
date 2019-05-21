@@ -1,0 +1,120 @@
+.navbar.navbar-custom {margin: 0;}
+.navbar.navbar-custom ul > li {padding: 0; margin: 0;}
+.navbar.navbar-custom .navbar-toggle {border: 1px solid #f5802d;}
+.navbar.navbar-custom .navbar-toggle .icon-bar{background-color: #f5802d; color: #f5802d}
+
+.navbar.navbar-custom ul > li > a {
+	position: relative;
+	display: block;
+	padding: 20px 10px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 30px;
+	letter-spacing: 0;
+	font-weight: 500;
+	font-size: 16px;
+	text-transform: capitalize;
+	opacity: 1;
+	-webkit-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	transition: all 300ms ease;
+	font-family: 'Poppins', sans-serif;
+}
+
+.navbar.navbar-custom ul > li > a::after {
+	position: absolute;
+	content: '';
+	left: 0;
+	bottom: 13px;
+	width: 0;
+	height: 1px;
+	opacity: 0;
+	background-color: #ffffff;
+	-webkit-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+.navbar.navbar-custom ul > li:hover > a::after,
+.navbar.navbar-custom ul > li.current > a::after {width: 24px;opacity: 1;}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover,
+.navbar.navbar-custom ul > li > a:hover {
+	background-color: transparent;
+}
+
+.navbar.navbar-custom ul > li > ul > li > a {
+	position: relative;
+	display: block;
+	padding: 10px 25px;
+	line-height: 24px;
+	font-weight: 400;
+	font-size: 15px;
+	color: #242424;
+	text-align: left;
+	text-transform: capitalize;
+	transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-webkit-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	font-family: 'Poppins', sans-serif;
+}
+
+@media only screen and (max-width: 767px){
+
+	.navbar.navbar-custom ul > li:hover > a::after,
+	.navbar.navbar-custom ul > li.current > a::after {width: 24px; opacity: 0;}
+
+	.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.navbar.navbar-custom ul > li > a {
+		position: relative;
+		display: block;
+		padding: 10px 10px;
+		color: #ffffff;
+		text-align: left;
+		line-height: normal;
+		letter-spacing: 0;
+		font-weight: 500;
+		font-size: 14px;
+		text-transform: capitalize;
+		opacity: 1;
+		border-bottom: 1px solid rgba(102, 102, 102, 0.75);
+		animation: none;
+	}
+
+	.navbar.navbar-custom ul > li > ul > li > a {
+		position: relative;
+		display: block;
+		padding: 10px 10px 10px 10px;
+		margin-left: 10px;
+		color: #ffffff;
+		text-align: left;
+		line-height: normal;
+		letter-spacing: 0;
+		font-weight: 500;
+		font-size: 14px;
+		text-transform: capitalize;
+		opacity: 1;
+		border-bottom: 1px solid rgba(102, 102, 102, 0.75);
+		animation: none;
+	}
+
+	.navbar.navbar-custom ul > li > ul > li:last-child > a {
+		border-bottom: 1px solid rgba(102, 102, 102, 0.0);
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.navbar.navbar-custom .dropdown:hover .dropdown-menu {display: block; margin-top: 0;}
+	.navbar.navbar-custom ul > li > ul > li {position: relative;width: 100%;border-bottom: 1px solid #e9e9e9;}
+	.navbar.navbar-custom ul > li > ul > li:hover > a {background-color: #f4f4f4;}
+}
