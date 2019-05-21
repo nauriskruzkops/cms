@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var GlobalVariables $app
  * @var PhpEngine $view
  */
-$assetVersion = '?'.substr(md5(date('YmdH')+1), 12); // Temp!
+$assetVersion = '?'.substr(md5(date('YmdH')+2), 12); // Temp!
 
 ?><!doctype html>
 <html lang="<?= $view['locale']?>">
