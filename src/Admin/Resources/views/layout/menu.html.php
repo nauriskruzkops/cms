@@ -74,6 +74,26 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="<?= $view['router']->path('adm_inbox') ?>">
+                <i class="fa fa-fw fa-envelope-o"></i>
+                <span class="nav-link-text">
+                    <?= $view['translator']->trans('Adm:Nav:Inbox') ?>
+                </span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $view['router']->path('adm_translation') ?>">
+                <i class="fa fa-fw fa-book"></i>
+                <span class="nav-link-text">
+                    <?= $view['translator']->trans('Adm:Nav:Translation') ?>
+                </span>
+            </a>
+        </li>
+
+
+
+        <li class="nav-item">
             <a class="nav-link nav-link-collapse" href="#" type="button" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false">
                 <i class="fa fa-fw fa-gears"></i>
                 <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Settings') ?></span>

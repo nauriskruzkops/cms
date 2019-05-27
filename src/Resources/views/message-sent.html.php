@@ -25,11 +25,11 @@ echo $view['theme']->render('layout/partial/page-header.html.php', [
     <div class="auto-container">
         <div class="inner-container">
             <div class="sec-title">
-                <h2><strong>Paldies, ziņa nosūtīta.</strong></h2>
+                <h2><strong><?= $view['transl']('Paldies, ziņa nosūtīta.')?></strong></h2>
             </div>
 
-            <p>Atbildēsim pēc iespējas ātrāk.</p>
-            <a href="javascript:history.back()" class="btn btn-xs btn-link">Doties atpakaļ</a>
+            <p><?= $view['transl']('Atbildēsim pēc iespējas ātrāk.')?></p>
+            <a href="javascript:history.back()" class="btn btn-xs btn-link"><?= $view['transl']('Uz sākumu.')?></a>
         </div>
     </div>
 </section>

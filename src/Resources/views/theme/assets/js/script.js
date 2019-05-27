@@ -376,32 +376,6 @@
 		});
 	}
 	
-	
-	//Contact Form Validation
-	if($('#contact-form').length){
-		$('#contact-form').validate({
-			rules: {
-				firstname: {
-					required: true
-				},
-				email: {
-					required: true,
-					email: true
-				},
-				phone: {
-					required: true
-				},
-				subject: {
-					required: true
-				},
-				message: {
-					required: true
-				}
-			}
-		});
-	}
-	
-	
 	//Gallery Filters
 	if($('.filter-list').length){
 		$('.filter-list').mixItUp({});
@@ -451,6 +425,17 @@
 	$(window).on('load', function() {
 		handlePreloader();
 		sortableMasonry();
-	});	
+	});
+
+	if ($("#contact-form").length) {
+		var contactForm = $("#contact-form");
+		$(contactForm).submit(function (e) {
+			var email = $("[name=email]", contactForm).val();
+			var phone = $("[name=phone]", contactForm).val();
+			if (email === '' && phone === '') {
+				return false;
+			}
+		});
+	}
 
 })(window.jQuery);

@@ -57,3 +57,7 @@ services:
         arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
             - { name: templating.helper, alias: settings }
+    App\Helpers\TranslHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\TranslationService']
+        tags:
+            - { name: templating.helper, alias: transl }
