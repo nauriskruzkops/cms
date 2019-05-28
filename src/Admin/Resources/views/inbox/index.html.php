@@ -31,8 +31,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="col-auto">#</th>
-                        <th scope="col"><?= $view['translator']->trans('Adm:Sender') ?></th>
+                        <th class="col-auto"><?= $view['translator']->trans('Adm:Sender') ?></th>
                         <th scope="col"><?= $view['translator']->trans('Adm:Email/Phone') ?></th>
                         <th scope="col"><?= $view['translator']->trans('Adm:Message') ?></th>
                     </tr>

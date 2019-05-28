@@ -30,10 +30,14 @@ $view->extend('AdminBundle::layout/layout.html.php');
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col"><?= $view['translator']->trans('Adm:TranslationKey') ?></th>
-                        <th scope="col">EN</th>
-                        <th scope="col">LV</th>
-                        <th scope="col"></th>
+                        <th scope="col"><?= $view['translator']->trans('Adm:Translation:Key') ?></th>
+                        <th scope="col"><?= $view['translator']->trans('Adm:Translation:Group') ?></th>
+                        <?php foreach ($view['settings']->values('languages') as $langCode => $lang) :?>
+                            <th scope="col"><?= strtoupper($langCode)?></th>
+                        <?php endforeach;?>
+                        <th scope="col">
+
+                        </th>
                     </tr>
                 </thead>
                 <?= $view->render('AdminBundle::translation/partial/list.html.php', [

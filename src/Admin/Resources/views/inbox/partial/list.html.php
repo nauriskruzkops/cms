@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
                 <span class="text-muted small">
                     <i class="fa fa-clock-o"></i> <?= $this->escape($message->getCreatedAt()->format('Y-m-d H:i:s'))?></span>
                 <br>
-                <span class="text-muted small">IP: <?= $this->escape($message->getId())?></span>
+                <span class="text-muted small">IP: <?= $this->escape($message->getIpAddress())?></span>
             </td>
             <td>
                 <span class="small">Email: <?= $this->escape($message->getEmail())?></span>

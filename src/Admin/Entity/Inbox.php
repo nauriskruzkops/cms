@@ -125,7 +125,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
@@ -144,7 +144,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getTopic(): string
+    public function getTopic(): ?string
     {
         return $this->topic;
     }
@@ -163,7 +163,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getLocale(): string
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
@@ -182,7 +182,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getRefererUrl(): string
+    public function getRefererUrl(): ?string
     {
         return $this->refererUrl;
     }
@@ -201,7 +201,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getSender(): string
+    public function getSender(): ?string
     {
         return $this->sender;
     }
@@ -220,7 +220,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -239,7 +239,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getPhone(): string
+    public function getPhone() :? string
     {
         return $this->phone;
     }
@@ -277,7 +277,7 @@ class Inbox {
     /**
      * @return bool
      */
-    public function isSent(): bool
+    public function isSent(): ?bool
     {
         return $this->sent;
     }
@@ -293,7 +293,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getIpAddress(): string
+    public function getIpAddress(): ?string
     {
         return $this->ipAddress;
     }
@@ -312,7 +312,7 @@ class Inbox {
     /**
      * @return string
      */
-    public function getReferer(): string
+    public function getReferer(): ?string
     {
         return $this->referer;
     }
@@ -331,7 +331,7 @@ class Inbox {
     /**
      * @return array
      */
-    public function getData(): string
+    public function getData(): ?string
     {
         return $this->data;
     }
