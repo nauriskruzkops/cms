@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
             <td>
                <strong><?= $this->escape($message->getSender())?></strong>
                 <br>
-                <span class="text-muted small">
+                <span class="text-muted small" style="white-space: nowrap">
                     <i class="fa fa-clock-o"></i> <?= $this->escape($message->getCreatedAt()->format('Y-m-d H:i:s'))?></span>
                 <br>
                 <span class="text-muted small">IP: <?= $this->escape($message->getIpAddress())?></span>
@@ -32,7 +32,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
             <td>
                 Topic: <?= $this->escape($message->getTopic())?>
                 <br>
-                <?= $this->escape($message->getMessage())?>
+                <?=  nl2br($this->escape($message->getMessage()))?>
             </td>
             <td class="text-right"> </td>
         </tr>
