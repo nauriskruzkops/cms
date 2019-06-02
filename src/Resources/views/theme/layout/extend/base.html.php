@@ -26,6 +26,7 @@ $assetVersion = '?'.substr(md5(date('YmdH')+2), 12); // Temp!
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <?= $view['settings']->value('google_analytics')?>
 </head>
 <body>
 
@@ -35,6 +36,6 @@ $assetVersion = '?'.substr(md5(date('YmdH')+2), 12); // Temp!
 
 <script src="<?= $view['assets']->getUrl('build/vendors~site.js').$assetVersion ?>"></script>
 <script src="<?= $view['assets']->getUrl('build/site.js').$assetVersion ?>"></script>
-
+<?= $view['settings']->value('footer_code')?>
 </body>
 </html>

@@ -79,7 +79,11 @@ $view->extend('AdminBundle::layout/layout.html.php');
                 <div class="col-8">
                     <div data-target="without-translation" style="<?= $isTranslatable ? 'display: none' : ''?>" >
                         <?= $formHelper->errors($formView['value']) ?>
-                        <?= $formHelper->widget($formView['value']) ?>
+                        <?php if ($data->getType() === Settings::TYPE_TEXT) :?>
+                            <textarea rows="8" type="text" id="settings_form_value" name="settings_form[value]" class="form-control"><?= $this->escape($data->getValue()) ?></textarea>
+                        <?php  else :?>
+                            <input type="text" id="settings_form_value" name="settings_form[value]" class="form-control" value="<?= $this->escape($data->getValue()) ?>">
+                        <?php  endif ;?>
                     </div>
                     <div data-target="translation" style="<?= !$isTranslatable ? 'display: none' : ''?>">
                         <?php foreach ($view['settings']->values('languages') as $langCode => $lang) :?>
