@@ -11,6 +11,11 @@ class TranslationRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('t');
         $qb->select('t.id, t.key, t.group');
+
+        $qb->where(
+            $qb->expr()->neq('t.group', ':group')
+        )->setParameter('group', 'settings');
+
         $qb->groupBy('t.key', 't.group');
         $qb->orderBy('t.key', 'DESC');
 

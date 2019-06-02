@@ -2,11 +2,13 @@
 
 namespace Admin\Service;
 
+use Admin\Entity\Translation;
 use Admin\Exception\Exception;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Admin\Entity\Settings;
 use Admin\Repository\SettingsRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 class SettingService
 {
@@ -18,6 +20,9 @@ class SettingService
 
     /** @var array */
     protected static $cache;
+
+    /** @var array */
+    protected static $translationCache;
 
     /**
      * SettingService constructor.
@@ -49,11 +54,18 @@ class SettingService
      * @param $key
      *
      * @param null $defaultValue
+     * @param null $locale
      * @return string
      */
-    public function value($key, $defaultValue = null)
+    public function value($key, $defaultValue = null, $locale = null)
     {
+        $translations = $this->getAllSettingsTranslation();
         if (($setting = $this->valueAsObject($key))) {
+            if ($locale) {
+                if (key_exists($key, $translations)) {
+                    return $translations[$key][$locale] ?? $setting->getValue();
+                }
+            }
             return $setting->getValue();
         }
 
@@ -116,5 +128,36 @@ class SettingService
                 )
             );
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function getAllSettingsTranslation()
+    {
+        if (!self::$translationCache) {
+            $qb = $this->em->createQueryBuilder();
+            $qb->select('t.key, t.locale, t.value')
+                ->from(Settings::class, 's')
+                ->join(Translation::class, 't', Join::WITH, 't.key = s.key')
+                ->where($qb->expr()->eq('s.translatable', ':translatable'))
+                ->andWhere($qb->expr()->eq('t.group', ':group'))
+                //
+                ->setParameter('translatable', true)
+                ->setParameter('group', 'settings')
+            ;
+
+            $query = $qb->getQuery();
+            $query->useQueryCache(true);
+            $query->useResultCache((1 * 60));
+            $results = $query->getArrayResult();
+            $translations = [];
+            foreach ($results as $result) {
+                $translations[$result['key']][$result['locale']] = $result['value'];
+            }
+            self::$translationCache = $translations;
+        }
+
+        return self::$translationCache;
     }
 }

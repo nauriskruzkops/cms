@@ -34,9 +34,12 @@ class TranslHelper extends Helper
      * @param string $group
      * @return string
      */
-    public function __invoke($key, $group = Translation::GROUP_SITE)
+    public function __invoke($key, $group = Translation::GROUP_SITE, $locale = null)
     {
-        return $this->trans($key, $group);
+        if (!$locale) {
+            $this->view['locale'];
+        }
+        return $this->trans($key, $group, $locale);
     }
 
     /**
@@ -53,12 +56,15 @@ class TranslHelper extends Helper
      * @param $group
      * @return string
      */
-    public function trans($key, $group)
+    public function trans($key, $group = null, $locale = null)
     {
         if (empty($group)) {
             $group = Translation::GROUP_SITE;
         }
-        return $this->translationService->getTranslation($key, $this->view['locale'], $group);
+        if (!$locale) {
+            $locale = $this->view['locale'];
+        }
+        return $this->translationService->getTranslation($key, $locale, $group);
     }
 
 }

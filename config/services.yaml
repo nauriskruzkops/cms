@@ -28,7 +28,7 @@ services:
 
     # HELPERS
     App\Helpers\:
-        resource: '../src/Helpers/*'
+        resource: '%kernel.project_dir%/src/Helpers/*'
     App\Helpers\MenuHelper:
         arguments: ['@templating.engine.php', '@App\Services\SettingService', '@doctrine.orm.entity_manager']
         tags:

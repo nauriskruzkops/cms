@@ -124,7 +124,9 @@ $mainMenuItems = $mainMenu['items'] ?? [];
         <div class="auto-container">
             <div class="row clearfix">
                 <div class="column col-md-6 col-sm-12 col-xs-12">
-                    <div class="small">Copyright &copy; Crocolab.lv / Vitbuve SIA  <?= date('Y')?>. All rights reserved. </div>
+                    <div class="small">
+                        <?= sprintf($view['transl']('Copyright_footer'), date('Y'))?>
+                    </div>
                 </div>
             </div>
         </div>

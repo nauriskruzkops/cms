@@ -2,11 +2,16 @@
 
 namespace Admin\Controller;
 
+use Admin\Entity\Translation;
 use Admin\Form\SettingsForm;
 use Admin\Entity\Settings;
 use Admin\Repository\SettingsRepository;
+use Admin\Service\TranslationService;
+use Exception;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SettingsController extends AbstractController
@@ -14,7 +19,7 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings", name="adm_settings")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -30,7 +35,7 @@ class SettingsController extends AbstractController
     /**
      * @param Request $request
      * @param $group
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function processList(Request $request, $group)
     {
@@ -47,8 +52,11 @@ class SettingsController extends AbstractController
 
     /**
      * @Route("/setting/{key}/change", name="adm_settings_change")
+     * @param Request $request
+     * @param TranslationService $translationService
+     * @return RedirectResponse|Response
      */
-    public function change(Request $request)
+    public function change(Request $request, TranslationService $translationService)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -72,22 +80,37 @@ class SettingsController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $em->persist($form->getData());
+                    $setting = $form->getData();
+                    $em->persist($setting);
                     $em->flush();
+
+                    if ($setting->getTranslatable()) {
+                        $data = $request->request->all();
+                        $translationService->changeTranslation(
+                            Translation::GROUP_SETTINGS,
+                            $setting->getKey(),
+                            $data['settings_form']['translation']
+                        );
+                    }
+
                     $this->addFlash('info', 'Cool, setting changed!');
 
                     if ($request->get('btn_save_exit', 1) === 1) {
-                        return $this->redirect($request->headers->get('referer'));
+                        return $this->redirectToRoute('adm_settings_change', ['group' => $setting->getGroup(), 'key' => $setting->getKey()]);
                     } else {
                         return $this->redirectToRoute('adm_settings', ['group' => $setting->getGroup()]);
                     }
 
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $this->addFlash('error', $e->getMessage());
+
                     return $this->redirectToRoute('adm_settings_change', ['key' => $setting->getKey()]);
                 }
             } else {
                 $formError = $form->getErrors();
+                $this->addFlash('error', $formError->current()->getMessage());
+
+                return $this->redirectToRoute('adm_settings_change', ['key' => $setting->getKey()]);
             }
         }
 

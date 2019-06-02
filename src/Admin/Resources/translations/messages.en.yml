@@ -70,4 +70,6 @@
 'Adm:Message': 'Message'
 'Adm:Nav:Translation': 'Translation'
 'Adm:Translation': 'Translation'
+'Adm:Translation:Key': 'Key'
+'Adm:Translation:Group': 'Group'
 

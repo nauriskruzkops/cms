@@ -91,7 +91,7 @@ class Inbox {
 
     /**
      * @var array
-     * @ORM\Column(type="array", length=255, nullable=true)
+     * @ORM\Column(type="json_array", length=255, nullable=true)
      */
     private $data = [];
 
@@ -100,7 +100,6 @@ class Inbox {
      */
     public function __construct()
     {
-        $this->data = [];
         $this->sent = false;
     }
 
@@ -331,7 +330,7 @@ class Inbox {
     /**
      * @return array
      */
-    public function getData(): ?string
+    public function getData()
     {
         return $this->data;
     }
@@ -339,7 +338,7 @@ class Inbox {
     /**
      * @param string $data
      */
-    public function setData(?array $data): void
+    public function setData($data): void
     {
         $this->data = $data;
     }

@@ -3,7 +3,9 @@
 namespace Admin\Service;
 
 use Admin\Entity\Translation;
+use Admin\Exception\TranslationException;
 use Admin\Repository\TranslationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Admin\Entity\Category;
@@ -79,15 +81,18 @@ class TranslationService
      * @param $key
      * @param $locale
      * @param $group
+     * @param null $value
      * @return Translation
+     * @throws TranslationException
      */
-    public function insertTranslation($key, $locale, $group)
+    public function insertTranslation($key, $locale, $group, $value = null)
     {
         try {
             $translation = new Translation();
             $translation->setKey($key);
             $translation->setLocale((string)$locale);
             $translation->setGroup($group);
+            $translation->setValue($value ?? $key);
 
             $this->em->persist($translation);
             $this->em->flush();
@@ -97,9 +102,48 @@ class TranslationService
                     [implode(':', [(string)$locale, $key])] = $key;
 
         } catch (\Exception $e) {
-            var_dump($e->getMessage());
+            throw new TranslationException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $translation;
     }
+
+    /**
+     * @param $group
+     * @param $key
+     * @param array $values
+     * @return bool
+     * @throws TranslationException
+     */
+    public function changeTranslation($group, $key, array $values)
+    {
+        try {
+            $translations = $this->em->getRepository(Translation::class)->findBy([
+                'key' => $key,
+                'group' => $group,
+            ]);
+            $translations = new ArrayCollection($translations);
+
+            foreach ($values as $locale => $value) {
+                /** @var Translation $translation */
+                $translation = $translations->filter(function (Translation $translation) use ($locale, $value) {
+                   return ($translation->getLocale() === $locale);
+                })->first();
+
+                if ($translation) {
+                    $translation->setValue($value);
+                    $this->em->merge($translation);
+                    $this->em->flush();
+                } else {
+                    $this->insertTranslation($key, $locale, $group, $value);
+                }
+            }
+
+        } catch (\Exception $e) {
+            throw new TranslationException($e->getMessage(), $e->getCode(), $e);
+        }
+
+        return true;
+    }
+
 }

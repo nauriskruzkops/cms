@@ -4,6 +4,7 @@ namespace Admin\Controller;
 
 use Admin\Entity\Translation;
 use Admin\Repository\TranslationRepository;
+use Admin\Service\TranslationService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,9 +31,11 @@ class TranslationController extends \Admin\Controller\AbstractController
     /**
      * @Route("/translation/{id}/edit", name="adm_translation_edit")
      * @param Request $request
+     * @param TranslationService $service
      * @return Response
+     * @throws \Admin\Exception\TranslationException
      */
-    public function edit(Request $request)
+    public function edit(Request $request, TranslationService $service)
     {
         $id = $request->get('id');
 
@@ -41,8 +44,17 @@ class TranslationController extends \Admin\Controller\AbstractController
 
         if ($request->isMethod('POST')) {
             $data = $request->request->all();
-            var_dump($data);
-            exit;
+            /** @var Translation $baseTranslation */
+            $baseTranslation = $this->getDoctrine()->getRepository(Translation::class)->find($data['translation_id']);
+            $service->changeTranslation(
+                $baseTranslation->getGroup(),
+                $baseTranslation->getKey(),
+                $data['translation']
+            );
+            return $this->redirectToRoute(
+                $request->get('btn_save_exit', 1) === 1 ? 'adm_translation_edit' :'adm_translation',
+                ['id' => $translation->getId()]
+            );
         }
 
         /** @var Translation[] $translations */

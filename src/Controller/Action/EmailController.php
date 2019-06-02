@@ -41,7 +41,7 @@ class EmailController extends \App\Controller\AbstractController
             if (isset($data['message'])) {
                 $message = $data['message'];
                 $message = trim(substr($message, 0, 255));
-                $inbox->setPhone($message);
+                $inbox->setMessage($message);
             }
 
             $inbox->setLocale($request->get('_locale'));

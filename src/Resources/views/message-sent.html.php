@@ -29,7 +29,16 @@ echo $view['theme']->render('layout/partial/page-header.html.php', [
             </div>
 
             <p><?= $view['transl']('Atbildēsim pēc iespējas ātrāk.')?></p>
-            <a href="javascript:history.back()" class="btn btn-xs btn-link"><?= $view['transl']('Uz sākumu.')?></a>
+            <div class="row">
+                <a href="<?=  $view['router']->path('index')?>" class="btn btn-link">
+                    <i class="fa fa-home"></i>
+                    <?= $view['transl']('Uz sākumu.')?>
+                </a>
+                <a href="javascript:history.back()" class="btn btn-link">
+                    <i class="fa fa-reply"></i>
+                    <?= $view['transl']('Atpakaļ')?>
+                </a>
+            </div>
         </div>
     </div>
 </section>

@@ -69,9 +69,10 @@ class SettingsForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
+            'allow_extra_fields' => true,
             'data_class' => Settings::class,
-        ));
+        ]);
     }
 }
 

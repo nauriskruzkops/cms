@@ -65,7 +65,7 @@ $view->extend('AdminBundle::layout/layout.html.php');
                     <div class="col-sm-10 offset-sm-2">
                         <input class="btn btn-success" type="submit" name="btn_save" value="<?= $view['translator']->trans('Adm:Save') ?>">
                         <button class="btn btn-success" name="btn_save_exit" type="submit"><?= $view['translator']->trans('Adm:SaveAndExit') ?></button>
-                        <a href="<?= $view['router']->path('adm_translation') ?>" class="btn btn-outline-success">Cancel</a>
+                        <a href="<?= $view['router']->path('adm_translation') ?>" class="btn btn-outline-success"><?= $view['translator']->trans('Adm:Back') ?></a>
                     </div>
                 </div>
 

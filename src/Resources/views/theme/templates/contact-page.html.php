@@ -1,56 +1,55 @@
-<section id="contact-form" class="message-section page-block">
-    <div class="container">
-        <div class="row clearfix">
-            <div class="form-column col-md-8 col-sm-12 col-xs-12">
+<?php
+
+use Admin\Entity\Page;
+use App\Helpers\PageHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+
+/**
+ * @var GlobalVariables $app
+ * @var PhpEngine $view
+ * @var Page $page
+ * @var PageHelper $pageHelper
+ */
+
+?>
+<section class="contact-section page-block">
+    <div class="auto-container">
+        <div class="clearfix">
+            <div class="form-column col-md-12 col-sm-12 col-xs-12">
+                <h3 class="inner-column"><strong><span style="color: #34495e;">Atstājiet mums ziņu.</span></strong></h3>
+                <h5 class="inner-column"><span style="color: #34495e;">Ja neizdodas sazināties ar kādu no mūsu darbiniekiem, atstājiet lūdzu ziņu, mēs atbildēsim.</span></h5>
+                <div class="inner-column">&nbsp;</div>
                 <div class="inner-column">
-                    <div class="default-form">
-                        <form method="post" action="blog.html">
-                            <div class="row clearfix">
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="firstname" value="" placeholder="Your name" required="">
-                                </div>
-
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="email" value="" placeholder="Your email address" required="">
-                                </div>
-
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="phone" value="" placeholder="Phone number" required="">
-                                </div>
-
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="subject" value="" placeholder="Subject" required="">
-                                </div>
-
+                    <div class="default-form contact-form">
+                        <form id="contact-form" action="<?= $view['router']->path('message_sent', ['_locale' => $view['locale']])?>" method="post">
+                            <span style="display: none;"><input name="form_src_1" type="text" value="IGYUGWDQDBIBNDW" /></span>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <input id="firstname" name="firstname" required="required" type="text" placeholder="* Jūsu vārds" data-msg="Ievadiet lūdzu Jūsu vārdu" />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <input name="email" type="email" placeholder="* Jūsu e-pasts" data-msg="Norādiet lūdzu e-pastu" />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <input name="phone" type="text" placeholder="* Kontakttālrunis" data-msg="Ievadiet lūdzu kontakttālruni" />
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                <input name="subject" type="text" placeholder="Temats" />
+                            </div>
+                            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                <textarea name="message" placeholder="Īss situācijas apraksts" data-msg="Īss situācijas apraksts"></textarea>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <textarea name="message" placeholder="Type your massage here..."></textarea>
+                                    <p class="small">* Lai mēs ar Jums varētu sazināties epastu vai tālruni jānorāda obligāti!</p>
+                                    <span style="color: #34495e;">
+                                        <button class="theme-btn btn-style-one" type="submit">Nosūtīt</button>
+                                    </span>
                                 </div>
-
-                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                    <button type="submit" class="theme-btn btn-style-one">Nosūtīt</button>
-                                </div>
+                                <span style="display: none;"><input name="form_src_2" type="text" value="" /></span>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
-            <div class="info-column col-md-4 col-sm-12 col-xs-12">
-                <div class="inner-column">
-                    <h2>SIA VITBŪVE</h2>
-                    <ul class="list-style-three">
-                        <li><span class="icon fa fa-map-marker"></span>"Amatnieki", Limbaži, <br>Limbažu nov., LV-4001</li>
-                        <li><span class="icon fa fa-phone"></span>+371 67288161 </li>
-                        <li><span class="icon fa fa-envelope"></span>info@vitbuve.lv</li>
-                    </ul>
-                    <h3>Offisa laiks</h3>
-                    <div class="times">
-                        Pi-Pk : 10.00 līdz 16.00 <br>
-                        Se-Sv : Atpūšamies
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
