@@ -34,11 +34,12 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                         <img src="/assets/images/logo-white.png" alt="<?= $this->escape($view['settings']->value('site_title')) ?>">
                                     </a>
                                 </div>
-                                <div class="text"><?= $this->escape($view['settings']->value('site_description')) ?></div>
+                                <div class="text">
+                                    <?= $this->escape($view['settings']->value('site_description')) ?>
+                                </div>
                             </div>
                         </div>
                         <?php if (($footerMenu1 = $menuHelper->getMenu('FOOTER_MENU_1'))) :?>
-
                             <div class="footer-column col-md-5 col-sm-6 col-xs-12">
                                 <div class="footer-widget links-widget">
                                     <h2><?= $this->escape($footerMenu1->getTitle())?></h2>

@@ -61,6 +61,11 @@
 		top: 20%;
 	}
 
+	.slider-banner-section .content h2 {
+		font-size: 40px;
+		line-height: 1.1em;
+	}
+
 	.video-section{
 		margin-top:0px;
 		padding-top:100px;

@@ -38,33 +38,6 @@
 	color: #0b0b0b;
 }
 
-/* MAIN MENU */
-
-.main-menu {
-
-}
-
-/* SLIDER */
-.slider-banner-section {
-	padding: 0;
-	clear: both;
-}
-
-.slider-banner-section .slider-image {
-	background-repeat: no-repeat;
-	width: 100%;
-	height: auto;
-	position: relative;
-	background-size: cover;
-	background-position: center top;
-}
-
-.slider-banner-section .auto-container {
-	display: inherit;
-	position: absolute; left: 50%; transform: translateX(-50%);
-	top: 40%;
-}
-
 /* SECTION */
 section.page-block{
 	padding-top: 30px !important;
