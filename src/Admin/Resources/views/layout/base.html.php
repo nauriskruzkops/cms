@@ -10,6 +10,8 @@
     <meta name="googlebot" content="noindex">
     <title>Crocolab CMS (Content Managament System)</title>
     <link href="<?= $view['assets']->getUrl('build-admin/admin.css') ?>" rel="stylesheet">
+    <script src="<?= $view['assets']->getUrl('build-admin/vendors~admin.js') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('build-admin/admin.js') ?>"></script>
 </head>
 <body class="fixed-nav">
     <div id="wrapper">
@@ -32,8 +34,6 @@
             </div>
         <?php endforeach ?>
     </div>
-    <script src="<?= $view['assets']->getUrl('build-admin/vendors~admin.js') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('build-admin/admin.js') ?>"></script>
 </body>
 </html>
 
