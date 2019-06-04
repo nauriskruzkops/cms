@@ -3,6 +3,7 @@
 namespace Admin\Controller;
 
 use Admin\Entity\Translation;
+use Admin\Entity\User;
 use Admin\Form\SettingsForm;
 use Admin\Entity\Settings;
 use Admin\Repository\SettingsRepository;
@@ -58,6 +59,8 @@ class SettingsController extends AbstractController
      */
     public function change(Request $request, TranslationService $translationService)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var SettingsRepository $postRepo */

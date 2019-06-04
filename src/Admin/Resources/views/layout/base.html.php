@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Content Managament System">
     <meta name="author" content="nauris.kruzkops@gmail.com">
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
     <title>Crocolab CMS (Content Managament System)</title>
     <link href="<?= $view['assets']->getUrl('build-admin/admin.css') ?>" rel="stylesheet">
-    <script src="<?= $view['assets']->getUrl('build-admin/vendors~admin.js') ?>"></script>
-    <script src="<?= $view['assets']->getUrl('build-admin/admin.js') ?>"></script>
 </head>
 <body class="fixed-nav">
     <div id="wrapper">
@@ -32,6 +32,8 @@
             </div>
         <?php endforeach ?>
     </div>
+    <script src="<?= $view['assets']->getUrl('build-admin/vendors~admin.js') ?>"></script>
+    <script src="<?= $view['assets']->getUrl('build-admin/admin.js') ?>"></script>
 </body>
 </html>
 

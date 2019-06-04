@@ -3,6 +3,7 @@
 namespace Admin\Controller;
 
 use Admin\Entity\Translation;
+use Admin\Entity\User;
 use Admin\Repository\TranslationRepository;
 use Admin\Service\TranslationService;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -43,6 +44,8 @@ class TranslationController extends \Admin\Controller\AbstractController
         $translation = $this->getDoctrine()->getManager()->getRepository(Translation::class)->find($id);
 
         if ($request->isMethod('POST')) {
+            $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
             $data = $request->request->all();
             /** @var Translation $baseTranslation */
             $baseTranslation = $this->getDoctrine()->getRepository(Translation::class)->find($data['translation_id']);

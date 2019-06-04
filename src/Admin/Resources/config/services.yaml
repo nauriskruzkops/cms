@@ -30,6 +30,13 @@ services:
     Admin\Service\TranslationService:
         arguments: ['@doctrine.orm.entity_manager']
 
+    # ADMIN Security
+    Admin\Security\:
+        resource: '%kernel.project_dir%/src/Admin/Security/*'
+
+    Admin\Security\AccessDeniedHandler:
+        arguments: ['@templating.engine.php']
+
     # ADMIN FORMS
     Admin\Form\:
         resource: '%kernel.project_dir%/src/Admin/Form/*'

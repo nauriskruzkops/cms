@@ -2,12 +2,12 @@
 
 namespace Admin\Controller;
 
-use Admin\Exception\Exception;
 use Admin\Form\UserForm;
 use Admin\Service\UserManageService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Admin\Entity\User;
 use Admin\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,11 +23,7 @@ class UsersController extends AbstractController
      */
     public function index(Request $request)
     {
-//        try {
-//            $this->denyAccessUnlessGranted(User::ROLE_ADMIN);
-//        } catch (AccessDeniedException $e) {
-//            return $this->denyAccess($e);
-//        }
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
 
         $locale = $request->query->get('locale', $this->settings()->value('language'));
 
@@ -118,6 +114,8 @@ class UsersController extends AbstractController
                     if ($isProfile) { // Workround
                         $user->setRoles($oldUserData->getRoles());
                         $user->setActive($oldUserData->isActive());
+                    } else {
+                        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
                     }
                     $service->saveUserData($form);
                     $this->addFlash('info', 'Cool, user saved!');
