@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Cms;
 
+use Admin\Entity\User;
 use Admin\Form\PostForm;
 use Admin\Service\PostManageService;
 use Admin\Entity\Post;
@@ -53,6 +54,8 @@ class PostsController extends \Admin\Controller\AbstractController
      */
     public function add(Request $request, PostManageService $postManageService)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $post = new Post();
 
         return $this->processForm($request, $post, 'adm_post_add', $postManageService);
@@ -66,6 +69,8 @@ class PostsController extends \Admin\Controller\AbstractController
      */
     public function edit(Request $request, PostManageService $postManageService)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var PostRepository $postRepo */
@@ -84,6 +89,8 @@ class PostsController extends \Admin\Controller\AbstractController
      */
     public function delete(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var PostRepository $postRepo */
@@ -120,6 +127,8 @@ class PostsController extends \Admin\Controller\AbstractController
         $formError = false;
 
         if ($form->isSubmitted()) {
+            $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
             if ($form->isValid()) {
                 try {
                     $post = $postManageService->savePost($form, $request);

@@ -51,6 +51,8 @@ class MenuController extends \Admin\Controller\AbstractController
      */
     public function add(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $menu = new Menu();
 
         return $this->processForm($request, $menu, 'adm_menu_add');
@@ -65,6 +67,8 @@ class MenuController extends \Admin\Controller\AbstractController
      */
     public function edit(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var MenuRepository $menuRepo */
@@ -129,6 +133,7 @@ class MenuController extends \Admin\Controller\AbstractController
         $formError = false;
 
         if ($form->isSubmitted()) {
+            $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
             if ($form->isValid()) {
                 try {
                     $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
@@ -175,7 +180,7 @@ class MenuController extends \Admin\Controller\AbstractController
         foreach ($pages as $page) {
             $pageSiteMap[] = [
                 'title' => $page->getTitle(),
-                'value' => '/'.(($page->getSlug() !== 'index') ? $page->getSlug() : ''),
+                'value' => '/'.$page->getFullSlug(),
             ];
         }
 

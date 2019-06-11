@@ -58,3 +58,18 @@
 'Adm:Style': Style
 'Adm:Select': Select
 'Adm:UnselectAll': 'Unselect All'
+'Adm:Product': Product
+'Adm:Products': Products
+'Adm:Nav:Products': Products
+'Adm:Nav:ProductsList': Products
+'Adm:Slider': Slider
+'Adm:Inbox': Inbox
+'Adm:Nav:Inbox': Inbox
+'Adm:Sender': Sender
+'Adm:Email/Phone': 'Email/Phone'
+'Adm:Message': 'Message'
+'Adm:Nav:Translation': 'Translation'
+'Adm:Translation': 'Translation'
+'Adm:Translation:Key': 'Key'
+'Adm:Translation:Group': 'Group'
+

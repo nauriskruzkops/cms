@@ -143,6 +143,22 @@ class Page {
     }
 
     /**
+     * @return string
+     */
+    public function getFullSlug()
+    {
+        $slug[] = $this->getLocale();
+        if ($this->getParent()) {
+            $parentSlug = $this->getParent()->getSlug();
+            if ($parentSlug !== 'index') {
+                $slug[] = $this->getParent()->getSlug();
+            }
+        }
+        $slug[] = $this->getSlug();
+        return implode('/', $slug);
+    }
+
+    /**
      * @param string $slug
      * @return Page
      */

@@ -2,11 +2,17 @@
 
 namespace Admin\Controller;
 
+use Admin\Entity\Translation;
+use Admin\Entity\User;
 use Admin\Form\SettingsForm;
 use Admin\Entity\Settings;
 use Admin\Repository\SettingsRepository;
+use Admin\Service\TranslationService;
+use Exception;
 use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SettingsController extends AbstractController
@@ -14,7 +20,7 @@ class SettingsController extends AbstractController
     /**
      * @Route("/settings", name="adm_settings")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -30,7 +36,7 @@ class SettingsController extends AbstractController
     /**
      * @param Request $request
      * @param $group
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function processList(Request $request, $group)
     {
@@ -47,9 +53,14 @@ class SettingsController extends AbstractController
 
     /**
      * @Route("/setting/{key}/change", name="adm_settings_change")
+     * @param Request $request
+     * @param TranslationService $translationService
+     * @return RedirectResponse|Response
      */
-    public function change(Request $request)
+    public function change(Request $request, TranslationService $translationService)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         /** @var SettingsRepository $postRepo */
@@ -57,6 +68,7 @@ class SettingsController extends AbstractController
 
         /** @var Settings[] */
         $settings = $postRepo->findBy(['key' =>$request->get('key')]);
+        /** @var Settings $setting */
         $setting = reset($settings);
 
         /** @var Form $form */
@@ -71,18 +83,37 @@ class SettingsController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 try {
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($form->getData());
+                    $setting = $form->getData();
+                    $em->persist($setting);
                     $em->flush();
 
+                    if ($setting->getTranslatable()) {
+                        $data = $request->request->all();
+                        $translationService->changeTranslation(
+                            Translation::GROUP_SETTINGS,
+                            $setting->getKey(),
+                            $data['settings_form']['translation']
+                        );
+                    }
+
                     $this->addFlash('info', 'Cool, setting changed!');
-                    return $this->redirectToRoute('adm_settings');
-                } catch (\Exception $e) {
+
+                    if ($request->get('btn_save_exit', 1) === 1) {
+                        return $this->redirectToRoute('adm_settings_change', ['group' => $setting->getGroup(), 'key' => $setting->getKey()]);
+                    } else {
+                        return $this->redirectToRoute('adm_settings', ['group' => $setting->getGroup()]);
+                    }
+
+                } catch (Exception $e) {
                     $this->addFlash('error', $e->getMessage());
+
                     return $this->redirectToRoute('adm_settings_change', ['key' => $setting->getKey()]);
                 }
             } else {
                 $formError = $form->getErrors();
+                $this->addFlash('error', $formError->current()->getMessage());
+
+                return $this->redirectToRoute('adm_settings_change', ['key' => $setting->getKey()]);
             }
         }
 

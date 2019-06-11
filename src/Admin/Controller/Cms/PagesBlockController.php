@@ -36,7 +36,7 @@ class PagesBlockController extends \Admin\Controller\AbstractController
             $block->setType($type);
             $entity->addBlocks($block);
 
-            if ($type == PageBlocks::TYPE_POST) {
+            if ( in_array($type, [PageBlocks::TYPE_POST, PageBlocks::TYPE_SLIDER])) {
                 $post = new Post();
                 $post->setIsPartOf(true);
                 $block->setPost($post);

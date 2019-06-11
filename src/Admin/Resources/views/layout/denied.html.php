@@ -23,5 +23,7 @@ $view->extend('AdminBundle::layout/base.html.php');
     <h1>Access Denied</h1>
     <p>You don`t hava a permission for this action</p>
     <i><?= $exception ? $exception->getMessage() : ''?></i>
+    <p></p>
+    <p><a href="javascript:history.back()" class="text-danger">GO Back!</a></p>
     <hr class="featurette-divider">
 </div>

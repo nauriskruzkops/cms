@@ -22,6 +22,7 @@ class PageRepository extends NestedTreeRepository
 
     /**
      * @param $locale
+     * @param int $hydration
      * @return mixed
      */
     public function getNested($locale)
@@ -41,6 +42,20 @@ class PageRepository extends NestedTreeRepository
     public function getNestedArray($locale)
     {
         return $this->buildTreeArray($this->getNested($locale));
+    }
+
+    /**
+     * @param $locale
+     * @return array
+     */
+    public function getNestedObject($locale)
+    {
+        $qb = $this->getNestedQueryBuilder();
+        $qb->where('p.locale = :locale')
+            ->setParameter('locale', $locale);
+        $result = $qb->getQuery()->getResult();
+
+        return $this->buildTree($result);
     }
 
     public function findAll()

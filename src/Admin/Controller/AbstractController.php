@@ -29,15 +29,6 @@ abstract class AbstractController extends AbstractSymfonyController
         return $prent;
     }
 
-    /**
-     * @param AccessDeniedException|\Exception $e
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function denyAccess(\Exception $e)
-    {
-        return $this->render('AdminBundle::layout/denied.html.php', ['exception' => $e]);
-    }
 
     public function denyAccessUnlessGranted($attributes, $subject = null, string $message = 'Access Denied.')
     {

@@ -24,7 +24,7 @@ class MenuItemRelationForm extends AbstractType
 
     /**
      * MenuItemRelationForm constructor.
-     * @param EntityManager $em
+     * @param EntityManagerInterface $em
      */
     public function __construct(EntityManagerInterface $em)
     {
@@ -55,23 +55,7 @@ class MenuItemRelationForm extends AbstractType
             ->add('objectId', HiddenType::class, [
                 'required' => false,
             ])
-            ->add('object', EntityType::class, [
-                'mapped' => false,
-                'required' => false,
-                'class' => $this->getClassByType($type),
-                'query_builder' => function (EntityRepository $repo) {
-                    return $repo->createQueryBuilder('f');
-                },
-                'label' => 'Relation',
-                'choice_label' => 'title',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Relation type',
-                ],
-                'by_reference' => true,
-                'expanded'  => false,
-                'multiple'  => false,
-            ])
+            // ->add('object', EntityType::class, []) - add dynamically
 
             ->addEventSubscriber(new MenuItemRelationFormListener($this->em))
         ;

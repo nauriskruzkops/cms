@@ -18,11 +18,13 @@ class PageBlocks {
     const TYPE_POST = 'post';
     const TYPE_LIST = 'list';
     const TYPE_IMAGES = 'images';
+    const TYPE_SLIDER = 'slider';
 
     const TYPES = [
       self::TYPE_POST,
       self::TYPE_LIST,
       self::TYPE_IMAGES,
+      self::TYPE_SLIDER,
     ];
 
     /**
@@ -136,7 +138,7 @@ class PageBlocks {
     }
 
     /**
-     * @return mixed
+     * @return Page
      */
     public function getPage()
     {

@@ -12,14 +12,14 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  */
 
 ?>
-<table class="table">
+<table class="table table-hover">
     <thead>
     <tr>
         <th class="col-auto">#</th>
         <th scope="col"><?= $view['translator']->trans('Adm:Title') ?></th>
         <th scope="col"><?= $view['translator']->trans('Adm:Template') ?></th>
         <th scope="col"><?= $view['translator']->trans('Adm:Enabled') ?></th>
-        <th class="col-auto" class="col-auto text-right" colspan="2" style="width: 1%">
+        <th class="col-auto text-right" colspan="2" style="width: 1%">
             <div class="btn-group" role="group">
                 <div class="btn-group" role="group">
                     <button id="btnGroupAddNew" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,7 +41,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
     </thead>
     <?php
     $html = '';
-    function nestedTreeRow($pages, &$html='', $view) // added pass by reference
+    function nestedTreeRow($pages, &$html='', $view, $countChildren = 0) // added pass by reference
     {
         foreach($pages as $key => $node)
         {
@@ -51,18 +51,40 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
                     '<td>'.str_repeat('-- ', $node['level']).'<a href="'.$view['router']->path('adm_page_edit', ['id' => $node['id']]).'">'.$node['title'].'</a></td>'.
                     '<td>'.ucfirst($node['template']).'</td>'.
                     '<td>'.($node['public'] ? $view['translator']->trans('Adm:Yes') : $view['translator']->trans('Adm:No')).'</td>'.
-                    '<td style="white-space: nowrap">
-                        <a class="btn btn-sm btn-default btn-outline-primary mt-1 mr-2" href="'.$view['router']->path('adm_page_edit', ['id' => $node['id']]).'">'.$view['translator']->trans('Adm:edit').'</a>
-                        <a class="btn btn-sm btn-outline-success mt-1" href="'.$view['router']->path('adm_page_move', ['id' => $node['id'], 'direction' => 'up']).'" title="'.$view['translator']->trans('Adm:MoveUp').'">
-                            <i class="fa fa-icon-2x fa-arrow-up small"></i>
-                        </a>
-                        <a class="btn btn-sm btn-outline-success mt-1" href="'.$view['router']->path('adm_page_move', ['id' => $node['id'], 'direction' => 'down']).'" title="'.$view['translator']->trans('Adm:MoveDown').'">
-                            <i class="fa fa-icon-2x fa-arrow-down small"></i>
-                        </a>
+                    '<td style="white-space: nowrap">'.
+                        '<a class="btn btn-sm btn-default btn-outline-primary mt-1 mr-2" href="'.$view['router']->path('adm_page_edit', ['id' => $node['id']]).'">'.$view['translator']->trans('Adm:edit').'</a>';
+                        if ((int)$node['level']) {
+                            if ((int)$key) {
+                                $html .= '
+                                    <a class="btn btn-sm btn-outline-success mt-1" href="' . $view['router']->path('adm_page_move',
+                                                [
+                                                    'id' => $node['id'],
+                                                    'direction' => 'up'
+                                                ]) . '" title="' . $view['translator']->trans('Adm:MoveUp') . '">
+                                        <i class="fa fa-icon-2x fa-arrow-up small"></i>
+                                    </a>';
+                            } else {
+                                $html .= '<a class="btn btn-link"> </a>';
+                            }
+                            if (((int)$key+1) == $countChildren) {
+                                $html .= '<a class="btn btn-link"> </a>';
+                            } else {
+                                $html .= '
+                                    <a class="btn btn-sm btn-outline-success mt-1" href="' . $view['router']->path('adm_page_move',
+                                        [
+                                            'id' => $node['id'],
+                                            'direction' => 'down'
+                                        ]) . '" title="' . $view['translator']->trans('Adm:MoveDown') . '">
+                                        <i class="fa fa-icon-2x fa-arrow-down small"></i>
+                                    </a>
+                                ';
+                            }
+                        }
+                        $html .= '
                      </td>'.
                 '</tr>';
             if ($node['__children'] ?? false) {
-                nestedTreeRow($node['__children'], $html, $view);
+                nestedTreeRow($node['__children'], $html, $view, count($node['__children']));
             }
         }
         return $html;

@@ -56,6 +56,44 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link nav-link-collapse" href="#" type="button" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false">
+                <i class="fa fa-fw fa-hdd-o"></i>
+                <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Products') ?></span>
+                <i class="float-right fa fa-fw fa-angle-down"></i>
+            </a>
+            <div class="navbar-collapse collapse" id="collapseProducts">
+                <ul class="navbar-collapse collapse">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $view['router']->path('adm_products') ?>">
+                            <i class="fa fa-fw fa-product-hunt"></i>
+                            <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:ProductsList') ?></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $view['router']->path('adm_inbox') ?>">
+                <i class="fa fa-fw fa-envelope-o"></i>
+                <span class="nav-link-text">
+                    <?= $view['translator']->trans('Adm:Nav:Inbox') ?>
+                </span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= $view['router']->path('adm_translation') ?>">
+                <i class="fa fa-fw fa-book"></i>
+                <span class="nav-link-text">
+                    <?= $view['translator']->trans('Adm:Nav:Translation') ?>
+                </span>
+            </a>
+        </li>
+
+
+
+        <li class="nav-item">
             <a class="nav-link nav-link-collapse" href="#" type="button" data-toggle="collapse" data-target="#collapseSettings" aria-expanded="false">
                 <i class="fa fa-fw fa-gears"></i>
                 <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Settings') ?></span>
@@ -73,6 +111,12 @@
                         <a class="nav-link" href="<?= $view['router']->path('adm_settings', ['group'=>'Site']) ?>">
                             <i class="fa fa-fw fa-gear"></i>
                             <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Site') ?></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= $view['router']->path('adm_settings', ['group'=>'products']) ?>">
+                            <i class="fa fa-fw fa-gear"></i>
+                            <span class="nav-link-text"><?= $view['translator']->trans('Adm:Nav:Products') ?></span>
                         </a>
                     </li>
                     <li class="nav-item">

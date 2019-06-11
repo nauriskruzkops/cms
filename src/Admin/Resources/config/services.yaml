@@ -27,6 +27,16 @@ services:
     Admin\Service\FileUploader:
         arguments: ['%upload_directory%', '@Admin\Service\StorageService']
 
+    Admin\Service\TranslationService:
+        arguments: ['@doctrine.orm.entity_manager']
+
+    # ADMIN Security
+    Admin\Security\:
+        resource: '%kernel.project_dir%/src/Admin/Security/*'
+
+    Admin\Security\AccessDeniedHandler:
+        arguments: ['@templating.engine.php']
+
     # ADMIN FORMS
     Admin\Form\:
         resource: '%kernel.project_dir%/src/Admin/Form/*'
@@ -55,3 +65,5 @@ services:
         arguments: ['@templating.engine.php', '@Admin\Service\SettingService', '@Admin\Service\CategoryService']
         tags:
             - { name: templating.helper, alias: category }
+
+

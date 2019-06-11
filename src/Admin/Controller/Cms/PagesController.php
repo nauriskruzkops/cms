@@ -5,8 +5,6 @@ namespace Admin\Controller\Cms;
 use Admin\Form\PageForm;
 use Admin\Service\PageManageService;
 use Admin\Entity\Page;
-use Admin\Entity\PageBlocks;
-use Admin\Entity\Post;
 use Admin\Entity\User;
 use Admin\Repository\PageRepository;
 use Symfony\Component\Form\Form;
@@ -117,6 +115,8 @@ class PagesController extends \Admin\Controller\AbstractController
      */
     public function move(Request $request)
     {
+        $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
+
         $em = $this->getDoctrine()->getManager();
 
         $id = $request->get('id');
@@ -125,8 +125,8 @@ class PagesController extends \Admin\Controller\AbstractController
         $repository = $em->getRepository(Page::class);
         $entity = $repository->find($id);
 
-        //$verify = $pageRepo->verify();
-        //$pageRepo->recover();
+        $repository->verify();
+        $repository->recover();
 
         if ($request->get('direction') == 'up') {
             $repository->moveUp($entity, 1);
@@ -184,9 +184,9 @@ class PagesController extends \Admin\Controller\AbstractController
         $formError = false;
 
         if ($form->isSubmitted()) {
+            $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
             if ($form->isValid()) {
                 try {
-                    $this->denyAccessUnlessGranted(User::ROLE_MANAGER);
                     $service->savePage($form, $request);
                     $this->addFlash('info', 'Cool, page saved!');
 
