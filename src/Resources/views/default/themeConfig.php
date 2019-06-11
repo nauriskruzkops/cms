@@ -14,6 +14,8 @@ return [
 
     # Templates
     'page_templates_all' => [],
+
+    # Templates by type
     'page_templates_type' => [
         'landing' => [],
         'text' => [],

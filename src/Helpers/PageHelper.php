@@ -36,7 +36,7 @@ class PageHelper extends Helper
     }
 
     /**
-     * @param null $locale
+     * @param Page|null $page
      * @return $this
      */
     public function __invoke(Page $page = null)
@@ -56,6 +56,9 @@ class PageHelper extends Helper
     {
         if (!$page instanceof Page) {
             $page = $this->page;
+            if (!$page) {
+                return false;
+            }
         }
 
         return ($page->getSetting('SHOW_PAGE_HEADER', true));
@@ -76,43 +79,73 @@ class PageHelper extends Helper
 
     /**
      * @param null $page
+     * @return string
+     * @throws \Admin\Exception\PageSettingsException
+     */
+    public function headerStyle($page = null)
+    {
+        if ($page !== null) {
+            $page = $this->page;
+        }
+
+        $style = 'header-style-one';
+        $pageStyle = $page->getSetting('PAGE_STYLE');
+        if ($pageStyle == 'light') {
+            $style = 'header-style-two';
+        }
+        $this->view['slots']->set('headerStyle', $style);
+
+        return $style;
+    }
+
+    /**
+     * @param null $page
      * @param bool $withStyle
      * @return string
      * @throws \Admin\Exception\PageSettingsException
      */
     public function headerBackground($page = null, $withStyle = true)
     {
+        $backgroundColor = $this->settingService->value('page_header_bg_color');
+
         if ($page !== null) {
             $page = $this->page;
         }
 
         $style = [];
-        $backgroundImg = $page->getSetting('HEADER_BACKGROUND_IMG');
-        if ($backgroundImg) {
-            if (!$withStyle) {
-                return $this->view['assets']->getUrl($backgroundImg, 'upload');
+
+        if ($page) {
+            $backgroundImg = $page->getSetting('HEADER_BACKGROUND_IMG');
+            if ($backgroundImg) {
+                if (!$withStyle) {
+                    return $this->view['assets']->getUrl($backgroundImg, 'upload');
+                }
+                $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
+            } else {
+                if (!$withStyle) {
+                    return '';
+                }
             }
-            $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
+
+            $style[] = 'background-position: center center';
+            //$style[] = 'background-attachment:fixed';
+
+            $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
+            $style[] = sprintf('background-color:%s', $backgroundColor);
         } else {
-            if (!$withStyle) {
-                return '';
-            }
+            $style[] = sprintf('background-color:%s', $backgroundColor);
         }
 
-        $style[] = 'background-position: center center';
-        //$style[] = 'background-attachment:fixed';
-
-        $backgroundColor = $page->getSetting('HEADER_BACKGROUND_COLOR', '#cccccc');
-        $style[] = sprintf('background-color:%s', $backgroundColor);
 
         return implode(';', $style);
     }
 
     /**
      * @param PageBlocks $block
+     * @param bool $justFile
      * @return string
      */
-    public function blockBackground(PageBlocks $block)
+    public function blockBackground(PageBlocks $block, $justFile = false)
     {
         $blockConfig = is_array($block->getConfig()) ? ($block->getConfig()[0] ?? []) : [];
         if ($blockConfig['bg_transparent'] ?? true) {
@@ -121,6 +154,9 @@ class PageHelper extends Helper
         $style = [];
         $backgroundImg = $blockConfig['bg_image'] ?? null;
         if ($backgroundImg) {
+            if ($justFile) {
+                return $this->view['assets']->getUrl($backgroundImg, 'upload');
+            }
             $style[] = sprintf('background-image:url(%s)', $this->view['assets']->getUrl($backgroundImg, 'upload'));
             $style[] = 'background-position: center center';
             $style[] = 'background-attachment:fixed';
@@ -133,6 +169,29 @@ class PageHelper extends Helper
 
         return implode(';', $style);
     }
+
+    /**
+     * @param PageBlocks $block
+     * @param bool $justFile
+     * @return string
+     */
+    public function blockBackgroundColor(PageBlocks $block, $justColor = false)
+    {
+        $blockConfig = is_array($block->getConfig()) ? ($block->getConfig()[0] ?? []) : [];
+        if ($blockConfig['bg_transparent'] ?? true) {
+            return '';
+        }
+
+        $backgroundColor = $blockConfig['bg_color'] ?? null;
+        if ($backgroundColor) {
+            if ($justColor) {
+                return $backgroundColor;
+            }
+            return sprintf('background-color:%s', $backgroundColor);
+        }
+    }
+
+
 
     /**
      * Returns the canonical name of this helper.

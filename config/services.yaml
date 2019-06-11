@@ -11,10 +11,6 @@ services:
         resource: '../src/*'
         exclude: '../src/{Admin,Resources,Shared,AdminKernel.php,SiteKernel.php}'
 
-    # CONTROLLER
-    App\Controller\IndexController:
-        tags: ['controller.service_arguments']
-
     # ROUTER
     App\Routing\SiteRoutes:
         public: true
@@ -32,7 +28,7 @@ services:
 
     # HELPERS
     App\Helpers\:
-        resource: '../src/Helpers/*'
+        resource: '%kernel.project_dir%/src/Helpers/*'
     App\Helpers\MenuHelper:
         arguments: ['@templating.engine.php', '@App\Services\SettingService', '@doctrine.orm.entity_manager']
         tags:
@@ -61,3 +57,7 @@ services:
         arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
             - { name: templating.helper, alias: settings }
+    App\Helpers\TranslHelper:
+        arguments: ['@templating.engine.php', '@Admin\Service\TranslationService']
+        tags:
+            - { name: templating.helper, alias: transl }

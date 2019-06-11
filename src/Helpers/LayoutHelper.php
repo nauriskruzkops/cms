@@ -65,6 +65,23 @@ class LayoutHelper extends Helper
     }
 
     /**
+     * @return mixed
+     * @throws \Admin\Exception\PageSettingsException
+     */
+    public function logo()
+    {
+        $logo = 'logo-white.png';
+        if ($this->page) {
+            $pageStyle = $this->page->getSetting('PAGE_STYLE');
+            if ($pageStyle === 'light') {
+                $logo = 'logo-black.png';
+            }
+        }
+
+        return $this->view['assets']->getUrl($logo, 'images');
+    }
+
+    /**
      * Returns the canonical name of this helper.
      *
      * @return string The canonical name

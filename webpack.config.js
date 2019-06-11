@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // Public site
 Encore
@@ -8,6 +9,10 @@ Encore
     //.enableSingleRuntimeChunk()
     .disableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
+    // .configureFilenames({
+    //     css: 'css/[name]-[contenthash].css',
+    //     js: 'js/[name]-[chunkhash].js'
+    // })
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
@@ -18,7 +23,7 @@ Encore
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
     })
-    .addEntry('site', './src/Resources/views/default/public/js/main.js')
+    .addEntry('site', './src/Resources/views/theme/assets/main.js')
 ;
 const siteConfig = Encore.getWebpackConfig();
 siteConfig.name = 'site';
@@ -56,7 +61,7 @@ Encore
     .splitEntryChunks()
     //.enableSingleRuntimeChunk()
     .disableSingleRuntimeChunk()
-    .cleanupOutputBeforeBuild()
+    //.cleanupOutputBeforeBuild()
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
@@ -83,5 +88,34 @@ module.rules = [{
     use: ['style-loader', 'css-loader']
 }];
 
-module.exports = [adminConfig, siteConfig, editorConfig];
+module.exports = [adminConfig, siteConfig, editorConfig
+    // {
+    //     plugins: [
+    //         new MiniCssExtractPlugin({
+    //             // Options similar to the same options in webpackOptions.output
+    //             // both options are optional
+    //             filename: "[name].css",
+    //             chunkFilename: "[id].css"
+    //         })
+    //     ],
+    //     module: {
+    //         rules: [
+    //             {
+    //                 test: /\.css$/,
+    //                 use: [
+    //                     {
+    //                         loader: MiniCssExtractPlugin.loader,
+    //                         options: {
+    //                             // you can specify a publicPath here
+    //                             // by default it use publicPath in webpackOptions.output
+    //                             publicPath: '../'
+    //                         }
+    //                     },
+    //                     "css-loader"
+    //                 ]
+    //             }
+    //         ]
+    //     }
+    // }
+];
 

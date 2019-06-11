@@ -56,7 +56,7 @@ class SiteKernel extends BaseKernel
         $confDir = $this->getProjectDir().'/config';
 
         $routes->import($this->getProjectDir().'/src/Admin/Resources/config/routing/*'.self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir.'/{routes}/{dev}/*'.self::CONFIG_EXTS, '/', 'glob');
+        $routes->import($confDir.'/{routes}/'.$this->environment.'/*'.self::CONFIG_EXTS, '/', 'glob');
 
         $routes->import($confDir.'/{routes}/site'.self::CONFIG_EXTS, '/', 'glob');
     }

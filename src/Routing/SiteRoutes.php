@@ -40,7 +40,6 @@ class SiteRoutes
 
     /**
      * @return RouteCollection
-     * @throws \Doctrine\ORM\ORMException
      */
     public function loadRoutes()
     {
@@ -62,17 +61,31 @@ class SiteRoutes
 
         $routes->add('index', $route);
 
-        $menuItems = $this->getSiteMap();
-        foreach ($menuItems as $item) {
-            if ($item['slug'] ?? false) {
-                list($routeKey, $route) = $this->createRoute($item);
-                if (!$routes->get($routeKey)) {
-                    if (!empty(trim($routeKey, '/'))) {
-                        $routes->add($routeKey, $route);
+        foreach ($languages as $language) {
+            $menuItems = $this->getSiteMap($language);
+            foreach ($menuItems as $item) {
+                if ($item['slug'] ?? false) {
+                    list($routeKey, $route) = $this->createRoute($item);
+                    if (!$routes->get($routeKey)) {
+                        if (!empty(trim($routeKey, '/'))) {
+                            $routes->add($routeKey, $route);
+                        }
                     }
                 }
             }
         }
+
+        $defaults = array(
+            'slug' => '*',
+            'type' => SiteRoutes::TYPE_PAGE,
+            '_controller' => PageController::class,
+            '_locale' => $default_locale,
+        );
+        $route = new Route('/{_locale}/{slug}', $defaults, [
+            '_locale' => implode('|', $languages),
+            'slug' => ".+"
+        ]);
+        $routes->add('any_page', $route);
 
         return $routes;
     }
@@ -80,16 +93,15 @@ class SiteRoutes
     /**
      * @param array $item
      * @return array
-     * @throws \Doctrine\ORM\ORMException
      */
     private function createRoute($item)
     {
+
         $defaultLocale = $this->settingService->value('language');
 
         $defaults = [];
         $defaults['type'] = $item['template'];
-        $defaults['slug'] = $item['slug'];
-        $defaults['title'] = $item['title'];
+        $defaults['slug'] = $item['full_slug'];
 
         $defaults['_locale'] = $item['locale'];
         $defaults['_page_id'] = $item['id'] ?? null;
@@ -100,25 +112,40 @@ class SiteRoutes
             $defaults['_controller'] = PageController::class;
         }
 
-        if ($defaultLocale === $defaults['_locale']) {
+        if ($defaultLocale === $defaults['_locale'] && $defaults['type'] == 'root') {
             $urlPattern = sprintf('/%s', $defaults['slug']);
         } else {
             $urlPattern = sprintf('/{_locale}/%s', $defaults['slug']);
         }
 
-        $route = new Route($urlPattern, $defaults);
+        $route = new Route($urlPattern, $defaults, ['slug' => ".+"]);
         return [
-            $defaults['slug'],
+            $item['locale'].'_'.$item['slug'],
             $route
         ];
     }
 
     /**
+     * @param $language
      * @return ArrayCollection|MenuItems[]
      */
-    private function getSiteMap()
+    private function getSiteMap($language)
     {
-        $pages = $this->em->getRepository(Page::class)->getNested('lv');
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('p.id, p.template, p.locale, p.slug, pa.slug as parent_slug');
+        $qb->from(Page::class, 'p');
+        $qb->leftJoin('p.parent', 'pa');
+        $qb->where('p.locale = :locale')->setParameter('locale', $language);
+        //$qb->andWhere('p.public = :public')->setParameter('public', true);
+        $qb->andWhere('p.deletedAt is null');
+
+        $pages = $qb->getQuery()->getArrayResult();
+
+        foreach ($pages as $pageKey => $page) {
+            $pages[$pageKey]['full_slug'] = (!$page['parent_slug'] or $page['parent_slug'] == 'index') ? '' : $page['parent_slug'].'/';
+            $pages[$pageKey]['full_slug'] .= $page['slug'] !== 'index' ? $page['slug'] : '';
+        }
+
         return new ArrayCollection($pages);
     }
 }

@@ -22,7 +22,7 @@ class IndexController extends \App\Controller\AbstractController
         try {
             $foundByRequest = $requestPageService->get();
             $menuItem = $foundByRequest['menuItem'];
-            $page = $foundByRequest['content'];
+            $page = $foundByRequest['page'];
 
             $services = $this->getDoctrine()
                 ->getRepository(Post::class)

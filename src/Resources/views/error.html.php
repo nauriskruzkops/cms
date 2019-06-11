@@ -10,12 +10,14 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  */
 $view['theme']->extend('layout/extend/layout.html.php');
 ?>
-
-<div class="container">
-    <div style="margin: 5% 0; padding: 5% 0">
-        <hr class="featurette-divider">
-        <h1>Here is something wrong!</h1>
-        <p>Sorry, come back later.</p>
-        <hr class="featurette-divider">
+<section class="error-section" style="font-size: 80% important!;">
+    <div class="auto-container">
+        <div class="content">
+            <hr class="featurette-divider">
+            <h1>Ups!</h1>
+            <h2>Here is something wrong!</h2>
+            <h2>Sorry, come back later.</h2>
+            <hr class="featurette-divider">
+        </div>
     </div>
-</div>
+</section>

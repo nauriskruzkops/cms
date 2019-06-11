@@ -25,8 +25,8 @@ class PageController extends AbstractController
     {
         try {
             $foundByRequest = $requestPageService->get();
-             $menuItem = $foundByRequest['menuItem'];
-             $page = $foundByRequest['content'];
+             $menuItem = $foundByRequest['menuItem'] ?? null;
+             $page = $foundByRequest['page'];
 
             return $this->render('page.html.php', [
                 'menuItem' => $menuItem,

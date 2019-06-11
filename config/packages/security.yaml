@@ -21,7 +21,7 @@ security:
       security: true
       anonymous: ~
       provider: admin_entity
-      #access_denied_handler: Admin\Security\AccessDeniedHandler
+      access_denied_handler: Admin\Security\AccessDeniedHandler
       form_login:
         login_path: ADM_login
         check_path: ADM_login

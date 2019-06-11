@@ -33,11 +33,13 @@ class SettingsHelper extends Helper
 
     /**
      * @param $key
+     * @param null $default
      * @return string
      */
-    public function value($key)
+    public function value($key, $default = null)
     {
-        return $this->settingService->value($key);
+        $locale = $this->view['locale'];
+        return $this->settingService->value($key, $default, (string)$locale);
     }
 
     /**

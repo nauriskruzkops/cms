@@ -11,10 +11,26 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var Page $page
  * @var PageHelper $pageHelper
  */
-$view['theme']->extend('layout/extend/layout.html.php');
-$pageHelper = $view['page']($page);
+$view['slots']->set('page', $page);
 
-echo $view['theme']->render('layout/partial/page-header.html.php', ['page' => $page])
+$pageHelper = $view['page']($page);
+$pageHelper->headerStyle($page);
+
+$layoutHelper = $view['layout']($page);
+
+$view['theme']->extend('layout/extend/layout.html.php');
+
+$clearFix = true;
+
+/** @var \Admin\Entity\PageBlocks $firstBlock */
+$firstBlock = $page->getBlocks()->first();
+if ($firstBlock && $firstBlock->getType() === \Admin\Entity\PageBlocks::TYPE_SLIDER) {
+    $clearFix = false;
+}
+echo $view['theme']->render('layout/partial/page-header.html.php', [
+        'page' => $page,
+        'clearFix' => $clearFix
+])
 
 ?>
 <?php if (in_array($page->getTemplate(), [Page::TEMPL_ROOT, Page::TEMPL_LANDING])) : ?>
