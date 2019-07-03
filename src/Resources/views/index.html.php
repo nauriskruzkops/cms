@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  * @var Page $page
  */
 
+$view['slots']->set('headTitle', $page->getSetting('META_TITLE'));
+$view['slots']->set('headDescription', $page->getSetting('META_DESC'));
 $view['theme']->extend('layout/extend/layout.html.php');
 $firstBlock = $page->getBlocks()->first();
 

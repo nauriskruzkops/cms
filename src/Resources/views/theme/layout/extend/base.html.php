@@ -14,14 +14,18 @@ $languages = $view['settings']->values('languages');
 ?><!doctype html>
 <html lang="<?= $view['locale']?>">
 <head>
-    <title><?= $this->escape($view['settings']->value('site_title')) ?></title>
+    <title><?=
+        $this->escape($view['settings']->value('site_title_prefix'))
+        ?> <?php $view['slots']->output('headTitle', $view['settings']->value('site_title'))
+        ?> <?=$this->escape($view['settings']->value('site_title_suffix'))
+        ?></title>
     <meta charset="utf-8">
-    <?php if((int) $view['settings']->value('site_allow_public_index') !== 1) :?>
-        <meta name="robots" content="noindex">
-        <meta name="googlebot" content="noindex">
-    <?php endif;?>
+<?php if((int) $view['settings']->value('site_allow_public_index') !== 1) :?>
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
+<?php endif;?>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<?= $this->escape($view['settings']->value('site_description')) ?>">
+    <meta name="description" content="<?php $view['slots']->output('headDescription', $view['settings']->value('site_description')) ?>">
     <meta name="google-site-verification" content="s1b0zvVKrDdcLnftJ6NDDaP1pHgIEvP-bt4tclpmMok" />
     <?php /* foreach ($languages as $languageKey => $languageTitle) :?>
         <?php if ($languageKey === 'lv') :?>
@@ -35,8 +39,7 @@ $languages = $view['settings']->values('languages');
    <link rel="alternate" hreflang="sv-SE" href="http://www.vitbuve.com/se" />
    <link rel="alternate" hreflang="nb-NO" href="http://www.vitbuve.com/se" />
    <link rel="alternate" hreflang="nl-NL" href="http://www.vitbuve.com/nl" />
-*/ ?>
-    <link rel="alternate" hreflang="lv" href="http://www.vitbuve.lv/" />
+*/ ?><link rel="alternate" hreflang="lv" href="http://www.vitbuve.lv/" />
     <link rel="alternate" hreflang="en-US" href="http://www.vitbuve.com/en" />
     <link rel="icon" href="data:image/ico;base64,0">
     <link href="<?= $view['assets']->getUrl('build/site.css').$assetVersion ?>" rel="stylesheet">
