@@ -55,7 +55,7 @@ trait PageNested {
     private $children;
 
     /**
-     * @Gedmo\Sortable(groups={"locale","parent"})
+     * Gedmo\Sortable(groups={"locale","parent"})
      * @ORM\Column(type="integer")
      */
     private $sort;

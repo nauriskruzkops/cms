@@ -52,7 +52,7 @@ class PageBlocks {
     private $post;
 
     /**
-     * @Gedmo\Sortable(groups={"page"})
+     * Gedmo\Sortable(groups={"page"})
      * @ORM\Column(type="integer", nullable=true)
      */
     private $sort;
