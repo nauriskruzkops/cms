@@ -3,24 +3,31 @@
 namespace App\Controller\Action;
 
 use Admin\Entity\Inbox;
-use App\Services\RequestPageService;
+use App\Controller\AbstractController;
+use App\Services\MailService;
+use App\Services\SettingService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class EmailController extends \App\Controller\AbstractController
+class EmailController extends AbstractController
 {
     /**
      * @Route("/{_locale}/action/message-sent", name="message_sent")
+     * @param Request $request
+     * @param MailService $mailService
+     * @return RedirectResponse|Response
      */
-    public function index(Request $request, RequestPageService $requestPageService)
+    public function index(Request $request, MailService $mailService, SettingService $settings)
     {
         if ($request->isMethod('POST')) {
+            if (!$this->captcha()->isValid()) {
+                throw $this->createNotFoundException();
+            }
+
             $em = $this->getDoctrine()->getManager();
             $data = $request->request->all();
-
-            if ($data['form_src_1'] == 'IGYUGWDQDBIBNDW' && empty($data['form_src_1'])) {
-                return $this->createNotFoundException('Sorry BOT!');
-            }
 
             $inbox = new Inbox();
             if (isset($data['email'])) {
@@ -40,7 +47,7 @@ class EmailController extends \App\Controller\AbstractController
             }
             if (isset($data['message'])) {
                 $message = $data['message'];
-                $message = trim(substr($message, 0, 255));
+                $message = trim(substr($message, 0, 2000));
                 $inbox->setMessage($message);
             }
 
@@ -50,6 +57,26 @@ class EmailController extends \App\Controller\AbstractController
 
             $em->persist($inbox);
             $em->flush();
+
+            $sendTo = $settings->value('mail_recive_inbox');
+            if (!empty($sendTo)) {
+                $mailMessage =
+                    sprintf(PHP_EOL."%s".PHP_EOL, $request->getSchemeAndHttpHost()) .
+                    sprintf("Ziņa no:".PHP_EOL) .
+                    sprintf("   - e-pasts: %s".PHP_EOL, $email ?? '') .
+                    sprintf("   - vārds: %s".PHP_EOL, $sender ?? '') .
+                    sprintf("   - tālr.: %s".PHP_EOL, $phone ?? '') .
+                    sprintf("".PHP_EOL).
+                    sprintf("-----------------------------------------".PHP_EOL).
+                    sprintf("%s".PHP_EOL, $message).
+                    sprintf("-----------------------------------------".PHP_EOL).
+                    sprintf("".PHP_EOL)
+                 ;
+
+                $subject = sprintf("No: %s", $request->getSchemeAndHttpHost());
+                $message = $mailService->message('info@vitbuve.lv', 'info@vitbuve.lv', $subject, $mailMessage);
+                $mailService->send($message);
+            }
 
             return $this->redirectToRoute('message_sent');
         }

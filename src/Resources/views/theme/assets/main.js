@@ -37,5 +37,6 @@ require('./js/owl.js');
 require('./js/mixitup.js');
 require('./js/wow.js');
 require('./js/appear.js');
+require('./js/captcha.js');
 require('./js/script.js');
 

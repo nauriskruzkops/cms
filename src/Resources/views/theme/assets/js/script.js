@@ -427,8 +427,9 @@
 		sortableMasonry();
 	});
 
-	if ($("#contact-form").length) {
-		var contactForm = $("#contact-form");
+	var contactForm = $("#contact-form");
+	if ($(contactForm).length) {
+		Captcha.load();
 		$(contactForm).submit(function (e) {
 			var email = $("[name=email]", contactForm).val();
 			var phone = $("[name=phone]", contactForm).val();

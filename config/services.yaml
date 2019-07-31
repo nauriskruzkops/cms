@@ -1,6 +1,6 @@
 parameters:
     locale: 'en'
-
+    re_captcha_secret_token: '6Ldma6wUAAAAAHaODr-SDikuioxEqxrecvnCUe1u'
 services:
     _defaults:
         autowire: true
@@ -57,6 +57,7 @@ services:
         arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
             - { name: templating.helper, alias: settings }
+
     App\Helpers\TranslHelper:
         arguments: ['@templating.engine.php', '@Admin\Service\TranslationService']
         tags:
