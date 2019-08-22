@@ -21,6 +21,7 @@ class EmailController extends AbstractController
      */
     public function index(Request $request, MailService $mailService, SettingService $settings)
     {
+        $locale = $request->getLocale();
         if ($request->isMethod('POST')) {
             if (!$this->captcha()->isValid()) {
                 throw $this->createNotFoundException();
@@ -58,7 +59,7 @@ class EmailController extends AbstractController
             $em->persist($inbox);
             $em->flush();
 
-            $sendTo = $settings->value('mail_recive_inbox');
+            $sendTo = $settings->value('mail_receive_inbox');
             if (!empty($sendTo)) {
                 $mailMessage =
                     sprintf(PHP_EOL."%s".PHP_EOL, $request->getSchemeAndHttpHost()) .
@@ -78,7 +79,7 @@ class EmailController extends AbstractController
                 $mailService->send($message);
             }
 
-            return $this->redirectToRoute('message_sent');
+            return $this->redirectToRoute('message_sent', ['_locale' => $locale]);
         }
 
         return $this->render('message-sent.html.php', []);
