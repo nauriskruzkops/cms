@@ -1,5 +1,6 @@
 <?php
 
+use Admin\Form\PageBlockSettingsForm;
 use App\Helpers\PageHelper;
 use Admin\Entity\Page;
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
@@ -17,8 +18,12 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
 $pageHelper = $view['page']($block->getPage());
 $blockConfig = $block->getConfig()[0] ?? [];
 $images = $blockConfig['images'] ?? [];
-?>
 
+if (!($blockConfig['order_by'] ?? false) or $blockConfig['order_by'] == PageBlockSettingsForm::CHOICE_NEWEST_FIRST) {
+    $images = array_reverse($images);
+}
+
+?>
 <section class="gallery-section page-block" style="<?= $pageHelper->blockBackground($block)?>">
     <?php if (!empty($block->getTitle())) :?>
         <div class="auto-container">
