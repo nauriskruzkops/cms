@@ -8,7 +8,7 @@ Captcha = {
 
 	key : "6Ldma6wUAAAAAGfR8wWW0Az_p28vq31GxeeCJs1S",
 	captchaElement : "#captcha_token_src",
-
+	action : '',
 	load : function () {
 		if ($("#contact-form").length) {
 			let script = document.createElement('script');
@@ -17,7 +17,7 @@ Captcha = {
 			if ($(Captcha.captchaElement).length) {
 				script.onload = function () {
 					grecaptcha.ready(function () {
-						grecaptcha.execute('6Ldma6wUAAAAAGfR8wWW0Az_p28vq31GxeeCJs1S', {action: 'homepage'}).then(function (token) {
+						grecaptcha.execute('6Ldma6wUAAAAAGfR8wWW0Az_p28vq31GxeeCJs1S', {action: Captcha.action}).then(function (token) {
 							$(Captcha.captchaElement).attr('value', token);
 						});
 					});

@@ -2,15 +2,14 @@
 namespace App\Routing;
 
 use App\Services\SettingService;
-use App\Controller\ErrorController;
 use App\Controller\IndexController;
 use App\Controller\PageController;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Admin\Entity\MenuItemRelation;
 use Admin\Entity\MenuItems;
 use Admin\Entity\Page;
-use Admin\Repository\MenuItemsRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -27,13 +26,17 @@ class SiteRoutes
     /** @var EntityManager  */
     private $em;
 
+    /** @var Request|null  */
+    private $requestStack;
+
     /**
      * SiteRoutes constructor.
      * @param SettingService $settingService
      * @param EntityManager $em
      */
-    public function __construct(SettingService $settingService, EntityManager $em)
+    public function __construct(SettingService $settingService, EntityManager $em, RequestStack $request)
     {
+        $this->requestStack = $request->getCurrentRequest();
         $this->settingService = $settingService;
         $this->em = $em;
     }
@@ -43,20 +46,19 @@ class SiteRoutes
      */
     public function loadRoutes()
     {
-        $default_locale = $this->settingService->value('language');
         $getLanguages = $this->settingService->values('languages');
         $languages = array_keys($getLanguages);
 
         $routes = new RouteCollection();
 
-        $defaults = array(
+        $defaults = [
             'slug' => SiteRoutes::TYPE_ROOT,
             'type' => SiteRoutes::TYPE_PAGE,
             '_controller' => IndexController::class,
-            '_locale' => $default_locale,
-        );
+            '_locale' => null,
+        ];
         $route = new Route('/{_locale}', $defaults, [
-            '_locale' => implode('|', $languages)
+            //'_locale' => implode('|', $languages)
         ]);
 
         $routes->add('index', $route);
@@ -79,7 +81,7 @@ class SiteRoutes
             'slug' => '*',
             'type' => SiteRoutes::TYPE_PAGE,
             '_controller' => PageController::class,
-            '_locale' => $default_locale,
+            '_locale' => null,
         );
         $route = new Route('/{_locale}/{slug}', $defaults, [
             '_locale' => implode('|', $languages),

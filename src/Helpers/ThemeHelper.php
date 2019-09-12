@@ -11,33 +11,33 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\Asset\PathPackage;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Templating\Helper\Helper;
 
 class ThemeHelper extends Helper
 {
-
     /** @var PhpEngine  */
     private $view;
 
-    /**
-     * @var SettingService
-     */
+    /** @var SettingService */
     private $settingService;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $theme;
+
+    /** @var string */
+    private $locale;
 
     /**
      * LayoutHelper constructor.
      * @param PhpEngine $templating
      * @param SettingService $settingService
+     * @param RequestStack $requestStack
      */
-    public function __construct(PhpEngine $templating, SettingService $settingService)
+    public function __construct(PhpEngine $templating, SettingService $settingService, RequestStack $requestStack)
     {
         $this->view = $templating;
-        $this->locale = $this->view['locale'];
+        $this->locale = $requestStack->getCurrentRequest()->getLocale();
         $this->settingService = $settingService;
         $this->theme = $settingService->value('site_theme', 'default');
     }

@@ -4,6 +4,8 @@ namespace Admin\Helpers;
 
 use Admin\Service\SettingService;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Templating\Helper\Helper;
 
 class SettingsHelper extends Helper
@@ -11,14 +13,16 @@ class SettingsHelper extends Helper
     /** @var PhpEngine  */
     private $view;
 
-    /**
-     * @var SettingService
-     */
+    /** @var SettingService */
     private $settingService;
 
-    public function __construct($templating, SettingService $settingService)
+    /** @var string */
+    private $locale;
+
+    public function __construct($templating, $settingService, RequestStack $requestStack)
     {
         $this->view = $templating;
+        $this->locale = $requestStack->getCurrentRequest()->getLocale();
         $this->settingService = $settingService;
     }
 
@@ -38,7 +42,7 @@ class SettingsHelper extends Helper
      */
     public function value($key, $default = null)
     {
-        $locale = $this->view['locale'];
+        $locale = $this->locale;
         return $this->settingService->value($key, $default, (string)$locale);
     }
 
@@ -51,5 +55,11 @@ class SettingsHelper extends Helper
         return $this->settingService->values($key);
     }
 
-
+    /**
+     * @return ParameterBag
+     */
+    public function parameters()
+    {
+        return $this->settingService->parameters();
+    }
 }

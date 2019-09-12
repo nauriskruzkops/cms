@@ -6,6 +6,7 @@ use Admin\Entity\Translation;
 use Admin\Service\TranslationService;
 use App\Services\SettingService;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Templating\Helper\Helper;
 
 class TranslHelper extends Helper
@@ -13,20 +14,27 @@ class TranslHelper extends Helper
     /** @var PhpEngine  */
     private $view;
 
-    /**
-     * @var SettingService
-     */
+    /** @var SettingService */
     private $translationService;
+
+    /** @var \Symfony\Component\HttpFoundation\Request|null  */
+    private $request;
+
+    /** @var string */
+    private $locale;
 
     /**
      * TranslHelper constructor.
      * @param $templating
      * @param TranslationService $translationService
+     * @param RequestStack $requestStack
      */
-    public function __construct($templating, TranslationService $translationService)
+    public function __construct($templating, TranslationService $translationService, RequestStack $requestStack)
     {
         $this->view = $templating;
         $this->translationService = $translationService;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->locale = $this->request->getLocale();
     }
 
     /**
@@ -36,8 +44,8 @@ class TranslHelper extends Helper
      */
     public function __invoke($key, $group = Translation::GROUP_SITE, $locale = null)
     {
-        if (!$locale) {
-            $this->view['locale'];
+        if ($locale === null) {
+            $locale = $this->locale;
         }
         return $this->trans($key, $group, $locale);
     }
@@ -61,8 +69,8 @@ class TranslHelper extends Helper
         if (empty($group)) {
             $group = Translation::GROUP_SITE;
         }
-        if (!$locale) {
-            $locale = $this->view['locale'];
+        if ($locale === null) {
+            $locale = $this->locale;
         }
         return $this->translationService->getTranslation($key, $locale, $group);
     }

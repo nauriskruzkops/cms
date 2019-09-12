@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Admin\Entity\Settings;
 use Admin\Repository\SettingsRepository;
 use Doctrine\ORM\Query\Expr\Join;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class SettingService
 {
@@ -24,14 +26,18 @@ class SettingService
     /** @var array */
     protected static $translationCache;
 
+    /** @var ParameterBag */
+    private $parameters;
+
     /**
      * SettingService constructor.
-     * @param EntityManager|null $doctrine
-     * @param $projectDir
+     * @param EntityManagerInterface $doctrine
+     * @param $parameters
      */
-    public function __construct(EntityManagerInterface $doctrine)
+    public function __construct(EntityManagerInterface $doctrine, ParameterBagInterface $parameters)
     {
         $this->em = $doctrine;
+        $this->parameters = $parameters;
     }
 
     /**
@@ -159,5 +165,13 @@ class SettingService
         }
 
         return self::$translationCache;
+    }
+
+    /**
+     * @return ParameterBag
+     */
+    public function parameters()
+    {
+        return $this->parameters;
     }
 }

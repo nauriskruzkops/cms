@@ -1,5 +1,15 @@
-<!DOCTYPE html>
-<html lang="<?= $view['locale']?>">
+<?php
+
+use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+
+/**
+ * @var GlobalVariables $app
+ * @var PhpEngine $view
+ */
+
+?><!DOCTYPE html>
+<html lang="<?= $app->getRequest()->getLocale()?>">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

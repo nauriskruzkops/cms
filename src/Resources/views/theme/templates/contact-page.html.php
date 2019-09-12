@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var PageHelper $pageHelper
  */
 
+$locale = $app->getRequest()->getLocale();
 ?>
 <section class="contact-section page-block">
     <div class="auto-container">
@@ -22,7 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
                 <div class="inner-column">&nbsp;</div>
                 <div class="inner-column">
                     <div class="default-form contact-form">
-                        <form id="contact-form" action="<?= $view['router']->path('message_sent', ['_locale' => $view['locale']])?>" method="post">
+                        <form id="contact-form" action="<?= $view['router']->path('message_sent', ['_locale' => $locale])?>" method="post">
                             <span style="display: none;"><input name="form_src_1" type="text" value="IGYUGWDQDBIBNDW" /></span>
                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                 <input id="firstname" name="firstname" required="required" type="text" placeholder="* Jūsu vārds" data-msg="Ievadiet lūdzu Jūsu vārdu" />

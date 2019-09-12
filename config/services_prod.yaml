@@ -1,3 +1,13 @@
+parameters:
+    locale: en
+    default_locale : en
+    default_domain_locales :
+        - host: www.vitbuve.com
+          locale: en
+          for_other_locale: true
+        - host: www.vitbuve.lv
+          locale: lv
+    re_captcha_secret_token: '6Ldma6wUAAAAAHaODr-SDikuioxEqxrecvnCUe1u'
 services:
     _defaults:
         autowire: true

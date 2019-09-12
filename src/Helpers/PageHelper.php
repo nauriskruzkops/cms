@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Admin\Entity\Page;
 use Admin\Entity\PageBlocks;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Templating\Helper\Helper;
 
 class PageHelper extends Helper
@@ -28,10 +29,10 @@ class PageHelper extends Helper
      * @param SettingService $settingService
      * @param EntityManager $em
      */
-    public function __construct(PhpEngine $templating, SettingService $settingService)
+    public function __construct(PhpEngine $templating, SettingService $settingService, RequestStack $requestStack)
     {
         $this->view = $templating;
-        $this->locale = $this->view['locale'];
+        $this->locale = $requestStack->getCurrentRequest()->getLocale();
         $this->settingService = $settingService;
     }
 

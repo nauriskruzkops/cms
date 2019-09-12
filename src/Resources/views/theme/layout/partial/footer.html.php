@@ -1,18 +1,25 @@
 <?php
+
+use Admin\Entity\Menu;
+use Admin\Entity\MenuItems;
+use App\Helpers\MenuHelper;
+use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
+use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+
+
 /**
- * @var \Admin\Entity\MenuItems[] $mainMenuItems
- * @var \App\Helpers\MenuHelper $menuHelper
- * @var \Admin\Entity\Menu $footerMenu1
- * @var \Admin\Entity\Menu $footerMenu2
+ * @var GlobalVariables $app
+ * @var PhpEngine $view
+ * @var MenuItems[] $mainMenuItems
+ * @var MenuHelper $menuHelper
+ * @var Menu $footerMenu1
+ * @var Menu $footerMenu2
  */
 
 $menuHelper = $view['menu'];
-$mainMenu = $view['menu']->getMainTopMenu();
-$mainMenuItems = $mainMenu['items'] ?? [];
+$locale = $app->getRequest()->getLocale();
 
-?>
-
-<footer class="main-footer">
+?><footer class="main-footer">
     <div class="auto-container">
         <?php /*
         <div class="upper-box">
@@ -47,7 +54,7 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                         <ul class="list">
                                             <?php foreach ($footerMenu1->getItems()->filter(function ($item) { return $item->isEnabled(); }) as $fMenuItem) :?>
                                                 <li>
-                                                    <a href="<?= $this->escape($view['router']->path($view['locale'].'_'.$fMenuItem->getSlug(), ['_locale' => $view['locale']]))?>">
+                                                    <a href="<?= $this->escape($view['router']->path($locale.'_'.$fMenuItem->getSlug(), ['_locale' => $locale]))?>">
                                                         <?= $this->escape($fMenuItem->getTitle())?>
                                                     </a>
                                                 </li>
@@ -71,7 +78,7 @@ $mainMenuItems = $mainMenu['items'] ?? [];
                                         <ul class="list">
                                             <?php foreach ($footerMenu2->getItems()->filter(function ($item) { return $item->getEnabled(); }) as $fMenuItem) :?>
                                                 <li>
-                                                    <a href="<?= $this->escape($view['router']->path($view['locale'].'_'.$fMenuItem->getSlug(), ['_locale' => $view['locale']]))?>">
+                                                    <a href="<?= $this->escape($view['router']->path($locale.'_'.$fMenuItem->getSlug(), ['_locale' => $locale]))?>">
                                                         <?= $this->escape($fMenuItem->getTitle())?>
                                                     </a>
                                                 </li>

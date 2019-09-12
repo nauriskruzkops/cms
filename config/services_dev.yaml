@@ -1,0 +1,11 @@
+parameters:
+    locale: en
+    default_locale : en
+    default_domain_locales :
+        - host: dev-en.vitbuve.lv
+          locale: en
+          code: en-EN
+          for_other_locale: true
+        - host: dev-lv.vitbuve.lv
+          locale: lv
+          code: lv-LV
