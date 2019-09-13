@@ -174,9 +174,21 @@ class MenuController extends \Admin\Controller\AbstractController
     {
         /** @var PageRepository $repository */
         $repository = $this->getDoctrine()->getManager()->getRepository(Page::class);
+
         $pages = $repository->findAllByLocale('lv');
         $pageSiteMap = [];
+        foreach ($pages as $page) {
+            $pageSiteMap[] = [
+                'title' => $page->getTitle(),
+                'value' => '/'.$page->getFullSlug(),
+            ];
+        }
 
+        $pages = $repository->findAllByLocale('en'); // ToDo: Temp solution
+        $pageSiteMap[] = [
+            'title' => '------------- EN ----------------',
+            'value' => '/',
+        ];
         foreach ($pages as $page) {
             $pageSiteMap[] = [
                 'title' => $page->getTitle(),

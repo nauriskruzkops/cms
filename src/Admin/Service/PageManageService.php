@@ -96,12 +96,14 @@ class PageManageService
         $page->setSlug($pageSlug);
 
         try {
-            if ($page->getId()) {
-                $this->em->merge($page);
-                $repository->persistAsFirstChildOf($page, $parentPage);
-            } else {
-                $this->em->persist($page);
-                $repository->persistAsFirstChildOf($page, $parentPage);
+            if ($parentPage) {
+                if ($page->getId()) {
+                    $this->em->merge($page);
+                    $repository->persistAsFirstChildOf($page, $parentPage);
+                } else {
+                    $this->em->persist($page);
+                    $repository->persistAsFirstChildOf($page, $parentPage);
+                }
             }
             $this->em->flush();
         } catch (\Exception $e) {
