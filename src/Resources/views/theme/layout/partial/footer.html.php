@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  */
 
 $menuHelper = $view['menu'];
-$locale = $app->getRequest()->getLocale();
+$locale = $app->getRequest()->get('_locale');
 
 ?><footer class="main-footer">
     <div class="auto-container">

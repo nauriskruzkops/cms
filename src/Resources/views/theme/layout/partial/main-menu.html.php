@@ -26,11 +26,9 @@ $languageMenuItems = $view['menu']->getLanguageMenuItems();
 $languages = $view['settings']->values('languages');
 $headerStyle = $view['slots']->get('headerStyle', 'header-style-one');
 $settings = $view['settings'];
-$locale = $app->getRequest()->getLocale();
-
+$locale = $app->getRequest()->get('_locale');
 
 $layoutHelper = $view['layout'];
-
 $html = '';
 function nestedMainTreeRow($items, &$html, $view, $locale) // added pass by reference
 {
