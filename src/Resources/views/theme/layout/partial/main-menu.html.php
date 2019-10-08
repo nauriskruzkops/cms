@@ -26,7 +26,10 @@ $languageMenuItems = $view['menu']->getLanguageMenuItems();
 $languages = $view['settings']->values('languages');
 $headerStyle = $view['slots']->get('headerStyle', 'header-style-one');
 $settings = $view['settings'];
-$locale = $app->getRequest()->get('_locale');
+$locale = $app->getRequest()->get('_locale', $app->getRequest()->getLocale());
+if (!$locale) {
+    $locale = $app->getRequest()->getLocale();
+}
 
 $layoutHelper = $view['layout'];
 $html = '';

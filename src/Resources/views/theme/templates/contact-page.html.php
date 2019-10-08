@@ -13,6 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  */
 
 $locale = $app->getRequest()->get('_locale');
+if (!$locale) {
+    $locale = $app->getRequest()->getLocale();
+}
+
 ?>
 <section class="contact-section page-block">
     <div class="auto-container">
