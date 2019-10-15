@@ -20,7 +20,7 @@ $clearFix = $clearFix ?? true;
                 <h1><?= $page ? $this->escape($page->getTitle()) : $view['slots']->output('page_title')?></h1>
             <?php endif;?>
             <ul class="page-breadcrumb">
-                <li><a href="/">Sākums</a></li>
+                <li><a href="/"><?= $view['transl']('Home')?></a></li>
                 <li><?= $page ? $this->escape($page->getTitle()) : $view['slots']->output('page_title')?></li>
             </ul>
         </div>
