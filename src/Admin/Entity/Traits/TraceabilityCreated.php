@@ -20,7 +20,7 @@ trait TraceabilityCreated {
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Admin\Entity\User", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Admin\Entity\User")
      * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      */
     public $createdBy;

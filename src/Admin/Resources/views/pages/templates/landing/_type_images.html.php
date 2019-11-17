@@ -28,14 +28,21 @@ $configInputName = $formBlockConfigView->vars['full_name'];
 $configValues = $blockData->getConfig()[0] ?? [];
 
 ?>
-<div class="row justify-content-between">
-    <div class="col-4">
+<div class="row">
+    <div class="col-2">
         <div class="form-group">
             <label><?= $view['translator']->trans('Adm:Template') ?>:</label>
             <?= $formHelper->widget($formBlockConfigView['style'], ['attr' => ['class' => 'form-control']])?>
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-2">
+        <div class="form-group">
+            <label><?= $view['translator']->trans('Adm:Order') ?>:</label>
+            <?= $formHelper->widget($formBlockConfigView['order_by'], ['attr' => ['class' => 'form-control']])?>
+        </div>
+    </div>
+    <div class="col-4 hidden-md"></div>
+    <div class="col-4 pull-right">
         <div class="form-group">
             <label> </label>
             <div class="custom-file">

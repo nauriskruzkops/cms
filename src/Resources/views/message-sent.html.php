@@ -21,7 +21,7 @@ echo $view['theme']->render('layout/partial/page-header.html.php', [
 ])
 
 ?>
-<section class="mechanical-section" style="background-color:#f4f4f4">
+<section class="mechanical-section page-block" style="background-color:#ffffff">
     <div class="auto-container">
         <div class="inner-container">
             <div class="sec-title">

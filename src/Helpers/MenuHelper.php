@@ -9,6 +9,8 @@ use Admin\Entity\MenuItems;
 use Admin\Repository\MenuItemsRepository;
 use Admin\Repository\MenuRepository;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine as TimedPhpEngine;
 
@@ -16,33 +18,38 @@ class MenuHelper extends Helper
 {
     const MAIN_TOP_MENU = 'MAIN_TOP_MENU';
 
+    private $request;
+
     /** @var string */
     private $locale;
 
     /** @var PhpEngine  */
     private $view;
 
-    /**
-     * @var SettingService
-     */
+    /** @var ParameterBagInterface  */
+    private $parameterBag;
+
+    /** @var SettingService */
     private $settingService;
 
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     protected $em;
 
     /**
      * ManuHelper constructor.
-     * @param $templating
+     * @param TimedPhpEngine $templating
      * @param SettingService $settingService
      * @param EntityManager $em
+     * @param RequestStack $requestStack
+     * @param ParameterBagInterface $parameterBag
      */
-    public function __construct(PhpEngine $templating, SettingService $settingService, EntityManager $em)
+    public function __construct(PhpEngine $templating, SettingService $settingService, EntityManager $em, RequestStack $requestStack, ParameterBagInterface $parameterBag)
     {
         $this->view = $templating;
-        $this->locale = $this->view['locale'];
+        $this->request = $requestStack->getCurrentRequest();
+        $this->locale = $this->request->getLocale();
         $this->settingService = $settingService;
+        $this->parameterBag = $parameterBag;
         $this->em = $em;
     }
 
@@ -104,6 +111,51 @@ class MenuHelper extends Helper
         });
 
         return $items;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getLanguageMenuItems()
+    {
+        $return = [];
+        $languages = $this->settingService->values('languages');
+        $defaultDomainLocales = $this->parameterBag->get('default_domain_locales');
+
+        if ($defaultDomainLocales) {
+            $urlSchema = sprintf('%s://%s', $this->request->getScheme(), '%s');
+            $defaultHost = array_filter($defaultDomainLocales, function (array $param) {
+                return ($param['for_other_locale'] ?? false);
+            });
+            foreach ($languages as $languageKey => $languageTitle) {
+                $localeDefaultByHost = true;
+                $findHost = array_filter($defaultDomainLocales, function (array $param) use ($languageKey) {
+                    return ($languageKey == $param['locale']);
+                });
+                if (empty($findHost)) {
+                    $localeDefaultByHost = false;
+                    $findHost = $defaultHost;
+                }
+                $findHost = end($findHost);
+
+                $requestUri = '';
+                if (!$localeDefaultByHost) {
+                    $requestUri = $this->view['router']->path('index', ['_locale' => $languageKey]);
+                }
+
+                $code = sprintf('%s-%s', $languageKey, strtoupper($languageKey));
+                $return[] = [
+                    'locale' => $languageKey,
+                    'code' => $code,
+                    'title' => $languageTitle,
+                    'uri' => sprintf($urlSchema, $findHost['host']).$requestUri,
+                ];
+            }
+            return $return;
+        }
+
+        return $return;
     }
 
     /**

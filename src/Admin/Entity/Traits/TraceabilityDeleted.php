@@ -20,7 +20,7 @@ trait TraceabilityDeleted {
 
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="Admin\Entity\User", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Admin\Entity\User")
      * @ORM\JoinColumn(name="deleted_by", referencedColumnName="id")
      */
     public $deletedBy;

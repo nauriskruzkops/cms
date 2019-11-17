@@ -1,7 +1,7 @@
 /.idea
 /.env
 /vendor/
-
+/storage/
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/

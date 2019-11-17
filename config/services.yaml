@@ -1,6 +1,7 @@
 parameters:
-    locale: 'en'
-
+    locale: en
+    default_locale : en
+    re_captcha_secret_token: '6Ldma6wUAAAAAHaODr-SDikuioxEqxrecvnCUe1u'
 services:
     _defaults:
         autowire: true
@@ -14,13 +15,17 @@ services:
     # ROUTER
     App\Routing\SiteRoutes:
         public: true
-        arguments: ['@App\Services\SettingService', '@doctrine.orm.entity_manager']
+        arguments: ['@App\Services\SettingService', '@doctrine.orm.entity_manager', '@request_stack']
+
+    # Listener
+    App\EventListener\LocaleListener:
+        tags: [{ name: kernel.event_listener, event: kernel.request }]
 
     # SERVICES
     App\Services\:
         resource: '../src/Services/*'
     App\Services\SettingService:
-        arguments: ['@doctrine.orm.entity_manager', '%kernel.project_dir%']
+        arguments: ['@doctrine.orm.entity_manager', '@parameter_bag']
     App\Services\LocaleService:
         arguments: ['@App\Services\SettingService', '@router']
     App\Services\RequestPageService:
@@ -45,18 +50,15 @@ services:
         arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
         - { name: templating.helper, alias: layout }
-    App\Helpers\LocaleHelper:
-        arguments: ['@App\Services\LocaleService']
-        tags:
-        - { name: templating.helper, alias: locale }
     App\Helpers\ThemeHelper:
-        arguments: ['@templating.engine.php', '@App\Services\SettingService']
+        arguments: ['@templating.engine.php', '@App\Services\SettingService', '@request_stack']
         tags:
         - { name: templating.helper, alias: theme }
     App\Helpers\SettingsHelper:
         arguments: ['@templating.engine.php', '@App\Services\SettingService']
         tags:
             - { name: templating.helper, alias: settings }
+
     App\Helpers\TranslHelper:
         arguments: ['@templating.engine.php', '@Admin\Service\TranslationService']
         tags:

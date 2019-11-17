@@ -1,0 +1,11 @@
+parameters:
+    locale: en
+    default_locale : en
+    default_domain_locales :
+        - host: dev.example.com
+          locale: en
+          code: en-EN
+          for_other_locale: true
+        - host: dev.example.lv
+          locale: lv
+          code: lv-LV

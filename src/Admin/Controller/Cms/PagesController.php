@@ -199,8 +199,6 @@ class PagesController extends \Admin\Controller\AbstractController
                 }
             } else {
                 $formError = $form->getErrors();
-                var_dump('FORM','NOT', 'VALID');
-                var_dump($formError->current());
             }
         }
 

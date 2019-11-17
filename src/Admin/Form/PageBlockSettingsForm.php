@@ -20,6 +20,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PageBlockSettingsForm extends AbstractType
 {
+    const CHOICE_NEWEST_FIRST = 'newest_first';
+    const CHOICE_OLDEST_FIRST = 'oldest_first';
+
     /** @var EntityManager */
     protected $em;
 
@@ -64,6 +67,14 @@ class PageBlockSettingsForm extends AbstractType
             ->add('style', ChoiceType::class, [
                 'required' => false,
                 'choices' => [], // <- Listener
+                'multiple' => false,
+            ])
+            ->add('order_by', ChoiceType::class, [
+                'required' => false,
+                'choices' => [
+                    'Newest first' => self::CHOICE_NEWEST_FIRST,
+                    'Oldest first' => self::CHOICE_OLDEST_FIRST,
+                ],
                 'multiple' => false,
             ])
             ->add('bg_color', ColorType::class, [

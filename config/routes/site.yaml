@@ -5,6 +5,10 @@ site_routes:
         _locale: lv
     type: annotation
 #
+sitemap:
+    resource: App\Controller\SitemapController
+    type: annotation
+#
 app:
     resource: App\Routing\SiteRoutes:loadRoutes
     type: service

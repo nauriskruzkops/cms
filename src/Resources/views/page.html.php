@@ -11,11 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
  * @var Page $page
  * @var PageHelper $pageHelper
  */
+
+$view['slots']->set('headTitle', $page->getSetting('META_TITLE'));
+$view['slots']->set('headDescription', $page->getSetting('META_DESC'));
 $view['slots']->set('page', $page);
 
 $pageHelper = $view['page']($page);
 $pageHelper->headerStyle($page);
-
 $layoutHelper = $view['layout']($page);
 
 $view['theme']->extend('layout/extend/layout.html.php');

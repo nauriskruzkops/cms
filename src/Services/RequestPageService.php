@@ -4,9 +4,7 @@ namespace App\Services;
 use App\Exception\ContentNotFoundException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Admin\Entity\MenuItems;
 use Admin\Entity\Page;
-use Admin\Repository\PageRepository;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -45,6 +43,9 @@ class RequestPageService
 
         $route = $request->get('_route');
         $locale = $request->get('_locale');
+        if ($locale === null) {
+            $locale = $this->requestStack->getCurrentRequest()->getLocale();
+        }
 
         $slugTree = explode('/', $request->get('slug', 'index'));
         if ($slugTree[0] == 'root') {

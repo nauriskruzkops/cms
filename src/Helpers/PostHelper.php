@@ -5,6 +5,7 @@ namespace App\Helpers;
 use App\Services\SettingService;
 use Admin\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Templating\PhpEngine;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Templating\Helper\Helper;
 
 class PostHelper extends Helper
@@ -25,10 +26,10 @@ class PostHelper extends Helper
      * @param PhpEngine $templating
      * @param SettingService $settingService
      */
-    public function __construct(PhpEngine $templating, SettingService $settingService)
+    public function __construct(PhpEngine $templating, SettingService $settingService, RequestStack $requestStack)
     {
         $this->view = $templating;
-        $this->locale = $this->view['locale'];
+        $this->locale = $requestStack->getCurrentRequest()->getLocale();
         $this->settingService = $settingService;
     }
 
