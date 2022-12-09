@@ -1399,6 +1399,13 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
+bootstrap-datepicker@^1.8.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-datepicker/-/bootstrap-datepicker-1.9.0.tgz#e4bfce3fcce1967876b21dc6833ec5994aaed090"
+  integrity sha512-9rYYbaVOheGYxjOr/+bJCmRPihfy+LkLSg4fIFMT9Od8WwWB/MB50w0JO1eBgKUMbb7PFHQD5uAfI3ArAxZRXA==
+  dependencies:
+    jquery ">=1.7.1 <4.0.0"
+
 bootstrap@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
@@ -4514,6 +4521,11 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
+
+"jquery@>=1.7.1 <4.0.0":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.1.tgz#fab0408f8b45fc19f956205773b62b292c147a16"
+  integrity sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==
 
 jquery@^3.3.1:
   version "3.3.1"
@@ -7882,10 +7894,10 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tinymce@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.0.1.tgz#ec8e05526f2ba7c5ce077a0ef2a1329b40579526"
-  integrity sha512-bAKaEEtRd4BsXu6ySYflhO83Cg844LHrplcaWalbdeZjFXwkodtv3G6H1x2r6ThaOdyE4+otJtxPYlfzwyKDdw==
+tinymce@^5.10.7:
+  version "5.10.7"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-5.10.7.tgz#d89d446f1962f2a1df6b2b70018ce475ec7ffb80"
+  integrity sha512-9UUjaO0R7FxcFo0oxnd1lMs7H+D0Eh+dDVo5hKbVe1a+VB0nit97vOqlinj+YwgoBDt6/DSCUoWqAYlLI8BLYA==
 
 tmp@^0.0.33:
   version "0.0.33"
